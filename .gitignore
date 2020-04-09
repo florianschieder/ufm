@@ -1,0 +1,11 @@
+Debug
+Release
+Debug (Portable)
+Release (Portable)
+
+lib/*
+
+.vs
+
+Desktop.ini
+wfm.aps
