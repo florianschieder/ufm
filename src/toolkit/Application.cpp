@@ -8,11 +8,18 @@ METHOD Application::Application(HINSTANCE h, int n)
     this->InitializeApplicationComponents();
 }
 
-METHOD void Application::InitializeApplicationComponents() {
+METHOD void Application::InitializeApplicationComponents()
+{
     Gdiplus::GdiplusStartupInput gdiplusStartupInput;
 
-    CoInitializeEx(NULL, COINIT_APARTMENTTHREADED);
-    GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
+    CoInitializeEx(
+        NULL,
+        COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE | COINIT_SPEED_OVER_MEMORY);
+
+    GdiplusStartup(
+        &gdiplusToken,
+        &gdiplusStartupInput,
+        NULL);
 
     this->InitializeCommonControls();
     this->InitializeEnvironment();
@@ -43,12 +50,15 @@ METHOD void Application::InitializeEnvironment()
     this->m_Environment.CommandLine = GetCommandLine();
 
     this->m_Environment.argv = CommandLineToArgvW(
-        this->m_Environment.CommandLine.c_str(), &this->m_Environment.argc);
+        this->m_Environment.CommandLine.c_str(),
+        &this->m_Environment.argc);
 
     WCHAR currentDirectoryBuffer[MAX_PATH];
-    GetCurrentDirectory(MAX_PATH, currentDirectoryBuffer);
-    this->m_Environment.CurrentDirectory = currentDirectoryBuffer;
+    GetCurrentDirectory(
+        MAX_PATH,
+        currentDirectoryBuffer);
 
+    this->m_Environment.CurrentDirectory = currentDirectoryBuffer;
     this->m_Environment.ExecutablePath = this->m_Environment.argv[0];
 
     // Locale Data
@@ -191,6 +201,8 @@ METHOD void Application::SetEnvironmentVar(String key, String value)
 
 METHOD void Application::Exit()
 {
+    CoUninitialize();
+    Gdiplus::GdiplusShutdown(this->gdiplusToken);
     exit(0);
 }
 

@@ -60,11 +60,13 @@ METHOD void DirectoryList::Enumerate() noexcept(false)
         hSearchData,
         &findData);
 
-    if (GetLastError() == ERROR_ACCESS_DENIED) {
+    if (GetLastError() == ERROR_ACCESS_DENIED)
+    {
         throw new AccessDeniedException();
     }
 
-    while (FindNextFile(hSearch, &findData)) {
+    while (FindNextFile(hSearch, &findData))
+    {
         if (!this->showHiddenFiles && (findData.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN)) continue;
 
         DirectoryItem item;

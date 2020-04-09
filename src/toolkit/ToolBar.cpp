@@ -9,7 +9,8 @@ METHOD ToolBar::ToolBar(Window* parent, int x, int y, int w, int h) : Control(pa
 
     this->drawStartGripperX = -1;
 
-    switch (this->m_parentWindow->GetApplication()->GetEnvironment().OSVersionCode) {
+    switch (this->m_parentWindow->GetApplication()->GetEnvironment().OSVersionCode)
+    {
         case OS_10:
             this->toolbarBrush = CreateSolidBrush(
                 RGB(217, 223, 240));

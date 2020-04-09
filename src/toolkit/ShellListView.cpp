@@ -153,7 +153,8 @@ METHOD ShellListView::ShellListView(Window* parent) : ListView(parent)
     ListView_SetImageList(this->m_controlHandle, this->smallImages, LVSIL_SMALL);
 }
 
-METHOD void ShellListView::RefreshView() {
+METHOD void ShellListView::RefreshView()
+{
     int itemIdx = 0;
 
     if (this->m_Directory[this->m_Directory.size() - 1] != L'\\')
@@ -164,10 +165,12 @@ METHOD void ShellListView::RefreshView() {
     DirectoryList list(this->m_Directory);
     list.SetHidden(this->ShowHiddenFiles);
 
-    try {
+    try
+    {
         list.Enumerate();
     }
-    catch (AccessDeniedException e) {
+    catch (AccessDeniedException e)
+    {
         ShellMessageBox(
             this->m_parentWindow->GetApplication()->GetInstance(),
             this->m_parentWindow->GetHandle(),
@@ -185,7 +188,8 @@ METHOD void ShellListView::RefreshView() {
     std::vector<DirectoryItem> directories = list.GetDirectories();
     std::vector<DirectoryItem> files = list.GetFiles();
 
-    for (unsigned int i = 0; i < directories.size(); i++) {
+    for (unsigned int i = 0; i < directories.size(); i++)
+    {
         this->AddItem(
             itemIdx,
             directories[i].iconIndex);
@@ -208,8 +212,8 @@ METHOD void ShellListView::RefreshView() {
         itemIdx++;
     }
 
-    for (unsigned int i = 0; i < files.size(); i++) {
-
+    for (unsigned int i = 0; i < files.size(); i++)
+    {
         this->AddItem(
             itemIdx,
             files[i].iconIndex);
@@ -241,7 +245,8 @@ METHOD void ShellListView::RefreshView() {
 
 METHOD LRESULT CALLBACK ShellListView::MessageLoop(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData)
 {
-    switch (uMsg) {
+    switch (uMsg)
+    {
         case WM_SETFOCUS:
             this->m_parentWindow->ActiveControl = this;
             break;
@@ -252,7 +257,8 @@ METHOD LRESULT CALLBACK ShellListView::MessageLoop(HWND hwnd, UINT uMsg, WPARAM 
             wchar_t* fileName;
             wchar_t* ext;
 
-            switch (wParam) {
+            switch (wParam)
+            {
                 case NM_CLICK:
                     item = (LPNMITEMACTIVATE)lParam;
                     fileName = new wchar_t[260];
@@ -272,12 +278,14 @@ METHOD LRESULT CALLBACK ShellListView::MessageLoop(HWND hwnd, UINT uMsg, WPARAM 
                         (LPTSTR)ext,
                         260 * sizeof(wchar_t));
 
-                    if (ListView_GetSelectedCount(this->m_controlHandle) > 0) {
+                    if (ListView_GetSelectedCount(this->m_controlHandle) > 0)
+                    {
                         String fullPath(L"");
                         fullPath.append(this->m_Directory);
                         fullPath.append(fileName);
 
-                        if (String(ext) != String(L"Folder")) {
+                        if (String(ext) != String(L"Folder"))
+                        {
                             fullPath.append(L".");
                             fullPath.append(ext);
                         }
@@ -310,24 +318,38 @@ METHOD LRESULT CALLBACK ShellListView::MessageLoop(HWND hwnd, UINT uMsg, WPARAM 
                         (LPTSTR)ext,
                         260 * sizeof(wchar_t));
 
-                    if (ListView_GetSelectedCount(this->m_controlHandle) > 0) {
+                    if (ListView_GetSelectedCount(this->m_controlHandle) > 0)
+                    {
                         String fullPath(L"");
                         fullPath.append(this->m_Directory);
                         fullPath.append(fileName);
 
-                        if (String(ext) != String(L"Folder")) {
+                        if (String(ext) != String(L"Folder"))
+                        {
                             fullPath.append(L".");
                             fullPath.append(ext);
                         }
 
                         DWORD attrib = GetFileAttributes(fullPath.c_str());
 
-                        if ((attrib & FILE_ATTRIBUTE_DIRECTORY) != 0) {
+                        if ((attrib & FILE_ATTRIBUTE_DIRECTORY) != 0)
+                        {
                             this->m_Directory = fullPath;
                             this->RefreshView();
                         }
-                        else {
-                            ShellExecute(this->m_parentWindow->GetHandle(), L"open", fullPath.c_str(), NULL, NULL, SW_SHOW);
+                        else
+                        {
+                            SHELLEXECUTEINFO info;
+                            info.cbSize = sizeof(info);
+                            info.fMask = SEE_MASK_DEFAULT | SEE_MASK_NOCLOSEPROCESS;
+                            info.hwnd = this->m_parentWindow->GetHandle();
+                            info.lpVerb = L"open";
+                            info.lpFile = fullPath.c_str();
+                            info.lpParameters = NULL;
+                            info.lpDirectory = NULL;
+                            info.nShow = SW_SHOW;
+
+                            ShellExecuteEx(&info);
                         }
                     }
                     

@@ -2,7 +2,8 @@
 
 #include "Control.h"
 
-class ToolBar : public Control {
+class ToolBar : public Control
+{
     public:
         METHOD ToolBar(Window* parent, int x, int y, int w, int h);
     

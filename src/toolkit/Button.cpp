@@ -1,6 +1,7 @@
 #include "Button.h"
 
-METHOD Button::Button(Window* parent) : Control(parent) {
+METHOD Button::Button(Window* parent) : Control(parent)
+{
     this->m_controlHandle = { 0 };
     this->SetText(L"");
 
@@ -9,14 +10,16 @@ METHOD Button::Button(Window* parent) : Control(parent) {
     this->iconHeight = 0;
 }
 
-METHOD void Button::SetDimensions(int x, int y, int w, int h) {
+METHOD void Button::SetDimensions(int x, int y, int w, int h)
+{
     this->m_x = x;
     this->m_y = y;
     this->m_width = w;
     this->m_height = h;
 }
 
-METHOD void Button::Show() {
+METHOD void Button::Show()
+{
     HFONT hFont = CreateFont(
         PT(8),
         0,
@@ -78,7 +81,8 @@ METHOD void Button::Show() {
         TRUE);
 }
 
-METHOD void Button::SetText(const wchar_t* Text) {
+METHOD void Button::SetText(const wchar_t* Text)
+{
     this->Text = (wchar_t*) Text;
 }
 
@@ -97,9 +101,11 @@ METHOD LRESULT Button::MessageLoopForwarder(HWND hwnd, UINT uMsg, WPARAM wParam,
 
 METHOD LRESULT Button::MessageLoop(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData)
 {
-    switch (uMsg) {
+    switch (uMsg)
+    {
         case WM_COMMAND:
-            switch (HIWORD(wParam)) {
+            switch (HIWORD(wParam))
+            {
                 case BN_CLICKED:
                     if (this->OnClick != nullptr)
                         this->OnClick(this->m_parentWindow);

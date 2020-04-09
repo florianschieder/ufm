@@ -51,7 +51,8 @@ METHOD void StatusBar::AddStartGripper(int dx)
 
 METHOD void StatusBar::DrawStartGripper(HDC hdc, int dx)
 {
-    for (int i = 5; i <= this->m_height - 3; i += 4) {
+    for (int i = 5; i <= this->m_height - 3; i += 4)
+    {
         RECT rect1, rect2;
         
         rect1.left = 5 + dx;
@@ -93,7 +94,8 @@ void StatusBar::OnDraw(HDC hdc)
 
     this->DrawStartGripper(hdc, this->drawStartGripperX);
 
-    if (this->m_DrawResize) {
+    if (this->m_DrawResize)
+    {
         // Upper "line" / point
 
         rect.left = this->m_width - 5;

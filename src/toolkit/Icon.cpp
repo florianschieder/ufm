@@ -13,7 +13,8 @@ METHOD Icon::Icon(Window* parent, int id, int x, int y, int w, int h) : Control(
         MAKEINTRESOURCE(id));
 }
 
-METHOD void Icon::Show() {
+METHOD void Icon::Show()
+{
     this->m_controlHandle = CreateWindowEx(
         0,
         L"STATIC",

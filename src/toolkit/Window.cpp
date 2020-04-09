@@ -21,7 +21,8 @@ METHOD Window::Window(Application* app, Window* parent) : Window(app)
     this->m_parentWindow = parent;
 }
 
-METHOD bool Window::IsOpen() {
+METHOD bool Window::IsOpen()
+{
     return this->m_isOpen;
 }
 
@@ -80,11 +81,13 @@ METHOD int Window::Create()
 
 METHOD void Window::Show()
 {
-    if (this->Create() == 0) {
+    if (this->Create() == 0)
+    {
         this->m_isOpen = true;
         ShowWindow(this->m_windowHandle, SW_SHOW);
 
-        if (this->m_parentWindow == NULL) {
+        if (this->m_parentWindow == NULL)
+        {
             MSG msg = { };
             while (GetMessage(&msg, NULL, 0, 0))
             {

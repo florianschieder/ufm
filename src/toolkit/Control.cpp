@@ -1,6 +1,7 @@
 #include "Control.h"
 
-METHOD Control::Control(Window* parent) {
+METHOD Control::Control(Window* parent)
+{
     this->m_className = (wchar_t*) L"";
     this->m_parentWindow = parent;
     this->m_controlHandle = { 0 };
@@ -15,7 +16,8 @@ METHOD Control::Control(Window* parent) {
     parent->controlIDSequence++;
 }
 
-METHOD HWND Control::GetHandle() {
+METHOD HWND Control::GetHandle()
+{
     return this->m_controlHandle;
 }
 

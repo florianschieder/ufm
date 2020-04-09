@@ -1,17 +1,20 @@
 #include "ListView.h"
 
-METHOD ListView::ListView(Window* parent) : Control(parent) {
+METHOD ListView::ListView(Window* parent) : Control(parent)
+{
     this->m_controlHandle = { 0 };
 }
 
-METHOD void ListView::SetDimensions(int x, int y, int w, int h) {
+METHOD void ListView::SetDimensions(int x, int y, int w, int h)
+{
     this->m_x = x;
     this->m_y = y;
     this->m_width = w;
     this->m_height = h;
 }
 
-void ListView::AddItem(int id, int imageID) {
+void ListView::AddItem(int id, int imageID)
+{
     LV_ITEM item = { 0 };
     item.mask = LVIF_IMAGE;
     item.iItem = id;
@@ -22,7 +25,8 @@ void ListView::AddItem(int id, int imageID) {
         &item);
 }
 
-void ListView::AddSubItem(int id, int subID, String Text) {
+void ListView::AddSubItem(int id, int subID, String Text)
+{
     ListView_SetItemText(
         this->m_controlHandle,
         id,
@@ -30,7 +34,8 @@ void ListView::AddSubItem(int id, int subID, String Text) {
         (LPWSTR) Text.c_str());
 }
 
-METHOD void ListView::Show() {
+METHOD void ListView::Show()
+{
     HFONT hFont = CreateFont(
         PT(9),
         0,
@@ -85,7 +90,8 @@ METHOD void ListView::Show() {
         TRUE);
 }
 
-METHOD void ListView::SetView(int view) {
+METHOD void ListView::SetView(int view)
+{
     SendMessage(
         this->m_controlHandle,
         LVM_SETVIEW,
@@ -93,7 +99,8 @@ METHOD void ListView::SetView(int view) {
         0);
 }
 
-METHOD void ListView::AddColumn(String Header, int width, int pos) {
+METHOD void ListView::AddColumn(String Header, int width, int pos)
+{
     LVCOLUMN lvc;
 
     lvc.mask = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT | LVCF_SUBITEM;
