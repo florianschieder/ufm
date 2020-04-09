@@ -8,7 +8,7 @@ class InputBox : public Control
         METHOD InputBox(Window* parent);
         METHOD void Show();
         METHOD void SetDimensions(int x, int y, int w, int h);
-        METHOD void SetText(String Text);
+        METHOD void SetText(wchar_t* Text);
 
     protected:
         wchar_t* Text;

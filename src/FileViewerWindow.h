@@ -10,7 +10,8 @@
 
 #include "toolkit/core/FileType.h"
 
-class FileViewerWindow : public Window {
+class FileViewerWindow : public Window
+{
     public:
         FileViewerWindow(Application* app, String ext);
         ~FileViewerWindow();
@@ -18,7 +19,7 @@ class FileViewerWindow : public Window {
         void SetFile(const wchar_t* file);
 
     private:
-        void ReadBinary(FILE* fp);
+        void ReadBinary();
         void ReadText(FILE* fp);
 
         void OnClose();
@@ -27,7 +28,9 @@ class FileViewerWindow : public Window {
         void OnPaint(PAINTSTRUCT ps, HDC hdc);
         void OnResizeWindow();
         
-        String fileContent;
+        char* fileContent;
+        long fileSize;
+
         String fileExtension;
         String fileName; 
 

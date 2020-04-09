@@ -62,9 +62,9 @@ METHOD void InputBox::SetDimensions(int x, int y, int w, int h)
     this->m_height = h;
 }
 
-METHOD void InputBox::SetText(String Text)
+METHOD void InputBox::SetText(wchar_t* Text)
 {
-    SendMessage(this->m_controlHandle, WM_SETTEXT, NULL, (LPARAM)Text.c_str());
+    SendMessage(this->m_controlHandle, WM_SETTEXT, NULL, (LPARAM) Text);
 }
 
 METHOD LRESULT InputBox::MessageLoopForwarder(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData)

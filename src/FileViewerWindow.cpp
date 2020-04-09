@@ -5,8 +5,10 @@ FileViewerWindow::FileViewerWindow(Application* app, String ext) : Window(app)
     this->fileExtension = ext;
 }
 
-FileViewerWindow::~FileViewerWindow() {
+FileViewerWindow::~FileViewerWindow()
+{
     delete this->fileView;
+    delete[] this->fileContent;
     delete this->image;
     delete this->statusBar;
 }
@@ -22,15 +24,19 @@ void FileViewerWindow::OnInitializeWindow()
         this->GetApplication()->GetInstance(),
         MAKEINTRESOURCE(IDI_FT_STDFILE));
 
-    if (fileExtension == L"bmp" || fileExtension == L"dib" || fileExtension == L"ico" || fileExtension == L"gif" || fileExtension == L"jpg" || fileExtension == L"jpeg" || fileExtension == L"png" || fileExtension == L"tiff" || fileExtension == L"wmf" || fileExtension == L"emf") {
+    if (fileExtension == L"bmp" || fileExtension == L"dib" || fileExtension == L"ico" || fileExtension == L"gif" || fileExtension == L"jpg" || fileExtension == L"jpeg" || fileExtension == L"png" || fileExtension == L"tiff" || fileExtension == L"wmf" || fileExtension == L"emf")
+    {
         this->image = new Image(this, this->fileName, 0, 0, this->m_width, this->m_height - 22);
         this->image->Show();
-    } else {
+    }
+    else
+    {
         this->fileView = new TextBox(this);
         this->fileView->SetDimensions(0, 0, this->m_width, this->m_height - 22);
         this->fileView->AddSpecificStyle(ES_READONLY | ES_AUTOHSCROLL | ES_AUTOVSCROLL);
         this->fileView->Show();
-        this->fileView->SetText(this->fileContent);
+        //this->fileView->SetText(this->fileContent);
+        SendMessageA(this->fileView->GetHandle(), WM_SETTEXT, 0, (LPARAM)this->fileContent);
     }
 
     this->statusBar = new StatusBar(this, 0, this->m_height - 22, this->m_width, 22);
@@ -71,11 +77,23 @@ void FileViewerWindow::SetFile(const wchar_t* file)
 
     _wfopen_s(&fp, file, L"rb");
 
-    if (fp) {
-        
-        if (MimeTypeFromString(this->fileName) == L"text" || MimeTypeFromString(this->fileName) == L"unknown") {
+    if (fp)
+    {
+        // Get file size
+
+        fseek(fp, 0, SEEK_END);
+        this->fileSize = ftell(fp);
+        rewind(fp);
+
+        // Initialize file buffer
+        this->fileContent = new char[this->fileSize + 1];
+
+        if (MimeTypeFromString(this->fileName) == L"text" || MimeTypeFromString(this->fileName) == L"unknown")
+        {
             ReadText(fp);
-        } else {
+        }
+        else
+        {
             if (!(fileExtension == L"bmp" ||
                 fileExtension == L"dib" ||
                 fileExtension == L"ico" ||
@@ -85,65 +103,45 @@ void FileViewerWindow::SetFile(const wchar_t* file)
                 fileExtension == L"png" ||
                 fileExtension == L"tiff" ||
                 fileExtension == L"wmf" ||
-                fileExtension == L"emf")) {
-                ReadBinary(fp);
+                fileExtension == L"emf"))
+            {
+                ReadBinary();
             }
         }
+
+        this->fileContent[this->fileSize] = '\0';
 
         fclose(fp);
     }
 }
 
-void FileViewerWindow::ReadBinary(FILE* fp)
+void FileViewerWindow::ReadBinary()
 {
     std::ifstream is(this->fileName, std::ifstream::binary);
-    if (is) {
-        is.seekg(0, is.end);
-        UINT length = (UINT) is.tellg();
-        is.seekg(0, is.beg);
 
-        char* buffer = new char[length];
-
-        is.read(buffer, length);
-
-        is.close();
+    if (is)
+    {
+        is.read(this->fileContent, this->fileSize);
         
-        for (unsigned int i = 0; i < length; i++) {
-            if (buffer[i] <= 0 || buffer[i] == '\n' || buffer[i] == '\r') {
-                this->fileContent += '.';
-            }
-            else {
-                this->fileContent += buffer[i];
-            }
-            if (i != 0 && i % 85 == 0) {
-                this->fileContent += '\r';
-                this->fileContent += '\n';
+        for (long i = 0; i < this->fileSize; i++)
+        {
+            if (this->fileContent[i] <= 0 || this->fileContent[i] == '\n' || this->fileContent[i] == '\r')
+            {
+                this->fileContent[i] = '.';
             }
         }
-        
-        delete[] buffer;
+
+        is.close();
     }
 }
 
 void FileViewerWindow::ReadText(FILE* fp)
 {
-    char fc;
-    std::string content;
-
-    fc = fgetc(fp);
-
-    while (!feof(fp)) {
-        content += fc;
-        fc = fgetc(fp);
-    }
-
-    std::wstringstream cls;
-    cls << content.c_str();
-
-    this->fileContent = StringReplace(cls.str(), L"\n", L"\r\n");
+    fread(this->fileContent, this->fileSize, sizeof(char), fp);
 }
 
-void FileViewerWindow::OnResizeWindow() {
+void FileViewerWindow::OnResizeWindow()
+{
     if(fileView != nullptr) this->fileView->Resize(
         0,
         0,
