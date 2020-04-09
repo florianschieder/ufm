@@ -462,7 +462,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\AboutWindow.h" />
-    <ClInclude Include="resource.h" />
+    <ClInclude Include="res\resource.h" />
     <ClInclude Include="src\FileViewerWindow.h" />
     <ClInclude Include="src\toolkit\core\DirectoryList.h" />
     <ClInclude Include="src\toolkit\core\Environment.h" />
@@ -487,7 +487,7 @@
     <ClInclude Include="src\toolkit\Window.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="wfm.rc" />
+    <ResourceCompile Include="res\wfm.rc" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\about.bmp" />

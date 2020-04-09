@@ -80,9 +80,6 @@
     <ClInclude Include="src\MainWindow.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="src\wfm.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
@@ -146,11 +143,9 @@
     <ClInclude Include="src\toolkit\core\DirectoryList.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="wfm.rc">
-      <Filter>Ressourcendateien</Filter>
-    </ResourceCompile>
+    <ClInclude Include="res\resource.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\back.ico">
@@ -228,5 +223,10 @@
     <Image Include="res\ft_folder_hidden.ico">
       <Filter>Ressourcendateien</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="res\wfm.rc">
+      <Filter>Ressourcendateien</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

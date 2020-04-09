@@ -2,7 +2,7 @@
 
 #include "wfmtk.h"
 #include "core/DirectoryList.h"
-#include "../../resource.h"
+#include "../../res/resource.h"
 
 class ShellListView : public ListView {
     public:

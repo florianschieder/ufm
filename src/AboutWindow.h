@@ -4,7 +4,7 @@
 #include "toolkit/Icon.h"
 #include "toolkit/Window.h"
 
-#include "../resource.h"
+#include "../res/resource.h"
 
 // Define about dialog specific IDs here
 

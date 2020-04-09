@@ -1,6 +1,6 @@
 #include "MainWindow.h"
 
-#include "../resource.h"
+#include "../res/resource.h"
 
 /**
  * MainWindow::MainWindow: Main window constructor
