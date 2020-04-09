@@ -9,10 +9,11 @@ METHOD Application::Application(HINSTANCE h, int n)
 }
 
 METHOD void Application::InitializeApplicationComponents() {
-    CoInitializeEx(NULL, COINIT_APARTMENTTHREADED);
     Gdiplus::GdiplusStartupInput gdiplusStartupInput;
-    GdiplusStartup(NULL, &gdiplusStartupInput, NULL);
-    
+
+    CoInitializeEx(NULL, COINIT_APARTMENTTHREADED);
+    GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
+
     this->InitializeCommonControls();
     this->InitializeEnvironment();
 }

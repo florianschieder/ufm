@@ -15,11 +15,13 @@ METHOD Image::Image(Window* parent, String path, int x, int y, int w, int h) : C
     this->realDY = img->GetHeight();
 }
 
-METHOD Image::~Image() {
+METHOD Image::~Image()
+{
     delete this->img;
 }
 
-METHOD void Image::Show() {
+METHOD void Image::Show()
+{
     this->m_controlHandle = CreateWindowEx(
         0,
         L"STATIC",
@@ -89,11 +91,14 @@ METHOD LRESULT Image::MessageLoop(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lP
 METHOD void Image::OnDraw(HDC hdc)
 {
     Gdiplus::Graphics graphics(hdc);
-    if (this->m_width < 400 && this->m_height < 300) {
+    
+    if (this->m_width < 400 && this->m_height < 300)
+    {
         graphics.DrawImage(this->img, 0, 0, this->img->GetWidth(), this->img->GetHeight());
         canResize = false;
     }
-    else {
+    else
+    {
         graphics.DrawImage(this->img, 0, 0, this->m_width, this->m_height);
     }
 }

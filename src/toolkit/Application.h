@@ -31,7 +31,7 @@ class Application final
         METHOD void InitializeCommonControls();
         METHOD void InitializeEnvironment();
         
-        ULONG gdiplusToken;
+        ULONG_PTR gdiplusToken;
 
         Environment m_Environment;
 
