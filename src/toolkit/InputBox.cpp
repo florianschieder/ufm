@@ -1,6 +1,7 @@
 #include "InputBox.h"
 
-METHOD InputBox::InputBox(Window* parent) : Control(parent) {
+METHOD InputBox::InputBox(Window* parent) : Control(parent)
+{
     this->m_controlHandle = { 0 };
 }
 
@@ -26,7 +27,7 @@ METHOD void InputBox::Show()
         0,
         L"EDIT",
         NULL,
-        WS_CHILD | WS_VISIBLE | WS_BORDER | ES_AUTOHSCROLL | specificStyles,
+        WS_CHILD | WS_VISIBLE | WS_BORDER | specificStyles,
         this->m_x,
         this->m_y,
         this->m_width,
@@ -78,12 +79,14 @@ METHOD LRESULT InputBox::MessageLoopForwarder(HWND hwnd, UINT uMsg, WPARAM wPara
 
 METHOD LRESULT InputBox::MessageLoop(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData)
 {
-    switch (uMsg) {
+    switch (uMsg)
+    {
         case WM_CHAR:
             if (this->OnTextChanged != nullptr)
                 this->OnTextChanged();
             break;
     }
+
     return DefSubclassProc(
         hwnd,
         uMsg,

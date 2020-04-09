@@ -1,5 +1,6 @@
 #include "TextBox.h"
 
-METHOD TextBox::TextBox(Window* parent) : InputBox(parent) {
-    this->AddSpecificStyle(ES_AUTOVSCROLL | ES_MULTILINE | ES_WANTRETURN);
+METHOD TextBox::TextBox(Window* parent) : InputBox(parent)
+{
+    this->AddSpecificStyle(ES_MULTILINE | WS_VSCROLL | WS_HSCROLL);
 }
