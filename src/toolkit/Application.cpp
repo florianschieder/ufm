@@ -10,6 +10,7 @@ METHOD Application::Application(HINSTANCE h, int n)
 
 METHOD void Application::InitializeApplicationComponents()
 {
+    // Initialize GDI+
     Gdiplus::GdiplusStartupInput gdiplusStartupInput;
 
     CoInitializeEx(
@@ -21,6 +22,11 @@ METHOD void Application::InitializeApplicationComponents()
         &gdiplusStartupInput,
         NULL);
 
+    // Load cursors
+    this->m_cursorHand = LoadCursor(NULL, IDC_HAND);
+    this->m_cursorWait = LoadCursor(NULL, IDC_WAIT);
+
+    // Call more complex initialization routines
     this->InitializeCommonControls();
     this->InitializeEnvironment();
 }
@@ -145,6 +151,11 @@ METHOD int Application::GetShowState()
     return this->m_nCmdShow;
 }
 
+METHOD void Application::IndicateTimeIntensiveProcess()
+{
+    SetCursor(this->m_cursorWait);
+}
+
 METHOD HINSTANCE Application::GetInstance()
 {
     return this->m_hInstance;
@@ -197,6 +208,11 @@ METHOD void Application::SetEnvironmentVar(String key, String value)
     SetEnvironmentVariable(
         key.c_str(),
         value.c_str());
+}
+
+METHOD void Application::UnindicateTimeIntensiveProcess()
+{
+    SetCursor(this->m_cursorHand);
 }
 
 METHOD void Application::Exit()

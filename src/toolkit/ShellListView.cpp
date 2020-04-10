@@ -155,6 +155,8 @@ METHOD ShellListView::ShellListView(Window* parent) : ListView(parent)
 
 METHOD void ShellListView::RefreshView()
 {
+    this->m_parentWindow->GetApplication()->IndicateTimeIntensiveProcess();
+
     int itemIdx = 0;
 
     if (this->m_Directory[this->m_Directory.size() - 1] != L'\\')
@@ -174,6 +176,8 @@ METHOD void ShellListView::RefreshView()
         this->m_Directory.append(L"\\..\\");
         this->Enumerate();
     }
+
+    this->m_parentWindow->GetApplication()->UnindicateTimeIntensiveProcess();
 }
 
 METHOD bool ShellListView::Enumerate()
