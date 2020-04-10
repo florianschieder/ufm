@@ -1,8 +1,16 @@
 #pragma once
 
 #include "wfmtk.h"
-#include "core/DirectoryList.h"
 #include "../../res/resource.h"
+
+struct DirectoryItem {
+    std::wstring baseName;
+    std::wstring extName;
+    std::wstring date;
+    std::wstring size;
+
+    int iconIndex = 2;
+};
 
 class ShellListView : public ListView {
     public:
@@ -15,6 +23,8 @@ class ShellListView : public ListView {
         bool ShowHiddenFiles;
 
     private:
+        METHOD bool Enumerate();
+
         HIMAGELIST largeImages;
         HIMAGELIST smallImages;
 

@@ -69,9 +69,6 @@
     <ClCompile Include="src\toolkit\core\FileType.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="src\toolkit\core\DirectoryList.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\resource.h">
@@ -138,9 +135,6 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\toolkit\core\FileType.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\toolkit\core\DirectoryList.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="res\resource.h">

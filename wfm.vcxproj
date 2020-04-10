@@ -442,7 +442,6 @@
   <ItemGroup>
     <ClCompile Include="src\AboutWindow.cpp" />
     <ClCompile Include="src\FileViewerWindow.cpp" />
-    <ClCompile Include="src\toolkit\core\DirectoryList.cpp" />
     <ClCompile Include="src\toolkit\core\FileType.cpp" />
     <ClCompile Include="src\toolkit\core\String.cpp" />
     <ClCompile Include="src\toolkit\Icon.cpp" />
@@ -464,7 +463,6 @@
     <ClInclude Include="src\AboutWindow.h" />
     <ClInclude Include="res\resource.h" />
     <ClInclude Include="src\FileViewerWindow.h" />
-    <ClInclude Include="src\toolkit\core\DirectoryList.h" />
     <ClInclude Include="src\toolkit\core\Environment.h" />
     <ClInclude Include="src\toolkit\core\FileType.h" />
     <ClInclude Include="src\toolkit\core\String.h" />
