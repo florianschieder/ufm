@@ -98,6 +98,7 @@ void MainWindow::OnInitializeWindow()
     this->closeButton = new Button(this);
     this->closeButton->SetDimensions(6 * m_width / 7, this->m_height - 44, m_width / 7, 22);
     this->closeButton->SetText(L"[Alt+F4] Close");
+    this->closeButton->OnClick = this->CloseWindow;
     this->closeButton->Show();
 
     this->statusbar = new StatusBar(this, 0, this->m_height - 22, this->m_width, 22);

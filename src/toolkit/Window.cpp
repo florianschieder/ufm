@@ -249,3 +249,8 @@ METHOD Application* Window::GetApplication()
 {
     return this->m_application;
 }
+
+METHOD void Window::CloseWindow(Window* window)
+{
+    window->Destroy();
+}

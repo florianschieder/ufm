@@ -38,6 +38,8 @@ class Window
 
         int controlIDSequence = 50000;
         void* ActiveControl = nullptr;
+
+        METHOD EventHandler CloseWindow(Window* window);
         
     private:
         METHOD int Create();
