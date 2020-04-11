@@ -258,38 +258,37 @@ METHOD bool ShellListView::Enumerate()
             continue;
         }
 
-        ft = findData.ftLastWriteTime;
-
-        FileTimeToLocalFileTime(
-            &ft,
-            &ft);
-
-        FileTimeToSystemTime(
-            &ft,
-            &st);
-
-        GetDateFormat(
-            LOCALE_USER_DEFAULT,
-            DATE_SHORTDATE,
-            &st,
-            NULL,
-            szLocalDate, 255);
-
-        GetTimeFormat(
-            LOCALE_USER_DEFAULT,
-            0,
-            &st,
-            NULL,
-            szLocalTime,
-            255);
-
-        item.date = szLocalDate;
-        item.date.append(L" ");
-        item.date.append(szLocalTime);
-
         if (!(findData.dwFileAttributes & FILE_ATTRIBUTE_VIRTUAL)
             && !(findData.dwFileAttributes & FILE_ATTRIBUTE_REPARSE_POINT)
             && !(findData.dwFileAttributes & FILE_ATTRIBUTE_INTEGRITY_STREAM)) {
+            ft = findData.ftLastWriteTime;
+
+            FileTimeToLocalFileTime(
+                &ft,
+                &ft);
+
+            FileTimeToSystemTime(
+                &ft,
+                &st);
+
+            GetDateFormat(
+                LOCALE_USER_DEFAULT,
+                DATE_SHORTDATE,
+                &st,
+                NULL,
+                szLocalDate, 255);
+
+            GetTimeFormat(
+                LOCALE_USER_DEFAULT,
+                0,
+                &st,
+                NULL,
+                szLocalTime,
+                255);
+
+            item.date = szLocalDate;
+            item.date.append(L" ");
+            item.date.append(szLocalTime);
 
             item.baseName = findData.cFileName;
             item.extName = L"";
@@ -350,6 +349,34 @@ METHOD bool ShellListView::Enumerate()
         if (!(findData.dwFileAttributes & FILE_ATTRIBUTE_VIRTUAL)
             && !(findData.dwFileAttributes & FILE_ATTRIBUTE_REPARSE_POINT)
             && !(findData.dwFileAttributes & FILE_ATTRIBUTE_INTEGRITY_STREAM)) {
+            ft = findData.ftLastWriteTime;
+
+            FileTimeToLocalFileTime(
+                &ft,
+                &ft);
+
+            FileTimeToSystemTime(
+                &ft,
+                &st);
+
+            GetDateFormat(
+                LOCALE_USER_DEFAULT,
+                DATE_SHORTDATE,
+                &st,
+                NULL,
+                szLocalDate, 255);
+
+            GetTimeFormat(
+                LOCALE_USER_DEFAULT,
+                0,
+                &st,
+                NULL,
+                szLocalTime,
+                255);
+
+            item.date = szLocalDate;
+            item.date.append(L" ");
+            item.date.append(szLocalTime);
 
             std::vector<String> cont;
             const std::wstring str(findData.cFileName);
