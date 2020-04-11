@@ -34,6 +34,24 @@ void ListView::AddSubItem(int id, int subID, String Text)
         (LPWSTR) Text.c_str());
 }
 
+METHOD void ListView::InitializeTimeIntensiveProcess()
+{
+    // Show wait cursor (global application function)
+    this->m_parentWindow->GetApplication()->IndicateTimeIntensiveProcess();
+
+    // Force up insertion (deactivate redraw)
+    SendMessage(this->m_controlHandle, WM_SETREDRAW, FALSE, 0);
+}
+
+METHOD void ListView::UninitializeTimeIntensiveProcess()
+{
+    // Re-activate redraw
+    SendMessage(this->m_controlHandle, WM_SETREDRAW, TRUE, 0);
+
+    // Show standard cursor (global application function)
+    this->m_parentWindow->GetApplication()->UnindicateTimeIntensiveProcess();
+}
+
 METHOD void ListView::Show()
 {
     HFONT hFont = CreateFont(

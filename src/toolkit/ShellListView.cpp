@@ -155,17 +155,23 @@ METHOD ShellListView::ShellListView(Window* parent) : ListView(parent)
 
 METHOD void ShellListView::RefreshView()
 {
-    this->m_parentWindow->GetApplication()->IndicateTimeIntensiveProcess();
-
+    // Locals
     int itemIdx = 0;
 
+    // Start time intensive process
+    this->InitializeTimeIntensiveProcess();
+
+    // Clear list
+    ListView_DeleteAllItems(this->m_controlHandle);
+
+    // Set up path
     if (this->m_Directory[this->m_Directory.size() - 1] != L'\\')
         this->m_Directory.append(L"\\");
 
-    ListView_DeleteAllItems(this->m_controlHandle);
-
+    // Start enumeration
     if (!this->Enumerate())
     {
+        // Show access denied message
         ShellMessageBox(
             this->m_parentWindow->GetApplication()->GetInstance(),
             this->m_parentWindow->GetHandle(),
@@ -173,11 +179,17 @@ METHOD void ShellListView::RefreshView()
             L"Access denied!",
             MB_ICONWARNING,
             MB_OK);
+
+        // Stop time intensive process
+        this->UninitializeTimeIntensiveProcess();
+
+        // directory back
         this->m_Directory.append(L"\\..\\");
         this->Enumerate();
     }
 
-    this->m_parentWindow->GetApplication()->UnindicateTimeIntensiveProcess();
+    // Stop time intensive process
+    this->UninitializeTimeIntensiveProcess();
 }
 
 METHOD bool ShellListView::Enumerate()
