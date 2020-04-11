@@ -29,36 +29,16 @@ METHOD ShellListView::ShellListView(Window* parent) : ListView(parent)
         200,
         3);
 
-    SHFILEINFO  sfi;
-
-    // Get the system image list
-    HIMAGELIST hLargeImages = reinterpret_cast<HIMAGELIST>(
-        SHGetFileInfo(
-            L"C:\\",
-            0,
-            &sfi,
-            sizeof(SHFILEINFO),
-            SHGFI_SYSICONINDEX));
-
-    HIMAGELIST hSmallImages = reinterpret_cast<HIMAGELIST>(
-        SHGetFileInfo(
-            L"C:\\",
-            0,
-            &sfi,
-            sizeof(SHFILEINFO),
-            SHGFI_SYSICONINDEX | SHGFI_SMALLICON));
-
-    // Add our generic icons we need internally
-    HICON upIcon = LoadIcon(
-        this->m_parentWindow->GetApplication()->GetInstance(),
-        MAKEINTRESOURCE(IDI_UP));
-
-    iUpIconIndex = ImageList_AddIcon(hLargeImages, upIcon);
-    ImageList_AddIcon(hSmallImages, upIcon);
-
     // Set image list
-    ListView_SetImageList(this->m_controlHandle, hLargeImages, LVSIL_NORMAL);
-    ListView_SetImageList(this->m_controlHandle, hSmallImages, LVSIL_SMALL);
+    ListView_SetImageList(
+        this->m_controlHandle,
+        *this->m_parentWindow->GetApplication()->GetShellImageBucketLarge(),
+        LVSIL_NORMAL);
+
+    ListView_SetImageList(
+        this->m_controlHandle,
+        *this->m_parentWindow->GetApplication()->GetShellImageBucketSmall(),
+        LVSIL_SMALL);
 }
 
 METHOD void ShellListView::RefreshView()
@@ -219,7 +199,9 @@ METHOD bool ShellListView::Enumerate()
             item.baseName = findData.cFileName;
             item.extName = L"";
 
-            item.iconIndex = (item.baseName == L"..") ? this->iUpIconIndex : shellFileInformation.iIcon;
+            item.iconIndex = (item.baseName == L"..")
+                ? this->m_parentWindow->GetApplication()->GetInternalIconIndex(IDI_UP)
+                : shellFileInformation.iIcon;
 
             this->AddItem(
                 itemIdx,

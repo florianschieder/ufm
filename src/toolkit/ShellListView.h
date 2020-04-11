@@ -26,13 +26,8 @@ class ShellListView : public ListView
     private:
         METHOD bool Enumerate();
 
-        HIMAGELIST largeImages;
-        HIMAGELIST smallImages;
-
         String m_Directory;
         String m_Filter;
-
-        int iUpIconIndex;
 
         METHOD LRESULT CALLBACK MessageLoop(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData) override;
 };

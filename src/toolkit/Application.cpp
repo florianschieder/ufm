@@ -29,6 +29,42 @@ METHOD void Application::InitializeApplicationComponents()
     // Call more complex initialization routines
     this->InitializeCommonControls();
     this->InitializeEnvironment();
+    this->InitializeShellImageBucket();
+}
+
+void Application::InitializeShellImageBucket()
+{
+    SHFILEINFO  sfi;
+
+    // Get the system image list
+    this->m_largeShellImageBucket = reinterpret_cast<HIMAGELIST>(
+        SHGetFileInfo(
+            L"C:\\",
+            0,
+            &sfi,
+            sizeof(SHFILEINFO),
+            SHGFI_SYSICONINDEX));
+
+    this->m_smallShellImageBucket = reinterpret_cast<HIMAGELIST>(
+        SHGetFileInfo(
+            L"C:\\",
+            0,
+            &sfi,
+            sizeof(SHFILEINFO),
+            SHGFI_SYSICONINDEX | SHGFI_SMALLICON));
+
+    // Add our generic icons we need internally
+    HICON upIcon = LoadIcon(
+        this->m_hInstance,
+        MAKEINTRESOURCE(IDI_UP));
+
+    this->m_iUpIconIndex = ImageList_AddIcon(
+        this->m_largeShellImageBucket,
+        upIcon);
+
+    ImageList_AddIcon(
+        this->m_smallShellImageBucket,
+        upIcon);
 }
 
 METHOD void Application::InitializeCommonControls()
@@ -237,4 +273,25 @@ METHOD String Application::GetEnvironmentVar(String key)
         sizeof(buffer) / sizeof(wchar_t));
 
     return buffer;
+}
+
+HIMAGELIST* Application::GetShellImageBucketLarge()
+{
+    return &this->m_largeShellImageBucket;
+}
+
+HIMAGELIST* Application::GetShellImageBucketSmall()
+{
+    return &this->m_smallShellImageBucket;
+}
+
+int Application::GetInternalIconIndex(DWORD icon)
+{
+    switch (icon)
+    {
+        case IDI_UP:
+            return this->m_iUpIconIndex;
+        default:
+            return 0;
+    }
 }
