@@ -77,6 +77,10 @@ void FileViewerWindow::OnPaint(PAINTSTRUCT ps, HDC hdc)
 {
 }
 
+void FileViewerWindow::OnPostParam(void* param, int reason)
+{
+}
+
 void FileViewerWindow::SetFile(const wchar_t* file)
 {
     FILE* fp;

@@ -41,6 +41,11 @@ METHOD ShellListView::ShellListView(Window* parent) : ListView(parent)
         LVSIL_SMALL);
 }
 
+METHOD String ShellListView::GetDirectory()
+{
+    return this->m_Directory;
+}
+
 METHOD void ShellListView::RefreshView()
 {
     // Locals

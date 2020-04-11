@@ -16,6 +16,7 @@ class ShellListView : public ListView
 {
     public:
         METHOD ShellListView(Window* parent);
+        METHOD String GetDirectory();
         METHOD void RefreshView();
 
         String SelectedPath;

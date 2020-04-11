@@ -3,7 +3,6 @@
 #include <Windows.h>
 #include <CommCtrl.h>
 
-#include "AboutWindow.h"
 #include "FileViewerWindow.h"
 
 #include "toolkit/Application.h"
@@ -27,6 +26,8 @@
 #define IDC_MAINWINDOW_LISTVIEW 107
 #define IDC_MAINWINDOW_STATUSBAR 120
 
+#define NEEDED_TO_PASS_NEW_FOLDER_TEXT 1
+
 // Class declaration
 
 class MainWindow : public Window {
@@ -35,13 +36,18 @@ class MainWindow : public Window {
         ~MainWindow();
 
     private:
+        static INT_PTR AboutDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
+        static INT_PTR NewDirDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
+
         EventHandler FileViewerButtonClicked(Window* window);
         EventHandler EditButtonClicked(Window* window);
+        EventHandler NewDirButtonClicked(Window* window);
 
         void OnClose();
         void OnInitializeWindow();
         void OnMenuEvent(WORD menuID);
         void OnPaint(PAINTSTRUCT ps, HDC hdc);
+        void OnPostParam(void* param, int reason);
         void OnResizeWindow();
 
         ToolBar* buttonBar = 0;
@@ -59,6 +65,4 @@ class MainWindow : public Window {
         Button* newDirectoryButton = 0;
         Button* deleteButton = 0;
         Button* closeButton = 0;
-
-        AboutWindow* aboutDlg = 0;
 };

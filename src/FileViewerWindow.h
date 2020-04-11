@@ -26,6 +26,7 @@ class FileViewerWindow : public Window
         void OnInitializeWindow();
         void OnMenuEvent(WORD menuID);
         void OnPaint(PAINTSTRUCT ps, HDC hdc);
+        void OnPostParam(void* param, int reason);
         void OnResizeWindow();
         
         char* fileContent;

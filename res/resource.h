@@ -16,9 +16,10 @@
 #define IDI_FT_STDFILE                  113
 #define IDI_FT_MUSIC                    114
 #define IDB_BITMAP1                     114
-#define IDB_ABOUT                       114
 #define IDI_FT_TEXT                     115
+#define IDD_NEWDIR                      115
 #define IDI_FT_ODT                      116
+#define IDD_ABOUTDLG                    117
 #define IDI_FT_PDF                      118
 #define IDI_FT_ARCH                     119
 #define IDI_FT_APP                      120
@@ -31,6 +32,8 @@
 #define IDI_FT_STDFILE_HIDDEN           124
 #define IDI_FT_FOLDER1                  125
 #define IDI_FT_FOLDER_HIDDEN            125
+#define IDC_EDIT1                       1001
+#define IDC_NEWDIR_NAME                 1003
 #define ID_DATEI                        40001
 #define ID_DATEI_ITEM                   40002
 #define ID_HELP_ABOUTWFM                40003
@@ -51,9 +54,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        115
+#define _APS_NEXT_RESOURCE_VALUE        119
 #define _APS_NEXT_COMMAND_VALUE         40017
-#define _APS_NEXT_CONTROL_VALUE         1001
+#define _APS_NEXT_CONTROL_VALUE         1004
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

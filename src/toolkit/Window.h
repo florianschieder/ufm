@@ -6,12 +6,15 @@
 
 #include "Application.h"
 
+#define WM_POSTPARAM WM_USER + 1
+
 class Window
 {
     Event OnClose() = 0;
     Event OnInitializeWindow() = 0;
     Event OnMenuEvent(WORD id) = 0;
     Event OnPaint(PAINTSTRUCT ps, HDC hdc) = 0;
+    Event OnPostParam(void* param, int reason) = 0;
     Event OnResizeWindow() = 0;
 
     public:

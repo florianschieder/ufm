@@ -21,6 +21,13 @@ METHOD Window::Window(Application* app, Window* parent) : Window(app)
     this->m_parentWindow = parent;
 }
 
+METHOD String Window::GetTitle()
+{
+    wchar_t title[300];
+    GetWindowText(this->m_windowHandle, title, 300);
+    return title;
+}
+
 METHOD Window* Window::GetParent()
 {
     return this->m_parentWindow;
@@ -174,6 +181,12 @@ METHOD LRESULT CALLBACK Window::MessageLoop(HWND hwnd, UINT uMsg, WPARAM wParam,
             
             if(this->m_parentWindow == nullptr) PostQuitMessage(0);
 
+            return 0;
+
+        case WM_POSTPARAM:
+            this->OnPostParam(
+                (void*) wParam,
+                lParam);
             return 0;
 
         case WM_CREATE:

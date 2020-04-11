@@ -13,8 +13,8 @@ MainWindow::MainWindow(Application* app) : Window(app)
     this->SetStyle(WS_OVERLAPPEDWINDOW);
 }
 
-MainWindow::~MainWindow() {
-    delete this->aboutDlg;
+MainWindow::~MainWindow()
+{
     delete this->buttonBar;
     delete this->driveBar;
     delete this->statusbar;
@@ -88,6 +88,7 @@ void MainWindow::OnInitializeWindow()
     this->newDirectoryButton = new Button(this);
     this->newDirectoryButton->SetDimensions(4 * m_width / 7, this->m_height - 44, m_width / 7, 22);
     this->newDirectoryButton->SetText(L"[F7] New Directory");
+    this->newDirectoryButton->OnClick = this->NewDirButtonClicked;
     this->newDirectoryButton->Show();
 
     this->deleteButton = new Button(this);
@@ -143,17 +144,62 @@ void MainWindow::OnMenuEvent(WORD menuID)
             this->rightShellView->RefreshView();
             break;
         case ID_HELP_ABOUTWFM:
-            if (this->aboutDlg == nullptr) {
-                this->aboutDlg = new AboutWindow(this->m_application, this);
-                this->aboutDlg->Show();
-            } else {
-                if (this->aboutDlg->IsOpen()) {
-                    SetFocus(this->aboutDlg->GetHandle());
-                } else {
-                    delete this->aboutDlg;
-                    this->aboutDlg = new AboutWindow(this->m_application, this);
-                    this->aboutDlg->Show();
+            DialogBox(
+                this->m_application->GetInstance(),
+                MAKEINTRESOURCE(IDD_ABOUTDLG),
+                this->GetHandle(),
+                this->AboutDlgProc);
+            break;
+    }
+}
+
+void MainWindow::OnPostParam(void* param, int reason)
+{
+    switch (reason)
+    {
+        case NEEDED_TO_PASS_NEW_FOLDER_TEXT:
+            ShellListView* activeCtrl = (ShellListView*) this->ActiveControl;
+            String dirPath = activeCtrl->GetDirectory() + String((LPCWSTR)param);
+            
+            if (!CreateDirectory(dirPath.c_str(), NULL))
+            {
+                switch (GetLastError())
+                {
+                case ERROR_ALREADY_EXISTS:
+                    ShellMessageBox(
+                        this->GetApplication()->GetInstance(),
+                        this->GetHandle(),
+                        L"The directory you tried to create already exists.",
+                        this->GetTitle().c_str(),
+                        MB_ICONWARNING,
+                        MB_OK);
+                    break;
+                case ERROR_ACCESS_DENIED:
+                    ShellMessageBox(
+                        this->GetApplication()->GetInstance(),
+                        this->GetHandle(),
+                        L"Failed to create the directory - access denied.",
+                        this->GetTitle().c_str(),
+                        MB_ICONWARNING,
+                        MB_OK);
+                    break;
+                default:
+                    ShellMessageBox(
+                        this->GetApplication()->GetInstance(),
+                        this->GetHandle(),
+                        L"An unexpected error occurred trying to create the directory. A common "\
+                        "reason for this is an invalid parameter you specified. Please try again with "\
+                        "directory name. We\'re sorry for the inconvenience.",
+                        this->GetTitle().c_str(),
+                        MB_ICONWARNING,
+                        MB_OK);
+                    break;
                 }
+            }
+            else
+            {
+                this->leftShellView->RefreshView();
+                this->rightShellView->RefreshView();
             }
             break;
     }
@@ -284,4 +330,74 @@ void MainWindow::EditButtonClicked(Window* window)
     info.nShow = SW_SHOW;
 
     ShellExecuteEx(&info);
+}
+
+void MainWindow::NewDirButtonClicked(Window* window)
+{
+    MainWindow* wnd = (MainWindow*) window;
+
+    HWND hDlg = (HWND) DialogBox(
+        wnd->GetApplication()->GetInstance(),
+        MAKEINTRESOURCE(IDD_NEWDIR),
+        wnd->GetHandle(),
+        wnd->NewDirDlgProc);
+}
+
+INT_PTR MainWindow::AboutDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+    switch (uMsg)
+    {
+        case WM_INITDIALOG:
+            return TRUE;
+        case WM_COMMAND:
+            switch (LOWORD(wParam))
+            {
+                case IDOK:
+                    EndDialog(hDlg, IDOK);
+                    break;
+                case IDCANCEL:
+                    EndDialog(hDlg, IDCANCEL);
+                    break;
+            }
+            break;
+        default:
+            return FALSE;
+    }
+    return TRUE;
+}
+
+INT_PTR MainWindow::NewDirDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+    switch (uMsg)
+    {
+    case WM_INITDIALOG:
+        return TRUE;
+    case WM_COMMAND:
+        switch (LOWORD(wParam))
+        {
+        case IDOK:
+        {
+            wchar_t str[MAX_PATH];
+            GetDlgItemText(hDlg, IDC_NEWDIR_NAME, str, MAX_PATH);
+
+            HWND parent = ::GetParent(hDlg);
+            SendMessage(
+                parent,
+                WM_POSTPARAM,
+                (WPARAM) str,
+                NEEDED_TO_PASS_NEW_FOLDER_TEXT);
+
+            EndDialog(hDlg, IDOK);
+
+            break;
+        }
+        case IDCANCEL:
+            EndDialog(hDlg, IDCANCEL);
+            break;
+        }
+        break;
+    default:
+        return FALSE;
+    }
+    return TRUE;
 }
