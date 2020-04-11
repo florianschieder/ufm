@@ -29,128 +29,36 @@ METHOD ShellListView::ShellListView(Window* parent) : ListView(parent)
         200,
         3);
 
-    // Create image list
+    SHFILEINFO  sfi;
 
-    this->smallImages = ImageList_Create(16, 16, ILC_MASK | ILC_COLOR32, 10, 0);
-    this->largeImages = ImageList_Create(32, 32, ILC_MASK | ILC_COLOR32, 10, 0);
+    // Get the system image list
+    HIMAGELIST hLargeImages = reinterpret_cast<HIMAGELIST>(
+        SHGetFileInfo(
+            L"C:\\",
+            0,
+            &sfi,
+            sizeof(SHFILEINFO),
+            SHGFI_SYSICONINDEX));
 
-    HICON upIcon, folderIcon, folderIconAH, stdIcon, stdIconAH,
-        odsIcon, odtIcon, odpIcon, pdfIcon, archIcon, appIcon, libIcon, audioIcon, textIcon;
+    HIMAGELIST hSmallImages = reinterpret_cast<HIMAGELIST>(
+        SHGetFileInfo(
+            L"C:\\",
+            0,
+            &sfi,
+            sizeof(SHFILEINFO),
+            SHGFI_SYSICONINDEX | SHGFI_SMALLICON));
 
-    upIcon = LoadIcon(
+    // Add our generic icons we need internally
+    HICON upIcon = LoadIcon(
         this->m_parentWindow->GetApplication()->GetInstance(),
         MAKEINTRESOURCE(IDI_UP));
 
-    folderIcon = LoadIcon(
-        this->m_parentWindow->GetApplication()->GetInstance(),
-        MAKEINTRESOURCE(IDI_FOLDER));
+    iUpIconIndex = ImageList_AddIcon(hLargeImages, upIcon);
+    ImageList_AddIcon(hSmallImages, upIcon);
 
-    stdIcon = LoadIcon(
-        this->m_parentWindow->GetApplication()->GetInstance(),
-        MAKEINTRESOURCE(IDI_FT_STDFILE));
-
-    folderIconAH = LoadIcon(
-        this->m_parentWindow->GetApplication()->GetInstance(),
-        MAKEINTRESOURCE(IDI_FT_FOLDER_HIDDEN));
-
-    stdIconAH = LoadIcon(
-        this->m_parentWindow->GetApplication()->GetInstance(),
-        MAKEINTRESOURCE(IDI_FT_STDFILE_HIDDEN));
-
-    odsIcon = LoadIcon(
-        this->m_parentWindow->GetApplication()->GetInstance(),
-        MAKEINTRESOURCE(IDI_FT_ODS));
-
-    odtIcon = LoadIcon(
-        this->m_parentWindow->GetApplication()->GetInstance(),
-        MAKEINTRESOURCE(IDI_FT_ODT));
-
-    pdfIcon = LoadIcon(
-        this->m_parentWindow->GetApplication()->GetInstance(),
-        MAKEINTRESOURCE(IDI_FT_PDF));
-
-    archIcon = LoadIcon(
-        this->m_parentWindow->GetApplication()->GetInstance(),
-        MAKEINTRESOURCE(IDI_FT_ARCH));
-
-    appIcon = LoadIcon(
-        this->m_parentWindow->GetApplication()->GetInstance(),
-        MAKEINTRESOURCE(IDI_FT_APP));
-
-    audioIcon = LoadIcon(
-        this->m_parentWindow->GetApplication()->GetInstance(),
-        MAKEINTRESOURCE(IDI_FT_MUSIC));
-
-    libIcon = LoadIcon(
-        this->m_parentWindow->GetApplication()->GetInstance(),
-        MAKEINTRESOURCE(IDI_FT_LIB));
-
-    textIcon = LoadIcon(
-        this->m_parentWindow->GetApplication()->GetInstance(),
-        MAKEINTRESOURCE(IDI_FT_TEXT));
-
-    odpIcon = LoadIcon(
-        this->m_parentWindow->GetApplication()->GetInstance(),
-        MAKEINTRESOURCE(IDI_FT_ODP));
-
-    // 0
-    ImageList_AddIcon(this->largeImages, upIcon);
-    ImageList_AddIcon(this->smallImages, upIcon);
-
-    // 1
-    ImageList_AddIcon(this->largeImages, folderIcon);
-    ImageList_AddIcon(this->smallImages, folderIcon);
-
-    // 2
-    ImageList_AddIcon(this->largeImages, stdIcon);
-    ImageList_AddIcon(this->smallImages, stdIcon);
-
-    // 3
-    ImageList_AddIcon(this->largeImages, odsIcon);
-    ImageList_AddIcon(this->smallImages, odsIcon);
-
-    // 4
-    ImageList_AddIcon(this->largeImages, odtIcon);
-    ImageList_AddIcon(this->smallImages, odtIcon);
-
-    // 5
-    ImageList_AddIcon(this->largeImages, pdfIcon);
-    ImageList_AddIcon(this->smallImages, pdfIcon);
-
-    // 6
-    ImageList_AddIcon(this->largeImages, archIcon);
-    ImageList_AddIcon(this->smallImages, archIcon);
-
-    // 7
-    ImageList_AddIcon(this->largeImages, appIcon);
-    ImageList_AddIcon(this->smallImages, appIcon);
-
-    // 8
-    ImageList_AddIcon(this->largeImages, libIcon);
-    ImageList_AddIcon(this->smallImages, libIcon);
-
-    // 9
-    ImageList_AddIcon(this->largeImages, audioIcon);
-    ImageList_AddIcon(this->smallImages, audioIcon);
-
-    // 10
-    ImageList_AddIcon(this->largeImages, textIcon);
-    ImageList_AddIcon(this->smallImages, textIcon);
-
-    // 11
-    ImageList_AddIcon(this->largeImages, odpIcon);
-    ImageList_AddIcon(this->smallImages, odpIcon);
-
-    // 12
-    ImageList_AddIcon(this->largeImages, folderIconAH);
-    ImageList_AddIcon(this->smallImages, folderIconAH);
-
-    // 13
-    ImageList_AddIcon(this->largeImages, stdIconAH);
-    ImageList_AddIcon(this->smallImages, stdIconAH);
-
-    ListView_SetImageList(this->m_controlHandle, this->largeImages, LVSIL_NORMAL);
-    ListView_SetImageList(this->m_controlHandle, this->smallImages, LVSIL_SMALL);
+    // Set image list
+    ListView_SetImageList(this->m_controlHandle, hLargeImages, LVSIL_NORMAL);
+    ListView_SetImageList(this->m_controlHandle, hSmallImages, LVSIL_SMALL);
 }
 
 METHOD void ShellListView::RefreshView()
@@ -195,6 +103,7 @@ METHOD void ShellListView::RefreshView()
 METHOD bool ShellListView::Enumerate()
 {
     // Locals
+    String              absolutePath;
     wchar_t             buffer[MAX_PATH];
     String              directoryWithFilter;
     FILETIME            ft;
@@ -203,9 +112,20 @@ METHOD bool ShellListView::Enumerate()
     LPCTSTR             hSearchData;
     DirectoryItem       item;
     int                 itemIdx = 0;
+    SHFILEINFO          shellFileInformation;
     SYSTEMTIME          st;
     wchar_t             szLocalDate[255];
     wchar_t             szLocalTime[255];
+
+    // Prepare structures
+
+    ZeroMemory(
+        &findData,
+        sizeof(findData));
+
+    ZeroMemory(
+        &shellFileInformation,
+        sizeof(shellFileInformation));
 
     // Update path
     if (_wfullpath(buffer, this->m_Directory.c_str(), MAX_PATH)) 
@@ -223,10 +143,6 @@ METHOD bool ShellListView::Enumerate()
 
     directoryWithFilter = this->m_Directory;
     directoryWithFilter.append(L"*.*");
-
-    ZeroMemory(
-        &findData,
-        sizeof(findData));
 
     hSearchData = (LPCTSTR) directoryWithFilter.c_str();
     
@@ -260,7 +176,17 @@ METHOD bool ShellListView::Enumerate()
 
         if (!(findData.dwFileAttributes & FILE_ATTRIBUTE_VIRTUAL)
             && !(findData.dwFileAttributes & FILE_ATTRIBUTE_REPARSE_POINT)
-            && !(findData.dwFileAttributes & FILE_ATTRIBUTE_INTEGRITY_STREAM)) {
+            && !(findData.dwFileAttributes & FILE_ATTRIBUTE_INTEGRITY_STREAM))
+        {
+            absolutePath = this->m_Directory + String(findData.cFileName);
+
+            SHGetFileInfo(
+                absolutePath.c_str(),
+                0,
+                &shellFileInformation,
+                sizeof(shellFileInformation),
+                SHGFI_SYSICONINDEX);
+
             ft = findData.ftLastWriteTime;
 
             FileTimeToLocalFileTime(
@@ -293,14 +219,7 @@ METHOD bool ShellListView::Enumerate()
             item.baseName = findData.cFileName;
             item.extName = L"";
 
-            if (findData.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN)
-            {
-                item.iconIndex = 12;
-            }
-            else
-            {
-                item.iconIndex = (item.baseName == L"..") ? 0 : 1;
-            }
+            item.iconIndex = (item.baseName == L"..") ? this->iUpIconIndex : shellFileInformation.iIcon;
 
             this->AddItem(
                 itemIdx,
@@ -348,7 +267,17 @@ METHOD bool ShellListView::Enumerate()
 
         if (!(findData.dwFileAttributes & FILE_ATTRIBUTE_VIRTUAL)
             && !(findData.dwFileAttributes & FILE_ATTRIBUTE_REPARSE_POINT)
-            && !(findData.dwFileAttributes & FILE_ATTRIBUTE_INTEGRITY_STREAM)) {
+            && !(findData.dwFileAttributes & FILE_ATTRIBUTE_INTEGRITY_STREAM))
+        {
+            absolutePath = this->m_Directory + String(findData.cFileName);
+
+            SHGetFileInfo(
+                absolutePath.c_str(),
+                0,
+                &shellFileInformation,
+                sizeof(shellFileInformation),
+                SHGFI_SYSICONINDEX);
+
             ft = findData.ftLastWriteTime;
 
             FileTimeToLocalFileTime(
@@ -426,53 +355,7 @@ METHOD bool ShellListView::Enumerate()
                 }
             }
 
-            if (findData.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN)
-            {
-                item.iconIndex = 13;
-            }
-            else
-            {
-                if (item.extName == L"doc" || item.extName == L"docx" || item.extName == L"dot" || item.extName == L"odt")
-                {
-                    item.iconIndex = 4;
-                }
-                else if (item.extName == L"xls" || item.extName == L"xlsx" || item.extName == L"ods")
-                {
-                    item.iconIndex = 3;
-                }
-                else if (item.extName == L"ppt" || item.extName == L"pptx" || item.extName == L"odp")
-                {
-                    item.iconIndex = 11;
-                }
-                else if (item.extName == L"pdf")
-                {
-                    item.iconIndex = 5;
-                }
-                else if (item.extName == L"mp3" || item.extName == L"wav")
-                {
-                    item.iconIndex = 9;
-                }
-                else if (item.extName == L"zip" || item.extName == L"7z" || item.extName == L"tar" || item.extName == L"gz" || item.extName == L"rar" || item.extName == L"bz" || item.extName == L"bz2")
-                {
-                    item.iconIndex = 6;
-                }
-                else if (item.extName == L"exe" || item.extName == L"bat" || item.extName == L"com" || item.extName == L"pif" || item.extName == L"cmd" || item.extName == L"vbs" || item.extName == L"vbe" || item.extName == L"js" || item.extName == L"jse" || item.extName == L"wsf" || item.extName == L"wsh" || item.extName == L"msc")
-                {
-                    item.iconIndex = 7;
-                }
-                else if (item.extName == L"dll" || item.extName == L"lib" || item.extName == L"sys")
-                {
-                    item.iconIndex = 8;
-                }
-                else if (item.extName == L"txt" || item.extName == L"log" || item.extName == L"nfo" || item.extName == L"diz" || item.extName == L"ini" || item.extName == L"cfg")
-                {
-                    item.iconIndex = 10;
-                }
-                else
-                {
-                    item.iconIndex = 2;
-                }
-            }
+            item.iconIndex = shellFileInformation.iIcon;
 
             if (findData.nFileSizeLow <= 1024)
             {

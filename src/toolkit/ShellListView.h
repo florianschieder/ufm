@@ -3,16 +3,17 @@
 #include "wfmtk.h"
 #include "../../res/resource.h"
 
-struct DirectoryItem {
-    std::wstring baseName;
-    std::wstring extName;
-    std::wstring date;
-    std::wstring size;
-
-    int iconIndex = 2;
+struct DirectoryItem
+{
+    std::wstring    baseName;
+    std::wstring    extName;
+    std::wstring    date;
+    std::wstring    size;
+    int             iconIndex;
 };
 
-class ShellListView : public ListView {
+class ShellListView : public ListView
+{
     public:
         METHOD ShellListView(Window* parent);
         METHOD void RefreshView();
@@ -30,6 +31,8 @@ class ShellListView : public ListView {
 
         String m_Directory;
         String m_Filter;
+
+        int iUpIconIndex;
 
         METHOD LRESULT CALLBACK MessageLoop(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData) override;
 };

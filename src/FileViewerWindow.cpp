@@ -20,10 +20,6 @@ void FileViewerWindow::OnClose()
 
 void FileViewerWindow::OnInitializeWindow()
 {
-    HICON icon = LoadIcon(
-        this->GetApplication()->GetInstance(),
-        MAKEINTRESOURCE(IDI_FT_STDFILE));
-
     if (fileExtension == L"bmp" || fileExtension == L"dib" || fileExtension == L"ico" || fileExtension == L"gif" || fileExtension == L"jpg" || fileExtension == L"jpeg" || fileExtension == L"png" || fileExtension == L"tiff" || fileExtension == L"wmf" || fileExtension == L"emf")
     {
         this->image = new Image(this, this->fileName, 0, 0, this->m_width, this->m_height - 22);
@@ -57,7 +53,6 @@ void FileViewerWindow::OnInitializeWindow()
     }
     else this->SetDimensions(800, 600);
 
-    this->SetIcon(icon);
     this->SetTitle(this->fileName);
 }
 
