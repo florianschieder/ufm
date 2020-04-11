@@ -20,6 +20,19 @@ void FileViewerWindow::OnClose()
 
 void FileViewerWindow::OnInitializeWindow()
 {
+    SHFILEINFO fileInfo;
+
+    ZeroMemory(
+        &fileInfo,
+        sizeof(fileInfo));
+
+    SHGetFileInfo(
+        this->fileName.c_str(),
+        0,
+        &fileInfo,
+        sizeof(fileInfo),
+        SHGFI_SMALLICON | SHGFI_ICON | SHGFI_ADDOVERLAYS);
+
     if (fileExtension == L"bmp" || fileExtension == L"dib" || fileExtension == L"ico" || fileExtension == L"gif" || fileExtension == L"jpg" || fileExtension == L"jpeg" || fileExtension == L"png" || fileExtension == L"tiff" || fileExtension == L"wmf" || fileExtension == L"emf")
     {
         this->image = new Image(this, this->fileName, 0, 0, this->m_width, this->m_height - 22);
@@ -31,7 +44,6 @@ void FileViewerWindow::OnInitializeWindow()
         this->fileView->SetDimensions(0, 0, this->m_width, this->m_height - 22);
         this->fileView->AddSpecificStyle(ES_READONLY | ES_AUTOHSCROLL | ES_AUTOVSCROLL);
         this->fileView->Show();
-        //this->fileView->SetText(this->fileContent);
         SendMessageA(this->fileView->GetHandle(), WM_SETTEXT, 0, (LPARAM)this->fileContent);
     }
 
@@ -53,6 +65,7 @@ void FileViewerWindow::OnInitializeWindow()
     }
     else this->SetDimensions(800, 600);
 
+    this->SetIcon(fileInfo.hIcon);
     this->SetTitle(this->fileName);
 }
 
