@@ -26,6 +26,7 @@ class Window
         
         METHOD Application* GetApplication();
         METHOD HWND GetHandle();
+        METHOD Window* GetParent();
         METHOD int GetStyle();
         METHOD String GetTitle();
 

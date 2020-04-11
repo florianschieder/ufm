@@ -36,6 +36,7 @@ class MainWindow : public Window {
 
     private:
         EventHandler FileViewerButtonClicked(Window* window);
+        EventHandler EditButtonClicked(Window* window);
 
         void OnClose();
         void OnInitializeWindow();

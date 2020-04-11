@@ -21,6 +21,11 @@ METHOD Window::Window(Application* app, Window* parent) : Window(app)
     this->m_parentWindow = parent;
 }
 
+METHOD Window* Window::GetParent()
+{
+    return this->m_parentWindow;
+}
+
 METHOD bool Window::IsOpen()
 {
     return this->m_isOpen;

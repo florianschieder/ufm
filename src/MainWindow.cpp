@@ -31,16 +31,6 @@ MainWindow::~MainWindow() {
     delete this->rightShellView;
 }
 
-void MainWindow::FileViewerButtonClicked(Window* window)
-{
-    ShellListView* activeCtrl = (ShellListView*)(((MainWindow*)window)->ActiveControl);
-
-    std::shared_ptr<FileViewerWindow> fileViewer = std::make_shared<FileViewerWindow>(window->GetApplication(), activeCtrl->SelectedExt);
-
-    fileViewer->SetFile(activeCtrl->SelectedPath.c_str());
-    fileViewer->Show();
-}
-
 /**
  * MainWindow::OnClose: Main window close handler
  */
@@ -82,6 +72,7 @@ void MainWindow::OnInitializeWindow()
     this->editButton = new Button(this);
     this->editButton->SetDimensions(m_width / 7, this->m_height - 44, m_width / 7, 22);
     this->editButton->SetText(L"[F4] Edit");
+    this->editButton->OnClick = this->EditButtonClicked;
     this->editButton->Show();
 
     this->copyButton = new Button(this);
@@ -263,4 +254,33 @@ void MainWindow::OnResizeWindow()
         this->m_height - 44,
         this->m_width / 7,
         22);
+}
+
+// Event Handler
+
+void MainWindow::FileViewerButtonClicked(Window* window)
+{
+    ShellListView* activeCtrl = (ShellListView*)(((MainWindow*)window)->ActiveControl);
+
+    std::shared_ptr<FileViewerWindow> fileViewer = std::make_shared<FileViewerWindow>(window->GetApplication(), activeCtrl->SelectedExt);
+
+    fileViewer->SetFile(activeCtrl->SelectedPath.c_str());
+    fileViewer->Show();
+}
+
+void MainWindow::EditButtonClicked(Window* window)
+{
+    ShellListView* activeCtrl = (ShellListView*)(((MainWindow*)window)->ActiveControl);
+
+    SHELLEXECUTEINFO info;
+    info.cbSize = sizeof(info);
+    info.fMask = SEE_MASK_DEFAULT | SEE_MASK_NOCLOSEPROCESS;
+    info.hwnd = window->GetHandle();
+    info.lpVerb = L"edit";
+    info.lpFile = activeCtrl->SelectedPath.c_str();
+    info.lpParameters = NULL;
+    info.lpDirectory = NULL;
+    info.nShow = SW_SHOW;
+
+    ShellExecuteEx(&info);
 }
