@@ -5,6 +5,11 @@ METHOD InputBox::InputBox(Window* parent) : Control(parent)
     this->m_controlHandle = { 0 };
 }
 
+METHOD InputBox::InputBox(Window* parent, int x, int y, int w, int h) : InputBox(parent)
+{
+    this->SetDimensions(x, y, w, h);
+}
+
 METHOD void InputBox::Show()
 {
     HFONT hFont = CreateFont(

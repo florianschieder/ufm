@@ -40,7 +40,7 @@ METHOD ToolBar::ToolBar(Window* parent, int x, int y, int w, int h) : Control(pa
     }
 }
 
-void ToolBar::AddControl(std::shared_ptr<Control> control)
+void ToolBar::AddControl(Control* control)
 {
     SetParent(control->GetHandle(), this->m_controlHandle);
 }

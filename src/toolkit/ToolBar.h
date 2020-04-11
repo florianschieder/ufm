@@ -7,7 +7,7 @@ class ToolBar : public Control
     public:
         METHOD ToolBar(Window* parent, int x, int y, int w, int h);
     
-        METHOD void AddControl(std::shared_ptr<Control> control);
+        METHOD void AddControl(Control* control);
         METHOD void Show();
 
         METHOD void AddStartGripper(int dx = 3);

@@ -6,6 +6,7 @@ class InputBox : public Control
 {
     public:
         METHOD InputBox(Window* parent);
+        METHOD InputBox(Window* parent, int x, int y, int w, int h);
         METHOD void Show();
         METHOD void SetDimensions(int x, int y, int w, int h);
         METHOD void SetText(wchar_t* Text);

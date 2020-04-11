@@ -10,6 +10,8 @@
 #include "toolkit/Icon.h"
 #include "toolkit/InputBox.h"
 #include "toolkit/ListView.h"
+#include "toolkit/ShellInputBox.h"
+#include "toolkit/ShellListView.h"
 #include "toolkit/Window.h"
 
 #include "toolkit/ToolBar.h"

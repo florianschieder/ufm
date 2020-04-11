@@ -451,6 +451,7 @@
     <ClCompile Include="src\toolkit\Application.cpp" />
     <ClCompile Include="src\MainWindow.cpp" />
     <ClCompile Include="src\toolkit\Control.cpp" />
+    <ClCompile Include="src\toolkit\ShellInputBox.cpp" />
     <ClCompile Include="src\toolkit\ShellListView.cpp" />
     <ClCompile Include="src\toolkit\StatusBar.cpp" />
     <ClCompile Include="src\toolkit\TextBox.cpp" />
@@ -465,6 +466,7 @@
     <ClInclude Include="src\toolkit\core\FileType.h" />
     <ClInclude Include="src\toolkit\core\String.h" />
     <ClInclude Include="src\toolkit\Image.h" />
+    <ClInclude Include="src\toolkit\ShellInputBox.h" />
     <ClInclude Include="src\toolkit\StatusBar.h" />
     <ClInclude Include="src\toolkit\TextBox.h" />
     <ClInclude Include="src\toolkit\ToolBar.h" />

@@ -105,7 +105,7 @@ void MainWindow::OnInitializeWindow()
     this->statusbar = new StatusBar(this, 0, this->m_height - 22, this->m_width, 22);
     this->statusbar->AddStartGripper();
     this->statusbar->Show();
-    
+
     this->SetTitle(L"WFM");
     this->SetDimensions(800, 600);
 }
@@ -117,7 +117,8 @@ void MainWindow::OnMenuEvent(WORD menuID)
 {
     ShellListView* activeControl;
 
-    switch (menuID) {
+    switch (menuID)
+    {
         case ID_SHELLVIEW_DETAILS:
             activeControl = (ShellListView*) this->ActiveControl;
             activeControl->SetView(LVS_REPORT);
