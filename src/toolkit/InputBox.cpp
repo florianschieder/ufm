@@ -12,22 +12,6 @@ METHOD InputBox::InputBox(Window* parent, int x, int y, int w, int h) : InputBox
 
 METHOD void InputBox::Show()
 {
-    HFONT hFont = CreateFont(
-        PT(10),
-        0,
-        0,
-        0,
-        FW_DONTCARE,
-        FALSE,
-        FALSE,
-        FALSE,
-        ANSI_CHARSET,
-        OUT_TT_PRECIS,
-        CLIP_DEFAULT_PRECIS,
-        DEFAULT_QUALITY,
-        DEFAULT_PITCH | FF_DONTCARE,
-        TEXT("Courier New"));
-
     this->m_controlHandle = CreateWindowEx(
         0,
         L"EDIT",
@@ -56,7 +40,7 @@ METHOD void InputBox::Show()
     SendMessage(
         this->m_controlHandle,
         WM_SETFONT,
-        (WPARAM)hFont,
+        (WPARAM)this->defaultFont,
         TRUE);
 }
 

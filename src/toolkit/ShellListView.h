@@ -17,13 +17,17 @@ class ShellListView : public ListView
     public:
         METHOD ShellListView(Window* parent);
         METHOD String GetDirectory();
+        METHOD void SetDirectory(String);
         METHOD void RefreshView();
 
+        String CurrentDrive;
         String SelectedPath;
         String SelectedFile;
         String SelectedExt;
         
         bool ShowHiddenFiles;
+
+        void (*OnSelectionChanged)(ShellListView* object, Window* parent) = nullptr;
 
     private:
         METHOD bool Enumerate();

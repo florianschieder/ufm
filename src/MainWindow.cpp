@@ -20,6 +20,13 @@ MainWindow::~MainWindow()
     delete this->toolBar;
     delete this->statusbar;
 
+    delete this->leftBox;
+    delete this->rightBox;
+    delete this->leftBoxApply;
+    delete this->rightBoxApply;
+    delete this->leftPath;
+    delete this->rightPath;
+
     delete this->closeButton;
     delete this->copyButton;
     delete this->deleteButton;
@@ -49,13 +56,43 @@ void MainWindow::OnInitializeWindow()
     this->toolBar->AddStartGripper();
     this->toolBar->Show();
 
+    this->leftBox = new DriveComboBox(this);
+    this->leftBox->OnSelectionChanged = this->ComboBoxSelectionChanged;
+    this->leftBox->SetDimensions(5, 35, 60, 22);
+    this->leftBox->Show();
+
+    this->leftPath = new ShellInputBox(this, 70, 35, 60, 22);
+    this->leftPath->Show();
+
+    this->leftBoxApply = new Button(this);
+    this->leftBoxApply->SetDimensions(360, 34, 30, 24);
+    this->leftBoxApply->SetIcon(IDI_FORWARD, 16, 16);
+    this->leftBoxApply->OnClick = this->LeftApplyButtonClicked;
+    this->leftBoxApply->Show();
+
+    this->rightBox = new DriveComboBox(this);
+    this->rightBox->OnSelectionChanged = this->ComboBoxSelectionChanged;
+    this->rightBox->SetDimensions(395, 35, 60, 22);
+    this->rightBox->Show();
+
+    this->rightPath = new ShellInputBox(this, 460, 35, 60, 22);
+    this->rightPath->Show();
+
+    this->rightBoxApply = new Button(this);
+    this->rightBoxApply->SetDimensions(750, 34, 30, 24);
+    this->rightBoxApply->SetIcon(IDI_FORWARD, 16, 16);
+    this->rightBoxApply->OnClick = this->RightApplyButtonClicked;
+    this->rightBoxApply->Show();
+
     this->leftShellView = new ShellListView(this);
     this->leftShellView->SetDimensions(-1, 60, 401, 366);
+    this->leftShellView->OnSelectionChanged = this->ShellListViewSelectionChanged;
     this->leftShellView->RefreshView();
     this->leftShellView->SetView(LVS_REPORT);
     
     this->rightShellView = new ShellListView(this);
     this->rightShellView->SetDimensions(400, 60, 401, 366);
+    this->rightShellView->OnSelectionChanged = this->ShellListViewSelectionChanged;
     this->rightShellView->RefreshView();
     this->rightShellView->SetView(LVS_REPORT);
     
@@ -230,6 +267,36 @@ void MainWindow::OnResizeWindow()
         this->toolBar->GetY(),
         this->m_width,
         this->toolBar->GetHeight());
+
+    this->leftPath->Resize(
+        this->leftPath->GetX(),
+        this->leftPath->GetY(),
+        (this->m_width / 2) - (this->leftPath->GetX() + 10 + this->leftBoxApply->GetWidth()),
+        this->leftPath->GetHeight());
+
+    this->leftBoxApply->Resize(
+        (this->m_width / 2) - (this->leftBoxApply->GetWidth() + 5),
+        this->leftBoxApply->GetY(),
+        this->leftBoxApply->GetWidth(),
+        this->leftBoxApply->GetHeight());
+
+    this->rightBox->Resize(
+        (this->m_width / 2) + 5,
+        this->rightBox->GetY(),
+        this->rightBox->GetWidth(),
+        this->rightBox->GetHeight());
+
+    this->rightPath->Resize(
+        this->rightBox->GetX() + this->rightBox->GetWidth() + 5,
+        this->rightPath->GetY(),
+        (this->m_width / 2) - (this->leftPath->GetX() + 10 + this->leftBoxApply->GetWidth()),
+        this->rightPath->GetHeight());
+
+    this->rightBoxApply->Resize(
+        this->m_width - 35,
+        this->rightBoxApply->GetY(),
+        this->rightBoxApply->GetWidth(),
+        this->rightBoxApply->GetHeight());
 
     this->leftShellView->Resize(
         -1,
@@ -439,6 +506,48 @@ void MainWindow::NewDirButtonClicked(Window* window)
         wnd->NewDirDlgProc);
 }
 
+void MainWindow::ShellListViewSelectionChanged(ShellListView* object, Window* parent)
+{
+    MainWindow* wnd = (MainWindow*)parent;
+
+    if (object == wnd->leftShellView)
+    {
+        wnd->leftPath->SetText(
+            (TCHAR*) wnd->leftShellView->GetDirectory().c_str());
+
+        SendMessage(
+            wnd->leftBox->GetHandle(),
+            CB_SELECTSTRING,
+            -1,
+            (LPARAM) wnd->leftShellView->CurrentDrive.c_str());
+    }
+    else if (object == wnd->rightShellView)
+    {
+        wnd->rightPath->SetText(
+            (TCHAR*)wnd->rightShellView->GetDirectory().c_str());
+
+        SendMessage(
+            wnd->rightBox->GetHandle(),
+            CB_SELECTSTRING,
+            -1,
+            (LPARAM)wnd->rightShellView->CurrentDrive.c_str());
+    }
+}
+
+void MainWindow::ComboBoxSelectionChanged(ComboBox* object, Window* parent)
+{
+    MainWindow* wnd = (MainWindow*) parent;
+
+    if (object == wnd->leftBox)
+    {
+        wnd->leftShellView->SetDirectory(object->SelectedItem);
+    }
+    else if (object == wnd->rightBox)
+    {
+        wnd->rightShellView->SetDirectory(object->SelectedItem);
+    }
+}
+
 void MainWindow::DeleteButtonClicked(Window* window)
 {
     MainWindow* wnd = (MainWindow*) window;
@@ -530,4 +639,18 @@ INT_PTR MainWindow::NewDirDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lP
         return FALSE;
     }
     return TRUE;
+}
+
+void MainWindow::LeftApplyButtonClicked(Window* parent)
+{
+    MainWindow* wnd = (MainWindow*) parent;
+    wnd->leftShellView->SetDirectory(
+        wnd->leftPath->GetText());
+}
+
+void MainWindow::RightApplyButtonClicked(Window* parent)
+{
+    MainWindow* wnd = (MainWindow*) parent;
+    wnd->rightShellView->SetDirectory(
+        wnd->rightPath->GetText());
 }

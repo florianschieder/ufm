@@ -2,6 +2,22 @@
 
 METHOD Control::Control(Window* parent)
 {
+    this->defaultFont = CreateFont(
+        PT(9),
+        0,
+        0,
+        0,
+        FW_REGULAR,
+        FALSE,
+        FALSE,
+        FALSE,
+        ANSI_CHARSET,
+        OUT_TT_PRECIS,
+        CLIP_DEFAULT_PRECIS,
+        DEFAULT_QUALITY,
+        DEFAULT_PITCH | FF_DONTCARE,
+        TEXT("Tahoma"));
+
     this->m_className = (wchar_t*) L"";
     this->m_parentWindow = parent;
     this->m_controlHandle = { 0 };
@@ -36,6 +52,13 @@ METHOD void Control::Resize(int x, int y, int width, int height)
         width,
         height,
         SWP_NOZORDER | SWP_SHOWWINDOW);
+}
+
+METHOD String Control::GetText()
+{
+    TCHAR buffer[512];
+    GetWindowText(this->m_controlHandle, buffer, 512);
+    return buffer;
 }
 
 METHOD int Control::GetX()

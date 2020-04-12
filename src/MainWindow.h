@@ -7,6 +7,7 @@
 
 #include "toolkit/Application.h"
 #include "toolkit/Button.h"
+#include "toolkit/DriveComboBox.h"
 #include "toolkit/Icon.h"
 #include "toolkit/InputBox.h"
 #include "toolkit/ListView.h"
@@ -48,6 +49,11 @@ class MainWindow : public Window {
         EventHandler DeleteButtonClicked(Window* window);
         EventHandler NewDirButtonClicked(Window* window);
 
+        EventHandler LeftApplyButtonClicked(Window* window);
+        EventHandler RightApplyButtonClicked(Window* window);
+        EventHandler ComboBoxSelectionChanged(ComboBox* object, Window* parent);
+        EventHandler ShellListViewSelectionChanged(ShellListView* object, Window* parent);
+
         void OnClose();
         void OnInitializeWindow();
         void OnMenuEvent(WORD menuID);
@@ -69,4 +75,11 @@ class MainWindow : public Window {
         Button* newDirectoryButton = 0;
         Button* deleteButton = 0;
         Button* closeButton = 0;
+        
+        DriveComboBox* leftBox = 0;
+        DriveComboBox* rightBox = 0;
+        ShellInputBox* leftPath = 0;
+        ShellInputBox* rightPath = 0;
+        Button* leftBoxApply = 0;
+        Button* rightBoxApply = 0;
 };

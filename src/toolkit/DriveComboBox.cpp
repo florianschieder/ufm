@@ -22,9 +22,9 @@ METHOD void DriveComboBox::Show()
         }
     }
 
-    SendMessage(
+    /*SendMessage(
         this->m_controlHandle,
         CB_SETCURSEL,
         0,
-        0);
+        0);*/
 }

@@ -15,22 +15,6 @@ METHOD void ComboBox::AddItem(String item)
 
 METHOD void ComboBox::Show()
 {
-    HFONT hFont = CreateFont(
-        PT(8),
-        0,
-        0,
-        0,
-        FW_REGULAR,
-        FALSE,
-        FALSE,
-        FALSE,
-        ANSI_CHARSET,
-        OUT_TT_PRECIS,
-        CLIP_DEFAULT_PRECIS,
-        DEFAULT_QUALITY,
-        DEFAULT_PITCH | FF_DONTCARE,
-        TEXT("Tahoma"));
-
     this->m_controlHandle = CreateWindowEx(
         0,
         WC_COMBOBOX,
@@ -59,7 +43,7 @@ METHOD void ComboBox::Show()
     SendMessage(
         this->m_controlHandle,
         WM_SETFONT,
-        (WPARAM)hFont,
+        (WPARAM) this->defaultFont,
         TRUE);
 }
 
@@ -73,8 +57,20 @@ METHOD LRESULT ComboBox::MessageLoop(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM
 {
     switch (uMsg)
     {
-    default:
-        break;
+        case WM_COMBOBOX_ITEM_CHANGED:
+            TCHAR buffer[512];
+            int idx;
+            idx = SendMessage(this->m_controlHandle, CB_GETCURSEL, 0, 0);
+            SendMessage(this->m_controlHandle, CB_GETLBTEXT, idx, (LPARAM)buffer);
+            this->SelectedItem = buffer;
+
+            if (this->OnSelectionChanged != nullptr)
+            {
+                this->OnSelectionChanged(this, this->m_parentWindow);
+            }
+            break;
+        default:
+            break;
     }
 
     return DefSubclassProc(hwnd, uMsg, wParam, lParam);

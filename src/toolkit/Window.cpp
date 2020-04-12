@@ -147,6 +147,14 @@ METHOD LRESULT CALLBACK Window::MessageLoop(HWND hwnd, UINT uMsg, WPARAM wParam,
         case WM_COMMAND:
             switch (HIWORD(wParam))
             {
+                case CBN_SELCHANGE:
+                    SendMessage(
+                        GetDlgItem(hwnd, LOWORD(wParam)),
+                        WM_COMBOBOX_ITEM_CHANGED,
+                        wParam,
+                        lParam);
+                    break;
+
                 case BN_CLICKED:
                     SendMessage(
                         GetDlgItem(hwnd, LOWORD(wParam)),
@@ -167,6 +175,7 @@ METHOD LRESULT CALLBACK Window::MessageLoop(HWND hwnd, UINT uMsg, WPARAM wParam,
                         WM_COMMAND,
                         wParam,
                         lParam);
+                    break;
             }
             return 0;
 

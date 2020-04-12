@@ -20,22 +20,6 @@ METHOD void Button::SetDimensions(int x, int y, int w, int h)
 
 METHOD void Button::Show()
 {
-    HFONT hFont = CreateFont(
-        PT(8),
-        0,
-        0,
-        0,
-        FW_REGULAR,
-        FALSE,
-        FALSE,
-        FALSE,
-        ANSI_CHARSET,
-        OUT_TT_PRECIS,
-        CLIP_DEFAULT_PRECIS,
-        DEFAULT_QUALITY,
-        DEFAULT_PITCH | FF_DONTCARE,
-        TEXT("MS Sans Serif"));
-
     this->m_controlHandle = CreateWindowEx(
         0,
         L"BUTTON",
@@ -77,7 +61,7 @@ METHOD void Button::Show()
     SendMessage(
         this->m_controlHandle,
         WM_SETFONT,
-        (WPARAM)hFont,
+        (WPARAM) this->defaultFont,
         TRUE);
 }
 

@@ -44,6 +44,12 @@ METHOD String ShellListView::GetDirectory()
     return this->m_Directory;
 }
 
+METHOD void ShellListView::SetDirectory(String dir)
+{
+    this->m_Directory = dir;
+    this->RefreshView();
+}
+
 METHOD void ShellListView::RefreshView()
 {
     // Locals
@@ -124,7 +130,19 @@ METHOD bool ShellListView::Enumerate()
         throw new std::exception("Sorry, you passed an invalid path");
     }
 
+    // Set current drive
     directoryWithFilter = this->m_Directory;
+    this->CurrentDrive = directoryWithFilter.substr(0, 3);
+
+    // First, each time Enumerate() is called, the path must have been
+    // changed. Therefore, call the SelectionChanged event handler with
+    // the now processed absolute path and determined drive.
+
+    if (this->OnSelectionChanged != nullptr)
+    {
+        this->OnSelectionChanged(this, this->m_parentWindow);
+    }
+
     directoryWithFilter.append(L"*.*");
 
     hSearchData = (LPCTSTR) directoryWithFilter.c_str();
@@ -437,6 +455,7 @@ METHOD LRESULT CALLBACK ShellListView::MessageLoop(HWND hwnd, UINT uMsg, WPARAM 
                         fullPath.append(this->m_Directory);
                         fullPath.append(file);
 
+                        this->CurrentDrive = fullPath.substr(0, 3);
                         this->SelectedPath = fullPath;
                         this->SelectedExt = ext;
                         this->SelectedFile = file;

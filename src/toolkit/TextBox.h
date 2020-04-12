@@ -5,4 +5,5 @@
 class TextBox : public InputBox {
     public:
         METHOD TextBox(Window* parent);
+        METHOD void Show();
 };

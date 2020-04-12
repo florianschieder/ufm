@@ -7,6 +7,7 @@
 #include "Application.h"
 
 #define WM_POSTPARAM WM_USER + 1
+#define WM_COMBOBOX_ITEM_CHANGED WM_USER + 2
 
 class Window
 {

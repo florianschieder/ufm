@@ -54,22 +54,6 @@ METHOD void ListView::UninitializeTimeIntensiveProcess()
 
 METHOD void ListView::Show()
 {
-    HFONT hFont = CreateFont(
-        PT(9),
-        0,
-        0,
-        0,
-        FW_DONTCARE,
-        FALSE,
-        FALSE,
-        FALSE,
-        ANSI_CHARSET,
-        OUT_TT_PRECIS,
-        CLIP_DEFAULT_PRECIS,
-        DEFAULT_QUALITY,
-        DEFAULT_PITCH | FF_DONTCARE,
-        TEXT("Segoe UI"));
-
     this->m_controlHandle = CreateWindowEx(
         WS_EX_CLIENTEDGE,
         WC_LISTVIEW,
@@ -104,7 +88,7 @@ METHOD void ListView::Show()
     SendMessage(
         this->m_controlHandle,
         WM_SETFONT,
-        (WPARAM)hFont,
+        (WPARAM) this->defaultFont,
         TRUE);
 }
 

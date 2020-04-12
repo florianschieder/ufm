@@ -9,6 +9,7 @@ class Control {
         METHOD HWND GetHandle();
         METHOD void Resize(int x, int y, int width, int height);
         
+        METHOD String GetText();
         METHOD int GetX();
         METHOD int GetY();
         METHOD int GetWidth();
@@ -22,6 +23,8 @@ class Control {
         METHOD void AddSpecificStyle(int style);
 
     protected:
+        HFONT defaultFont;
+
         int specificStyles = 0;
 
         int m_x;
