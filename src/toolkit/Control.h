@@ -14,6 +14,7 @@ class Control {
         METHOD int GetWidth();
         METHOD int GetHeight();
 
+        METHOD void SetDimensions(int x, int y, int w, int h);
         METHOD void SetID(int id);
 
         METHOD virtual void Show() = 0;

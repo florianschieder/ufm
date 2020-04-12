@@ -58,7 +58,15 @@ METHOD int Control::GetHeight()
     return this->m_height;
 }
 
-METHOD void Control::SetID(int id)
+METHOD void Control::SetDimensions(int x, int y, int w, int h)
+{
+    this->m_x = x;
+    this->m_y = y;
+    this->m_width = w;
+    this->m_height = h;
+}
+
+void Control::SetID(int id)
 {
     this->m_ctrlID = id;
 }
