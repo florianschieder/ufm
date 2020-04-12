@@ -81,16 +81,16 @@ void StatusBar::OnDraw(HDC hdc)
     FillRect(
         hdc,
         &rect,
-        CreateSolidBrush(RGB(255, 255, 255)));
+        CreateSolidBrush(RGB(182, 188, 204)));
 
     rect.left = 0;
     rect.right = this->m_width;
     rect.top = 1;
-    rect.bottom = 2;
+    rect.bottom = this->m_height;
     FillRect(
         hdc,
         &rect,
-        CreateSolidBrush(RGB(182, 188, 204)));
+        GetSysColorBrush(COLOR_BTNFACE));
 
     this->DrawStartGripper(hdc, this->drawStartGripperX);
 

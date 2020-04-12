@@ -15,8 +15,7 @@ MainWindow::MainWindow(Application* app) : Window(app)
 
 MainWindow::~MainWindow()
 {
-    delete this->buttonBar;
-    delete this->driveBar;
+    delete this->toolBar;
     delete this->statusbar;
 
     delete this->closeButton;
@@ -44,12 +43,9 @@ void MainWindow::OnClose()
  */
 void MainWindow::OnInitializeWindow()
 {
-    this->buttonBar = new ToolBar(this, 0, 0, this->m_width, 32);
-    this->buttonBar->AddStartGripper();
-    this->buttonBar->Show();
-
-    this->driveBar = new ToolBar(this, 0, 32, this->m_width, 28);
-    this->driveBar->Show();
+    this->toolBar = new ToolBar(this, 0, 0, this->m_width, 32);
+    this->toolBar->AddStartGripper();
+    this->toolBar->Show();
 
     this->leftShellView = new ShellListView(this);
     this->leftShellView->SetDimensions(-1, 60, 401, 366);
@@ -78,11 +74,13 @@ void MainWindow::OnInitializeWindow()
     this->copyButton = new Button(this);
     this->copyButton->SetDimensions(2 * m_width / 7, this->m_height - 44, m_width / 7, 22);
     this->copyButton->SetText(L"[F5] Copy");
+    this->copyButton->OnClick = this->CopyButtonClicked;
     this->copyButton->Show();
 
     this->moveButton = new Button(this);
     this->moveButton->SetDimensions(3 * m_width / 7, this->m_height - 44, m_width / 7, 22);
     this->moveButton->SetText(L"[F6] Move");
+    this->moveButton->OnClick = this->MoveButtonClicked;
     this->moveButton->Show();
 
     this->newDirectoryButton = new Button(this);
@@ -94,6 +92,7 @@ void MainWindow::OnInitializeWindow()
     this->deleteButton = new Button(this);
     this->deleteButton->SetDimensions(5 * m_width / 7, this->m_height - 44, m_width / 7, 22);
     this->deleteButton->SetText(L"[F8] Delete");
+    this->deleteButton->OnClick = this->DeleteButtonClicked;
     this->deleteButton->Show();
 
     this->closeButton = new Button(this);
@@ -123,27 +122,33 @@ void MainWindow::OnMenuEvent(WORD menuID)
             activeControl = (ShellListView*) this->ActiveControl;
             activeControl->SetView(LVS_REPORT);
             break;
+
         case ID_SHELLVIEW_LI:
             activeControl = (ShellListView*) this->ActiveControl;
             activeControl->SetView(LVS_ICON);
             break;
+
         case ID_SHELLVIEW_SI:
             activeControl = (ShellListView*) this->ActiveControl;
             activeControl->SetView(LVS_SMALLICON);
             break;
+
         case ID_SHELLVIEW_LIST:
             activeControl = (ShellListView*) this->ActiveControl;
             activeControl->SetView(LVS_LIST);
             break;
+
         case ID_FILE_CLOSE:
             this->Close();
             break;
+
         case ID_VIEW_TOGGLEHIDDENFILES:
             this->leftShellView->ShowHiddenFiles = !this->leftShellView->ShowHiddenFiles;
             this->rightShellView->ShowHiddenFiles = !this->rightShellView->ShowHiddenFiles;
             this->leftShellView->RefreshView();
             this->rightShellView->RefreshView();
             break;
+
         case ID_HELP_ABOUTWFM:
             DialogBox(
                 this->m_application->GetInstance(),
@@ -211,19 +216,6 @@ void MainWindow::OnPostParam(void* param, int reason)
  */
 void MainWindow::OnPaint(PAINTSTRUCT ps, HDC hdc)
 {
-    RECT rect;
-
-    rect.left = 0;
-    rect.top = 0;
-    rect.right = ps.rcPaint.right;
-    rect.bottom = ps.rcPaint.bottom;
-    FillRect(hdc, &rect, CreateSolidBrush(RGB(217, 223, 240)));
-    
-    rect.left = 0;
-    rect.top = ps.rcPaint.bottom - 46;
-    rect.right = ps.rcPaint.right;
-    rect.bottom = ps.rcPaint.bottom;
-    FillRect(hdc, &rect, GetSysColorBrush(COLOR_BTNFACE));
 }
 
 /**
@@ -231,17 +223,11 @@ void MainWindow::OnPaint(PAINTSTRUCT ps, HDC hdc)
  */
 void MainWindow::OnResizeWindow()
 {
-    this->buttonBar->Resize(
+    this->toolBar->Resize(
         0,
-        this->buttonBar->GetY(),
+        this->toolBar->GetY(),
         this->m_width,
-        this->buttonBar->GetHeight());
-
-    this->driveBar->Resize(
-        0,
-        this->driveBar->GetY(),
-        this->m_width,
-        this->driveBar->GetHeight());
+        this->toolBar->GetHeight());
 
     this->leftShellView->Resize(
         -1,
@@ -310,10 +296,22 @@ void MainWindow::FileViewerButtonClicked(Window* window)
 {
     ShellListView* activeCtrl = (ShellListView*)(((MainWindow*)window)->ActiveControl);
 
-    std::shared_ptr<FileViewerWindow> fileViewer = std::make_shared<FileViewerWindow>(window->GetApplication(), activeCtrl->SelectedExt);
+    if (!(GetFileAttributes(activeCtrl->SelectedPath.c_str()) & FILE_ATTRIBUTE_DIRECTORY))
+    {
+        std::shared_ptr<FileViewerWindow> fileViewer = std::make_shared<FileViewerWindow>(window->GetApplication(), activeCtrl->SelectedExt);
 
-    fileViewer->SetFile(activeCtrl->SelectedPath.c_str());
-    fileViewer->Show();
+        fileViewer->SetFile(activeCtrl->SelectedPath.c_str());
+        fileViewer->Show();
+    }
+    else
+    {
+        ShellMessageBox(
+            window->GetApplication()->GetInstance(),
+            window->GetHandle(),
+            L"No file selected.",
+            window->GetTitle().c_str(),
+            MB_ICONINFORMATION);
+    }
 }
 
 void MainWindow::EditButtonClicked(Window* window)
@@ -333,6 +331,14 @@ void MainWindow::EditButtonClicked(Window* window)
     ShellExecuteEx(&info);
 }
 
+void MainWindow::CopyButtonClicked(Window* window)
+{
+}
+
+void MainWindow::MoveButtonClicked(Window* window)
+{
+}
+
 void MainWindow::NewDirButtonClicked(Window* window)
 {
     MainWindow* wnd = (MainWindow*) window;
@@ -342,6 +348,40 @@ void MainWindow::NewDirButtonClicked(Window* window)
         MAKEINTRESOURCE(IDD_NEWDIR),
         wnd->GetHandle(),
         wnd->NewDirDlgProc);
+}
+
+void MainWindow::DeleteButtonClicked(Window* window)
+{
+    MainWindow* wnd = (MainWindow*) window;
+    ShellListView* active = (ShellListView*) wnd->ActiveControl;
+
+    String myPath(active->SelectedPath);
+    myPath += L'\0';
+
+    if (ShellMessageBox(
+        wnd->GetApplication()->GetInstance(),
+        wnd->GetHandle(),
+        String(L"Are you sure to recycle \"").append(active->SelectedPath).append(L"\" (and, in case of a directory, each of its contents)?").c_str(),
+        wnd->GetTitle().c_str(),
+        MB_YESNO | MB_ICONWARNING) == IDYES)
+    {
+        SHFILEOPSTRUCT fileOp;
+
+            ZeroMemory(
+                &fileOp,
+                sizeof(fileOp));
+
+            fileOp.hwnd = wnd->GetHandle();
+            fileOp.wFunc = FO_DELETE;
+            fileOp.pFrom = (myPath).c_str();
+            fileOp.fFlags = FOF_ALLOWUNDO;
+        fileOp.pTo = NULL;
+
+        SHFileOperation(&fileOp);
+
+        wnd->leftShellView->RefreshView();
+        wnd->rightShellView->RefreshView();
+    }
 }
 
 INT_PTR MainWindow::AboutDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)

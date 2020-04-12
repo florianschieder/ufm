@@ -8,36 +8,7 @@ METHOD ToolBar::ToolBar(Window* parent, int x, int y, int w, int h) : Control(pa
     this->m_height = h;
 
     this->drawStartGripperX = -1;
-
-    switch (this->m_parentWindow->GetApplication()->GetEnvironment().OSVersionCode)
-    {
-        case OS_10:
-            this->toolbarBrush = CreateSolidBrush(
-                RGB(217, 223, 240));
-            break;
-
-        case OS_8:
-        case OS_8_1:
-            this->toolbarBrush = CreateSolidBrush(
-                RGB(240, 240, 240));
-            break;
-
-        case OS_7:
-        case OS_VISTA:
-            this->toolbarBrush = CreateSolidBrush(
-                RGB(217, 223, 240));
-            break;
-
-        case OS_XP:
-            this->toolbarBrush = CreateSolidBrush(
-                RGB(236, 233, 216));
-            break;
-
-        default:
-            this->toolbarBrush = CreateSolidBrush(
-                RGB(240, 240, 240));
-            break;
-    }
+    this->toolbarBrush = GetSysColorBrush(COLOR_BTNFACE);
 }
 
 void ToolBar::AddControl(Control* control)

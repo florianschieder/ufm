@@ -74,7 +74,7 @@ METHOD void ListView::Show()
         WS_EX_CLIENTEDGE,
         WC_LISTVIEW,
         L"",
-        WS_CHILD | WS_VISIBLE | LVS_REPORT | this->specificStyles,
+        WS_CHILD | WS_VISIBLE | LVS_REPORT | LVS_SINGLESEL | this->specificStyles,
         this->m_x,
         this->m_y,
         this->m_width,

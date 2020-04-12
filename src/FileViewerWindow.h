@@ -29,7 +29,7 @@ class FileViewerWindow : public Window
         void OnPostParam(void* param, int reason);
         void OnResizeWindow();
         
-        char* fileContent;
+        char* fileContent = 0;
         long fileSize;
 
         String fileExtension;

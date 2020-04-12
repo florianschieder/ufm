@@ -43,6 +43,9 @@ class MainWindow : public Window {
 
         EventHandler FileViewerButtonClicked(Window* window);
         EventHandler EditButtonClicked(Window* window);
+        EventHandler CopyButtonClicked(Window* window);
+        EventHandler MoveButtonClicked(Window* window);
+        EventHandler DeleteButtonClicked(Window* window);
         EventHandler NewDirButtonClicked(Window* window);
 
         void OnClose();
@@ -52,8 +55,7 @@ class MainWindow : public Window {
         void OnPostParam(void* param, int reason);
         void OnResizeWindow();
 
-        ToolBar* buttonBar = 0;
-        ToolBar* driveBar = 0;
+        ToolBar* toolBar = 0;
 
         StatusBar* statusbar = 0;
 

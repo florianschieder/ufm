@@ -220,7 +220,7 @@ METHOD LRESULT CALLBACK Window::MessageLoop(HWND hwnd, UINT uMsg, WPARAM wParam,
             rect.bottom = this->m_height;
             ps.rcPaint = rect;
 
-            FillRect(paint_hdc, &rect, (HBRUSH)(RGB(255, 255, 255)));
+            FillRect(paint_hdc, &rect, GetSysColorBrush(COLOR_BTNFACE));
             
             this->OnPaint(ps, paint_hdc);
 
