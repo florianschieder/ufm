@@ -2,6 +2,8 @@
 
 #include "../res/resource.h"
 
+using namespace std::filesystem;
+
 /**
  * MainWindow::MainWindow: Main window constructor
  */
@@ -333,10 +335,97 @@ void MainWindow::EditButtonClicked(Window* window)
 
 void MainWindow::CopyButtonClicked(Window* window)
 {
+    MainWindow* wnd = (MainWindow*)window;
+
+    wnd->GetApplication()->IndicateTimeIntensiveProcess();
+
+    // true = left to right, false = right to left
+    bool ltr;
+    ltr = (wnd->ActiveControl == wnd->leftShellView);
+
+    // From / to
+    String from = (ltr) ? wnd->leftShellView->SelectedPath : wnd->rightShellView->SelectedPath;
+    String to = (ltr) ?
+        (wnd->rightShellView->GetDirectory() + wnd->leftShellView->SelectedFile) :
+        (wnd->leftShellView->GetDirectory() +wnd->rightShellView->SelectedFile);
+    
+    if (from == L"")
+    {
+        wnd->GetApplication()->UnindicateTimeIntensiveProcess();
+        return;
+    }
+
+    if (PathFileExists(to.c_str()))
+    {
+        if (ShellMessageBox(
+            wnd->GetApplication()->GetInstance(),
+            wnd->GetHandle(),
+            String(L"Are you sure to overwrite \"").append(to).append(L"\"?").c_str(),
+            wnd->GetTitle().c_str(),
+            MB_ICONEXCLAMATION | MB_YESNO) == IDYES)
+        {
+            CopyFile(from.c_str(), to.c_str(), FALSE);
+
+            wnd->leftShellView->RefreshView();
+            wnd->rightShellView->RefreshView();
+        }
+    }
+    else
+    {
+        CopyFile(from.c_str(), to.c_str(), FALSE);
+
+        wnd->leftShellView->RefreshView();
+        wnd->rightShellView->RefreshView();
+    }
+    wnd->GetApplication()->UnindicateTimeIntensiveProcess();
 }
 
 void MainWindow::MoveButtonClicked(Window* window)
 {
+    MainWindow* wnd = (MainWindow*)window;
+
+    wnd->GetApplication()->IndicateTimeIntensiveProcess();
+
+    // true = left to right, false = right to left
+    bool ltr;
+    ltr = (wnd->ActiveControl == wnd->leftShellView);
+
+    // From / to
+    String from = (ltr) ? wnd->leftShellView->SelectedPath : wnd->rightShellView->SelectedPath;
+    String to = (ltr) ?
+        (wnd->rightShellView->GetDirectory() + wnd->leftShellView->SelectedFile) :
+        (wnd->leftShellView->GetDirectory() + wnd->rightShellView->SelectedFile);
+    
+    if (from == L"")
+    {
+        wnd->GetApplication()->UnindicateTimeIntensiveProcess();
+        return;
+    }
+
+    if (PathFileExists(to.c_str()))
+    {
+        if (ShellMessageBox(
+            wnd->GetApplication()->GetInstance(),
+            wnd->GetHandle(),
+            String(L"Are you sure to overwrite \"").append(to).append(L"\"?").c_str(),
+            wnd->GetTitle().c_str(),
+            MB_ICONEXCLAMATION | MB_YESNO) == IDYES)
+        {
+            MoveFileEx(from.c_str(), to.c_str(), MOVEFILE_REPLACE_EXISTING);
+
+            wnd->leftShellView->RefreshView();
+            wnd->rightShellView->RefreshView();
+        }
+    }
+    else
+    {
+        MoveFile(from.c_str(), to.c_str());
+
+        wnd->leftShellView->RefreshView();
+        wnd->rightShellView->RefreshView();
+    }
+
+    wnd->GetApplication()->UnindicateTimeIntensiveProcess();
 }
 
 void MainWindow::NewDirButtonClicked(Window* window)
@@ -367,14 +456,14 @@ void MainWindow::DeleteButtonClicked(Window* window)
     {
         SHFILEOPSTRUCT fileOp;
 
-            ZeroMemory(
-                &fileOp,
-                sizeof(fileOp));
+        ZeroMemory(
+            &fileOp,
+            sizeof(fileOp));
 
-            fileOp.hwnd = wnd->GetHandle();
-            fileOp.wFunc = FO_DELETE;
-            fileOp.pFrom = (myPath).c_str();
-            fileOp.fFlags = FOF_ALLOWUNDO;
+        fileOp.hwnd = wnd->GetHandle();
+        fileOp.wFunc = FO_DELETE;
+        fileOp.pFrom = (myPath).c_str();
+        fileOp.fFlags = FOF_ALLOWUNDO;
         fileOp.pTo = NULL;
 
         SHFileOperation(&fileOp);

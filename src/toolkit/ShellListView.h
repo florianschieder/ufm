@@ -20,6 +20,7 @@ class ShellListView : public ListView
         METHOD void RefreshView();
 
         String SelectedPath;
+        String SelectedFile;
         String SelectedExt;
         
         bool ShowHiddenFiles;

@@ -5,8 +5,6 @@ METHOD ShellListView::ShellListView(Window* parent) : ListView(parent)
     this->m_Directory = L"C:\\";
     this->m_Filter = L"*.*";
 
-    this->specificStyles = LVS_EDITLABELS;
-
     this->Show();
 
     this->AddColumn(
@@ -426,18 +424,22 @@ METHOD LRESULT CALLBACK ShellListView::MessageLoop(HWND hwnd, UINT uMsg, WPARAM 
 
                     if (ListView_GetSelectedCount(this->m_controlHandle) > 0)
                     {
-                        String fullPath(L"");
-                        fullPath.append(this->m_Directory);
-                        fullPath.append(fileName);
-
+                        String file(L"");
+                        file.append(fileName);
+                        
                         if (String(ext) != String(L"Folder"))
                         {
-                            fullPath.append(L".");
-                            fullPath.append(ext);
+                            file.append(L".");
+                            file.append(ext);
                         }
+
+                        String fullPath(L"");
+                        fullPath.append(this->m_Directory);
+                        fullPath.append(file);
 
                         this->SelectedPath = fullPath;
                         this->SelectedExt = ext;
+                        this->SelectedFile = file;
                     }
 
                     delete[] fileName;
