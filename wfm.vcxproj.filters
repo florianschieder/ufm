@@ -75,6 +75,9 @@
     <ClCompile Include="src\toolkit\DriveComboBox.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="src\toolkit\ToolButton.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\resource.h">
@@ -150,6 +153,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\toolkit\DriveComboBox.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\toolkit\ToolButton.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

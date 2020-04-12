@@ -65,7 +65,8 @@ METHOD void ToolBar::AddSeparator(int x)
 
 METHOD void ToolBar::DrawStartGripper(HDC hdc, int dx)
 {
-    for (int i = 5; i <= this->m_height - 7; i += 4) {
+    for (int i = 5; i <= this->m_height - 7; i += 4)
+    {
         RECT rect;
         
         rect.left = 5 + dx;
@@ -86,10 +87,9 @@ METHOD void ToolBar::DrawSeparator(HDC hdc, int x)
 {
     RECT rect;
 
-    rect = { x, 5, 1, this->m_height - 10 };
-    FillRect(hdc, &rect, CreateSolidBrush(RGB(182, 188, 204)));
-
-    rect = { 1 + x, 5, 1, this->m_height - 10 };
+    rect = { x, 2, x + 1, this->m_height - 5 };
+    FillRect(hdc, &rect, CreateSolidBrush(RGB(150, 150, 150)));
+    rect = { x + 1, 2, x + 2, this->m_height - 4 };
     FillRect(hdc, &rect, CreateSolidBrush(RGB(255, 255, 255)));
 }
 
@@ -118,7 +118,8 @@ void ToolBar::OnDraw(HDC hdc)
     if(this->drawStartGripperX != -1) 
         this->DrawStartGripper(hdc, this->drawStartGripperX);
     
-    for (unsigned int i = 0; i < this->separators.size(); i++) {
+    for (unsigned int i = 0; i < this->separators.size(); i++)
+    {
         this->DrawSeparator(hdc, this->separators[i]);
     }
 }

@@ -61,6 +61,11 @@ METHOD String Control::GetText()
     return buffer;
 }
 
+METHOD Window* Control::GetParent()
+{
+    return this->m_parentWindow;
+}
+
 METHOD int Control::GetX()
 {
     return this->m_x;

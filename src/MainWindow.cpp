@@ -20,6 +20,8 @@ MainWindow::~MainWindow()
     delete this->toolBar;
     delete this->statusbar;
 
+    delete this->refreshButton;
+
     delete this->leftBox;
     delete this->rightBox;
     delete this->leftBoxApply;
@@ -54,7 +56,14 @@ void MainWindow::OnInitializeWindow()
 {
     this->toolBar = new ToolBar(this, 0, 0, this->m_width, 32);
     this->toolBar->AddStartGripper();
+    this->toolBar->AddSeparator(44);
     this->toolBar->Show();
+
+    this->refreshButton = new ToolButton(this->toolBar);
+    this->refreshButton->SetPosition(0);
+    this->refreshButton->SetIcon(IDI_REFRESH, 16, 16);
+    this->refreshButton->OnClick = this->RefreshButtonClicked;
+    this->refreshButton->Show();
 
     this->leftBox = new DriveComboBox(this);
     this->leftBox->OnSelectionChanged = this->ComboBoxSelectionChanged;
@@ -653,4 +662,11 @@ void MainWindow::RightApplyButtonClicked(Window* parent)
     MainWindow* wnd = (MainWindow*) parent;
     wnd->rightShellView->SetDirectory(
         wnd->rightPath->GetText());
+}
+
+void MainWindow::RefreshButtonClicked(Window* parent)
+{
+    MainWindow* wnd = (MainWindow*) parent;
+    wnd->leftShellView->RefreshView();
+    wnd->rightShellView->RefreshView();
 }

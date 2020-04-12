@@ -10,6 +10,7 @@ class Control {
         METHOD void Resize(int x, int y, int width, int height);
         
         METHOD String GetText();
+        METHOD Window* GetParent();
         METHOD int GetX();
         METHOD int GetY();
         METHOD int GetWidth();

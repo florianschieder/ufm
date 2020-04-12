@@ -458,6 +458,7 @@
     <ClCompile Include="src\toolkit\StatusBar.cpp" />
     <ClCompile Include="src\toolkit\TextBox.cpp" />
     <ClCompile Include="src\toolkit\ToolBar.cpp" />
+    <ClCompile Include="src\toolkit\ToolButton.cpp" />
     <ClCompile Include="src\wfm.cpp" />
     <ClCompile Include="src\toolkit\Window.cpp" />
   </ItemGroup>
@@ -474,6 +475,7 @@
     <ClInclude Include="src\toolkit\StatusBar.h" />
     <ClInclude Include="src\toolkit\TextBox.h" />
     <ClInclude Include="src\toolkit\ToolBar.h" />
+    <ClInclude Include="src\toolkit\ToolButton.h" />
     <ClInclude Include="src\toolkit\wfmtk.h" />
     <ClInclude Include="src\toolkit\Icon.h" />
     <ClInclude Include="src\toolkit\wfmtkdef.h" />

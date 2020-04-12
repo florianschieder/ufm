@@ -13,6 +13,7 @@
 #include "toolkit/ListView.h"
 #include "toolkit/ShellInputBox.h"
 #include "toolkit/ShellListView.h"
+#include "toolkit/ToolButton.h"
 #include "toolkit/Window.h"
 
 #include "toolkit/ToolBar.h"
@@ -41,6 +42,8 @@ class MainWindow : public Window {
     private:
         static INT_PTR AboutDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
         static INT_PTR NewDirDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
+
+        EventHandler RefreshButtonClicked(Window* window);
 
         EventHandler FileViewerButtonClicked(Window* window);
         EventHandler EditButtonClicked(Window* window);
@@ -75,6 +78,8 @@ class MainWindow : public Window {
         Button* newDirectoryButton = 0;
         Button* deleteButton = 0;
         Button* closeButton = 0;
+
+        ToolButton* refreshButton = 0;
         
         DriveComboBox* leftBox = 0;
         DriveComboBox* rightBox = 0;
