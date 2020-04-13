@@ -94,14 +94,19 @@ METHOD void ToolBar::DrawSeparator(HDC hdc, int x)
 }
 
 void ToolBar::OnDraw(HDC hdc)
-{    
-    RECT rect;
+{
+    Gdiplus::Graphics graphics(hdc);
+    Gdiplus::RectF rectF(0, 0, this->m_width, this->m_height);
 
-    rect.left = 0;
-    rect.right = this->m_width;
-    rect.top = 0;
-    rect.bottom = this->m_height;
-    FillRect(hdc, &rect, this->toolbarBrush);
+    Gdiplus::LinearGradientBrush brush(
+        rectF,
+        Gdiplus::Color(240, 240, 240),
+        Gdiplus::Color(208, 208, 208),
+        Gdiplus::LinearGradientMode::LinearGradientModeVertical);
+
+    graphics.FillRectangle(&brush, rectF);
+
+    RECT rect;
 
     rect.left = 0;
     rect.right = this->m_width;

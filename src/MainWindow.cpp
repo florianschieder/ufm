@@ -342,6 +342,24 @@ void MainWindow::OnPostParam(void* param, int reason)
  */
 void MainWindow::OnPaint(PAINTSTRUCT ps, HDC hdc)
 {
+    Gdiplus::Graphics graphics(hdc);
+    Gdiplus::RectF rectGradient(0, 32, this->m_width, 28);
+    Gdiplus::RectF rectBg(0, 60, this->m_width, this->leftShellView->GetHeight());
+
+    Gdiplus::LinearGradientBrush brushGradient(
+        rectGradient,
+        Gdiplus::Color(208, 208, 208),
+        Gdiplus::Color(198, 198, 198),
+        Gdiplus::LinearGradientMode::LinearGradientModeVertical);
+
+    Gdiplus::LinearGradientBrush brushBg(
+        rectBg,
+        Gdiplus::Color(198, 198, 198),
+        Gdiplus::Color(240, 240, 240),
+        Gdiplus::LinearGradientMode::LinearGradientModeVertical);
+
+    graphics.FillRectangle(&brushGradient, rectGradient);
+    graphics.FillRectangle(&brushBg, rectBg);
 }
 
 /**

@@ -83,14 +83,16 @@ void StatusBar::OnDraw(HDC hdc)
         &rect,
         CreateSolidBrush(RGB(182, 188, 204)));
 
-    rect.left = 0;
-    rect.right = this->m_width;
-    rect.top = 1;
-    rect.bottom = this->m_height;
-    FillRect(
-        hdc,
-        &rect,
-        GetSysColorBrush(COLOR_BTNFACE));
+    Gdiplus::Graphics graphics(hdc);
+    Gdiplus::RectF rectF(0, 1, this->m_width, this->m_height - 1);
+
+    Gdiplus::LinearGradientBrush brush(
+        rectF,
+        Gdiplus::Color(240, 240, 240),
+        Gdiplus::Color(208, 208, 208),
+        Gdiplus::LinearGradientMode::LinearGradientModeVertical);
+
+    graphics.FillRectangle(&brush, rectF);
 
     this->DrawStartGripper(hdc, this->drawStartGripperX);
 
