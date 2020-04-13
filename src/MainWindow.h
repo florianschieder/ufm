@@ -44,6 +44,15 @@ class MainWindow : public Window {
         static INT_PTR NewDirDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
         EventHandler RefreshButtonClicked(Window* window);
+        EventHandler DetailsButtonClicked(Window* window);
+        EventHandler ListButtonClicked(Window* window);
+        EventHandler SmallIconsButtonClicked(Window* window);
+        EventHandler LargeIconsButtonClicked(Window* window);
+        EventHandler PrintButtonClicked(Window* window);
+        EventHandler AdminButtonClicked(Window* window);
+        EventHandler PropertiesButtonClicked(Window* window);
+        EventHandler RenameButtonClicked(Window* window);
+        EventHandler CmdButtonClicked(Window* window);
 
         EventHandler FileViewerButtonClicked(Window* window);
         EventHandler EditButtonClicked(Window* window);

@@ -76,68 +76,68 @@ void MainWindow::OnInitializeWindow()
     this->refreshButton->SetIcon(IDI_REFRESH, 16, 16);
     this->refreshButton->OnClick = this->RefreshButtonClicked;
     this->refreshButton->Show();
-    this->refreshButton->AddToolTip(L"Refresh both directory views");
+    this->refreshButton->AddToolTip(L"Refresh directory");
 
     this->detailsButton = new ToolButton(this->toolBar);
     this->detailsButton->SetPosition(1);
     this->detailsButton->SetIcon(IDI_DETAILS, 16, 16);
-    //this->detailsButton->OnClick = this->RefreshButtonClicked;
+    this->detailsButton->OnClick = this->DetailsButtonClicked;
     this->detailsButton->Show();
     this->detailsButton->AddToolTip(L"Details view");
 
     this->listButton = new ToolButton(this->toolBar);
     this->listButton->SetPosition(2);
     this->listButton->SetIcon(IDI_LIST, 16, 16);
-    //this->listButton->OnClick = this->RefreshButtonClicked;
+    this->listButton->OnClick = this->ListButtonClicked;
     this->listButton->Show();
     this->listButton->AddToolTip(L"List view");
 
     this->smallButton = new ToolButton(this->toolBar);
     this->smallButton->SetPosition(3);
     this->smallButton->SetIcon(IDI_SMALL, 16, 16);
-    //this->smallButton->OnClick = this->RefreshButtonClicked;
+    this->smallButton->OnClick = this->SmallIconsButtonClicked;
     this->smallButton->Show();
     this->smallButton->AddToolTip(L"Small icon view");
 
     this->largeButton = new ToolButton(this->toolBar);
     this->largeButton->SetPosition(4);
     this->largeButton->SetIcon(IDI_LARGE, 16, 16);
-    //this->largeButton->OnClick = this->RefreshButtonClicked;
+    this->largeButton->OnClick = this->LargeIconsButtonClicked;
     this->largeButton->Show();
     this->largeButton->AddToolTip(L"Large icon view");
 
     this->printButton = new ToolButton(this->toolBar);
     this->printButton->SetPosition(5);
     this->printButton->SetIcon(IDI_PRINT, 16, 16);
-    //this->printButton->OnClick = this->RefreshButtonClicked;
+    this->printButton->OnClick = this->PrintButtonClicked;
     this->printButton->Show();
     this->printButton->AddToolTip(L"Print selected document");
 
     this->adminButton = new ToolButton(this->toolBar);
     this->adminButton->SetPosition(6);
     this->adminButton->SetIcon(IDI_ADMIN, 16, 16);
-    //this->adminButton->OnClick = this->RefreshButtonClicked;
+    this->adminButton->OnClick = this->AdminButtonClicked;
     this->adminButton->Show();
     this->adminButton->AddToolTip(L"Run program as administrator");
 
     this->propertyButton = new ToolButton(this->toolBar);
     this->propertyButton->SetPosition(7);
     this->propertyButton->SetIcon(IDI_PROPERTY, 16, 16);
-    //this->propertyButton->OnClick = this->RefreshButtonClicked;
+    this->propertyButton->OnClick = this->PropertiesButtonClicked;
     this->propertyButton->Show();
     this->propertyButton->AddToolTip(L"Show file/directory properties");
 
     this->renameButton = new ToolButton(this->toolBar);
     this->renameButton->SetPosition(8);
     this->renameButton->SetIcon(IDI_RENAME, 16, 16);
-    //this->renameButton->OnClick = this->RefreshButtonClicked;
+    this->renameButton->OnClick = this->RenameButtonClicked;
     this->renameButton->Show();
     this->renameButton->AddToolTip(L"Rename file/directory");
 
     this->cmdButton = new ToolButton(this->toolBar);
     this->cmdButton->SetPosition(9);
     this->cmdButton->SetIcon(IDI_CMD, 16, 16);
-    //this->cmdButton->OnClick = this->RefreshButtonClicked;
+    this->cmdButton->OnClick = this->CmdButtonClicked;
     this->cmdButton->Show();
     this->cmdButton->AddToolTip(L"Open command prompt");
 
@@ -762,7 +762,118 @@ void MainWindow::RightApplyButtonClicked(Window* parent)
 
 void MainWindow::RefreshButtonClicked(Window* parent)
 {
-    MainWindow* wnd = (MainWindow*) parent;
-    wnd->leftShellView->RefreshView();
-    wnd->rightShellView->RefreshView();
+    MainWindow* wnd = (MainWindow*)parent;
+    ((ShellListView*)wnd->ActiveControl)->RefreshView();
+}
+
+void MainWindow::DetailsButtonClicked(Window* window)
+{
+    MainWindow* wnd = (MainWindow*) window;
+    ((ShellListView*) wnd->ActiveControl)->SetView(LVS_REPORT);
+}
+
+void MainWindow::ListButtonClicked(Window* window)
+{
+    MainWindow* wnd = (MainWindow*)window;
+    ((ShellListView*)wnd->ActiveControl)->SetView(LVS_LIST);
+}
+
+void MainWindow::SmallIconsButtonClicked(Window* window)
+{
+    MainWindow* wnd = (MainWindow*)window;
+    ((ShellListView*)wnd->ActiveControl)->SetView(LVS_SMALLICON);
+}
+
+void MainWindow::LargeIconsButtonClicked(Window* window)
+{
+    MainWindow* wnd = (MainWindow*)window;
+    ((ShellListView*)wnd->ActiveControl)->SetView(LVS_ICON);
+}
+
+void MainWindow::PrintButtonClicked(Window* window)
+{
+    MainWindow* wnd = (MainWindow*)window;
+
+    SHELLEXECUTEINFO info;
+
+    ZeroMemory(
+        &info,
+        sizeof(info));
+
+    info.cbSize = sizeof(info);
+    info.fMask = SEE_MASK_DEFAULT | SEE_MASK_NOCLOSEPROCESS;
+    info.hwnd = wnd->GetHandle();
+    info.lpVerb = L"print";
+    info.lpFile = ((ShellListView*)wnd->ActiveControl)->SelectedPath.c_str();
+    info.lpParameters = NULL;
+    info.lpDirectory = NULL;
+    info.nShow = SW_SHOW;
+
+    ShellExecuteEx(&info);
+}
+
+void MainWindow::AdminButtonClicked(Window* window)
+{
+    MainWindow* wnd = (MainWindow*)window;
+
+    SHELLEXECUTEINFO info;
+    info.cbSize = sizeof(info);
+    info.fMask = SEE_MASK_DEFAULT | SEE_MASK_NOCLOSEPROCESS;
+    info.hwnd = wnd->GetHandle();
+    info.lpVerb = L"runas";
+    info.lpFile = ((ShellListView*)wnd->ActiveControl)->SelectedPath.c_str();
+    info.lpParameters = NULL;
+    info.lpDirectory = NULL;
+    info.nShow = SW_SHOW;
+
+    ShellExecuteEx(&info);
+}
+
+void MainWindow::PropertiesButtonClicked(Window* window)
+{
+    MainWindow* wnd = (MainWindow*)window;
+
+    SHELLEXECUTEINFO info;
+
+    ZeroMemory(
+        &info,
+        sizeof(info));
+
+    info.cbSize = sizeof(info);
+    info.fMask = SEE_MASK_INVOKEIDLIST;
+    info.hwnd = wnd->GetHandle();
+    info.lpVerb = L"properties";
+    info.lpFile = ((ShellListView*)wnd->ActiveControl)->SelectedPath.c_str();
+    info.nShow = SW_SHOW;
+
+    ShellExecuteEx(&info);
+}
+
+void MainWindow::RenameButtonClicked(Window* window)
+{
+    MainWindow* wnd = (MainWindow*) window;
+}
+
+void MainWindow::CmdButtonClicked(Window* window)
+{
+    MainWindow* wnd = (MainWindow*) window;
+    String dir = ((ShellListView*)wnd->ActiveControl)->GetDirectory();
+    String param = (String(L"/k \"cd \"").append(dir).append(L"\"\""));
+
+    SHELLEXECUTEINFO info;
+
+    ZeroMemory(
+        &info,
+        sizeof(info));
+
+    info.cbSize = sizeof(info);
+    info.fMask = SEE_MASK_DEFAULT | SEE_MASK_NOCLOSEPROCESS;
+    info.hwnd = wnd->GetHandle();
+    info.lpVerb = L"open";
+    info.lpFile = L"C:\\Windows\\System32\\cmd.exe";
+    info.lpParameters = param.c_str();
+    info.lpDirectory = NULL;
+    info.nShow = SW_SHOW;
+
+    ShellExecuteEx(&info);
 }
