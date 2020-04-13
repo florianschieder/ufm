@@ -64,6 +64,7 @@ void MainWindow::OnInitializeWindow()
     this->refreshButton->SetIcon(IDI_REFRESH, 16, 16);
     this->refreshButton->OnClick = this->RefreshButtonClicked;
     this->refreshButton->Show();
+    this->refreshButton->AddToolTip(L"Refresh both directory views");
 
     this->leftBox = new DriveComboBox(this);
     this->leftBox->OnSelectionChanged = this->ComboBoxSelectionChanged;

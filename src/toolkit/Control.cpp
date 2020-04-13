@@ -54,6 +54,38 @@ METHOD void Control::Resize(int x, int y, int width, int height)
         SWP_NOZORDER | SWP_SHOWWINDOW);
 }
 
+METHOD void Control::AddToolTip(const TCHAR text[80])
+{
+    HWND hwndTip = CreateWindowEx(
+        NULL,
+        TOOLTIPS_CLASS,
+        NULL,
+        WS_POPUP | TTS_ALWAYSTIP,
+        CW_USEDEFAULT,
+        CW_USEDEFAULT,
+        CW_USEDEFAULT,
+        CW_USEDEFAULT,
+        this->m_parentWindow->GetHandle(),
+        NULL,
+        this->m_parentWindow->GetApplication()->GetInstance(),
+        NULL);
+
+    if (!this->m_controlHandle || !hwndTip)
+    {
+        return;
+    }
+
+    // Associate the tooltip with the tool.
+    TOOLINFO toolInfo = { 0 };
+    toolInfo.cbSize = sizeof(toolInfo);
+    toolInfo.hwnd = this->m_parentWindow->GetHandle();
+    toolInfo.uFlags = TTF_IDISHWND | TTF_SUBCLASS;
+    toolInfo.uId = (UINT_PTR) this->m_controlHandle;
+    toolInfo.lpszText = (LPWSTR) text;
+    
+    SendMessage(hwndTip, TTM_ADDTOOL, 0, (LPARAM)&toolInfo);
+}
+
 METHOD String Control::GetText()
 {
     TCHAR buffer[512];

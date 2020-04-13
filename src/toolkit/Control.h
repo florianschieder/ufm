@@ -9,6 +9,7 @@ class Control {
         METHOD HWND GetHandle();
         METHOD void Resize(int x, int y, int width, int height);
         
+        METHOD void AddToolTip(const TCHAR text[80]);
         METHOD String GetText();
         METHOD Window* GetParent();
         METHOD int GetX();
