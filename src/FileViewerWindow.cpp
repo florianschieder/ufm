@@ -69,6 +69,10 @@ void FileViewerWindow::OnInitializeWindow()
     this->SetTitle(this->fileName);
 }
 
+void FileViewerWindow::OnKeyDown(DWORD)
+{
+}
+
 void FileViewerWindow::OnMenuEvent(WORD menuID)
 {
 }

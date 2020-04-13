@@ -235,6 +235,34 @@ void MainWindow::OnInitializeWindow()
     this->SetDimensions(800, 600);
 }
 
+void MainWindow::OnKeyDown(DWORD key)
+{
+    switch (key)
+    {
+        case VK_F3:
+            this->FileViewerButtonClicked(this);
+            break;
+        case VK_F4:
+            this->EditButtonClicked(this);
+            break;
+        case VK_F5:
+            this->CopyButtonClicked(this);
+            break;
+        case VK_F6:
+            this->MoveButtonClicked(this);
+            break;
+        case VK_F7:
+            this->NewDirButtonClicked(this);
+            break;
+        case VK_F8:
+        case VK_DELETE:
+            this->DeleteButtonClicked(this);
+            break;
+        default:
+            break;
+    }
+}
+
 /**
  * MainWindow::OnControlEvent: Handling method for control messages
  */

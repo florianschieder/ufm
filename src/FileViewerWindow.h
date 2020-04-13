@@ -24,6 +24,7 @@ class FileViewerWindow : public Window
 
         void OnClose();
         void OnInitializeWindow();
+        void OnKeyDown(DWORD);
         void OnMenuEvent(WORD menuID);
         void OnPaint(PAINTSTRUCT ps, HDC hdc);
         void OnPostParam(void* param, int reason);

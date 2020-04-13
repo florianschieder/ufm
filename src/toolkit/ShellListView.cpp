@@ -421,6 +421,19 @@ METHOD LRESULT CALLBACK ShellListView::MessageLoop(HWND hwnd, UINT uMsg, WPARAM 
 
             switch (wParam)
             {
+                case LVN_KEYDOWN:
+                {
+                    LPNMLVKEYDOWN keyDown = (LPNMLVKEYDOWN) lParam;
+
+                    SendMessage(
+                        this->m_parentWindow->GetHandle(),
+                        WM_KEYDOWN,
+                        keyDown->wVKey,
+                        keyDown->flags);
+
+                    break;
+                }
+
                 case NM_CLICK:
                     item = (LPNMITEMACTIVATE)lParam;
                     fileName = new wchar_t[260];

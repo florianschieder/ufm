@@ -13,6 +13,7 @@ class Window
 {
     Event OnClose() = 0;
     Event OnInitializeWindow() = 0;
+    Event OnKeyDown(DWORD key) = 0;
     Event OnMenuEvent(WORD id) = 0;
     Event OnPaint(PAINTSTRUCT ps, HDC hdc) = 0;
     Event OnPostParam(void* param, int reason) = 0;

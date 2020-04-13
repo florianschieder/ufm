@@ -144,6 +144,10 @@ METHOD LRESULT CALLBACK Window::MessageLoop(HWND hwnd, UINT uMsg, WPARAM wParam,
                 lParam);
             break;
 
+        case WM_KEYDOWN:
+            this->OnKeyDown(wParam);
+            break;
+
         case WM_COMMAND:
             switch (HIWORD(wParam))
             {
