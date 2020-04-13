@@ -244,6 +244,45 @@ void MainWindow::OnMenuEvent(WORD menuID)
 
     switch (menuID)
     {
+        case ID_FILE_OPENCOMMANDPROMPT:
+            this->CmdButtonClicked(this);
+            break;
+        case ID_FILE_RENAMEFILE:
+            this->RenameButtonClicked(this);
+            break;
+        case ID_PRINTDOC:
+            this->PrintButtonClicked(this);
+            break;
+        case ID_RUNASADMIN:
+            this->AdminButtonClicked(this);
+            break;
+        case ID_SHOWPROPS:
+            this->PropertiesButtonClicked(this);
+            break;
+
+        case ID_FILE_SHOWSELECTEDFILE:
+            this->FileViewerButtonClicked(this);
+            break;
+        case ID_FILE_EDITFILEWITHITSSTANDARDEDITOR:
+            this->EditButtonClicked(this);
+            break;
+        case ID_FILE_COPYOBJECT:
+            this->CopyButtonClicked(this);
+            break;
+        case ID_FILE_DELETEOBJECT:
+            this->DeleteButtonClicked(this);
+            break;
+        case ID_FILE_MOVEOBJECT:
+            this->MoveButtonClicked(this);
+            break;
+        case ID_FILE_NEWFOLDER:
+            this->NewDirButtonClicked(this);
+            break;
+
+        case ID_FILE_CLOSE:
+            this->Close();
+            break;
+
         case ID_SHELLVIEW_DETAILS:
             activeControl = (ShellListView*) this->ActiveControl;
             activeControl->SetView(LVS_REPORT);
@@ -262,10 +301,6 @@ void MainWindow::OnMenuEvent(WORD menuID)
         case ID_SHELLVIEW_LIST:
             activeControl = (ShellListView*) this->ActiveControl;
             activeControl->SetView(LVS_LIST);
-            break;
-
-        case ID_FILE_CLOSE:
-            this->Close();
             break;
 
         case ID_VIEW_TOGGLEHIDDENFILES:
