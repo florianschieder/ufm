@@ -2,6 +2,7 @@
 // Von Microsoft Visual C++ generierte Includedatei.
 // Verwendet durch wfm.rc
 //
+#define IDCANCEL2                       4
 #define IDI_ICON1                       101
 #define IDI_MAIN_ICON                   101
 #define IDR_MAINMENU                    106
@@ -41,10 +42,11 @@
 #define IDI_ADMIN                       126
 #define IDI_PRINT                       127
 #define IDI_PROPERTY                    128
-#define IDI_ICON6                       129
 #define IDI_RENAME                      129
+#define IDD_RENAMEOBJECT                130
 #define IDC_EDIT1                       1001
 #define IDC_NEWDIR_NAME                 1003
+#define IDC_RENAMEOBJECT_NEWNAME        1004
 #define ID_DATEI                        40001
 #define ID_DATEI_ITEM                   40002
 #define ID_HELP_ABOUTWFM                40003
@@ -65,9 +67,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        130
+#define _APS_NEXT_RESOURCE_VALUE        132
 #define _APS_NEXT_COMMAND_VALUE         40017
-#define _APS_NEXT_CONTROL_VALUE         1004
+#define _APS_NEXT_CONTROL_VALUE         1005
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

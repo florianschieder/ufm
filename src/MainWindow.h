@@ -31,6 +31,7 @@
 #define IDC_MAINWINDOW_STATUSBAR 120
 
 #define NEEDED_TO_PASS_NEW_FOLDER_TEXT 1
+#define NEEDED_TO_PASS_RENAME_OBJECT_NAME 2
 
 // Class declaration
 
@@ -42,6 +43,7 @@ class MainWindow : public Window {
     private:
         static INT_PTR AboutDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
         static INT_PTR NewDirDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
+        static INT_PTR RenameObjectDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
         EventHandler RefreshButtonClicked(Window* window);
         EventHandler DetailsButtonClicked(Window* window);

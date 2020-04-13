@@ -289,10 +289,47 @@ void MainWindow::OnPostParam(void* param, int reason)
 {
     switch (reason)
     {
-        case NEEDED_TO_PASS_NEW_FOLDER_TEXT:
-            ShellListView* activeCtrl = (ShellListView*) this->ActiveControl;
-            String dirPath = activeCtrl->GetDirectory() + String((LPCWSTR)param);
+        case NEEDED_TO_PASS_RENAME_OBJECT_NAME:
+        {
+            ShellListView* activeCtrl = (ShellListView*)this->ActiveControl;
+            LPWSTR name = (LPWSTR)param;
             
+            if (!MoveFile(
+                activeCtrl->SelectedPath.c_str(),
+                (String(activeCtrl->GetDirectory()).append(name)).c_str()))
+            {
+                LPTSTR errorText = NULL;
+
+                FormatMessage(
+                    FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_IGNORE_INSERTS,
+                    NULL,
+                    GetLastError(),
+                    MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+                    (LPTSTR)&errorText,
+                    0,
+                    NULL);
+
+                if (NULL != errorText)
+                {
+                    ShellMessageBox(
+                        this->m_application->GetInstance(),
+                        this->m_windowHandle,
+                        errorText,
+                        this->GetTitle().c_str(),
+                        MB_OK | MB_ICONEXCLAMATION);
+
+                    LocalFree(errorText);
+                    errorText = NULL;
+                }
+            }
+            break;
+        }
+
+        case NEEDED_TO_PASS_NEW_FOLDER_TEXT:
+        {
+            ShellListView* activeCtrl = (ShellListView*)this->ActiveControl;
+            String dirPath = activeCtrl->GetDirectory() + String((LPCWSTR)param);
+
             if (!CreateDirectory(dirPath.c_str(), NULL))
             {
                 switch (GetLastError())
@@ -334,6 +371,7 @@ void MainWindow::OnPostParam(void* param, int reason)
                 this->rightShellView->RefreshView();
             }
             break;
+        }
     }
 }
 
@@ -604,7 +642,7 @@ void MainWindow::NewDirButtonClicked(Window* window)
 {
     MainWindow* wnd = (MainWindow*) window;
 
-    HWND hDlg = (HWND) DialogBox(
+    DialogBox(
         wnd->GetApplication()->GetInstance(),
         MAKEINTRESOURCE(IDD_NEWDIR),
         wnd->GetHandle(),
@@ -746,6 +784,44 @@ INT_PTR MainWindow::NewDirDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lP
     return TRUE;
 }
 
+INT_PTR MainWindow::RenameObjectDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+    switch (uMsg)
+    {
+    case WM_INITDIALOG:
+        SetDlgItemText(hDlg, IDC_RENAMEOBJECT_NEWNAME, (LPCWSTR) lParam);
+        return TRUE;
+
+    case WM_COMMAND:
+        switch (LOWORD(wParam))
+        {
+        case IDOK:
+        {
+            wchar_t str[MAX_PATH];
+            GetDlgItemText(hDlg, IDC_RENAMEOBJECT_NEWNAME, str, MAX_PATH);
+
+            HWND parent = ::GetParent(hDlg);
+            SendMessage(
+                parent,
+                WM_POSTPARAM,
+                (WPARAM)str,
+                NEEDED_TO_PASS_RENAME_OBJECT_NAME);
+
+            EndDialog(hDlg, IDOK);
+
+            break;
+        }
+        case IDCANCEL:
+            EndDialog(hDlg, IDCANCEL);
+            break;
+        }
+        break;
+    default:
+        return FALSE;
+    }
+    return TRUE;
+}
+
 void MainWindow::LeftApplyButtonClicked(Window* parent)
 {
     MainWindow* wnd = (MainWindow*) parent;
@@ -794,6 +870,12 @@ void MainWindow::PrintButtonClicked(Window* window)
 {
     MainWindow* wnd = (MainWindow*)window;
 
+    ShellListView* activeCtrl = (ShellListView*)wnd->ActiveControl;
+    String obj = activeCtrl->SelectedPath;
+
+    if (obj == L"")
+        return;
+
     SHELLEXECUTEINFO info;
 
     ZeroMemory(
@@ -816,6 +898,12 @@ void MainWindow::AdminButtonClicked(Window* window)
 {
     MainWindow* wnd = (MainWindow*)window;
 
+    ShellListView* activeCtrl = (ShellListView*)wnd->ActiveControl;
+    String obj = activeCtrl->SelectedPath;
+
+    if (obj == L"")
+        return;
+
     SHELLEXECUTEINFO info;
     info.cbSize = sizeof(info);
     info.fMask = SEE_MASK_DEFAULT | SEE_MASK_NOCLOSEPROCESS;
@@ -832,6 +920,12 @@ void MainWindow::AdminButtonClicked(Window* window)
 void MainWindow::PropertiesButtonClicked(Window* window)
 {
     MainWindow* wnd = (MainWindow*)window;
+
+    ShellListView* activeCtrl = (ShellListView*)wnd->ActiveControl;
+    String obj = activeCtrl->SelectedPath;
+
+    if (obj == L"")
+        return;
 
     SHELLEXECUTEINFO info;
 
@@ -851,7 +945,19 @@ void MainWindow::PropertiesButtonClicked(Window* window)
 
 void MainWindow::RenameButtonClicked(Window* window)
 {
-    MainWindow* wnd = (MainWindow*) window;
+    MainWindow* wnd = (MainWindow*)window;
+    ShellListView* activeCtrl = (ShellListView*) wnd->ActiveControl;
+    String obj = activeCtrl->SelectedFile;
+
+    if (obj != L"")
+    {
+        DialogBoxParam(
+            wnd->GetApplication()->GetInstance(),
+            MAKEINTRESOURCE(IDD_RENAMEOBJECT),
+            wnd->GetHandle(),
+            wnd->RenameObjectDlgProc,
+            (LPARAM)obj.c_str());
+    }
 }
 
 void MainWindow::CmdButtonClicked(Window* window)
