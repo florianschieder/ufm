@@ -14,7 +14,7 @@ METHOD ToolButton::ToolButton(ToolBar* toolBar, int width, int height) : ToolBut
 
 METHOD void ToolButton::SetPosition(int num)
 {
-    this->m_x = 15 + (num * 35);
+    this->m_x = 15 + (num * 31);
     this->m_y = 3;
 }
 

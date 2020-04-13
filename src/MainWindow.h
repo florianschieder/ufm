@@ -80,6 +80,15 @@ class MainWindow : public Window {
         Button* closeButton = 0;
 
         ToolButton* refreshButton = 0;
+        ToolButton* detailsButton = 0;
+        ToolButton* listButton = 0;
+        ToolButton* smallButton = 0;
+        ToolButton* largeButton = 0;
+        ToolButton* printButton = 0;
+        ToolButton* adminButton = 0;
+        ToolButton* propertyButton = 0;
+        ToolButton* renameButton = 0;
+        ToolButton* cmdButton = 0;
         
         DriveComboBox* leftBox = 0;
         DriveComboBox* rightBox = 0;

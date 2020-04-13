@@ -23,15 +23,26 @@
 #define IDI_FT_PDF                      118
 #define IDI_FT_ARCH                     119
 #define IDI_FT_APP                      120
+#define IDI_CMD                         120
 #define IDI_FT_APP1                     121
 #define IDI_FT_LIB                      121
+#define IDI_DETAILS                     121
 #define IDI_FT_STDFILE1                 122
 #define IDI_FT_ODS                      122
+#define IDI_HIDDEN                      122
 #define IDI_FT_PDF1                     123
 #define IDI_FT_ODP                      123
+#define IDI_LARGE                       123
 #define IDI_FT_STDFILE_HIDDEN           124
+#define IDI_LIST                        124
 #define IDI_FT_FOLDER1                  125
 #define IDI_FT_FOLDER_HIDDEN            125
+#define IDI_SMALL                       125
+#define IDI_ADMIN                       126
+#define IDI_PRINT                       127
+#define IDI_PROPERTY                    128
+#define IDI_ICON6                       129
+#define IDI_RENAME                      129
 #define IDC_EDIT1                       1001
 #define IDC_NEWDIR_NAME                 1003
 #define ID_DATEI                        40001
@@ -54,7 +65,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        119
+#define _APS_NEXT_RESOURCE_VALUE        130
 #define _APS_NEXT_COMMAND_VALUE         40017
 #define _APS_NEXT_CONTROL_VALUE         1004
 #define _APS_NEXT_SYMED_VALUE           101

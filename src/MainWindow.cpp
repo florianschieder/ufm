@@ -21,6 +21,14 @@ MainWindow::~MainWindow()
     delete this->statusbar;
 
     delete this->refreshButton;
+    delete this->detailsButton;
+    delete this->listButton;
+    delete this->smallButton;
+    delete this->printButton;
+    delete this->adminButton;
+    delete this->propertyButton;
+    delete this->renameButton;
+    delete this->cmdButton;
 
     delete this->leftBox;
     delete this->rightBox;
@@ -56,8 +64,12 @@ void MainWindow::OnInitializeWindow()
 {
     this->toolBar = new ToolBar(this, 0, 0, this->m_width, 32);
     this->toolBar->AddStartGripper();
-    this->toolBar->AddSeparator(44);
+    this->toolBar->AddSeparator(42);
+    this->toolBar->AddSeparator(166);
+    this->toolBar->AddSeparator(290);
     this->toolBar->Show();
+
+    // Toolbar
 
     this->refreshButton = new ToolButton(this->toolBar);
     this->refreshButton->SetPosition(0);
@@ -65,6 +77,71 @@ void MainWindow::OnInitializeWindow()
     this->refreshButton->OnClick = this->RefreshButtonClicked;
     this->refreshButton->Show();
     this->refreshButton->AddToolTip(L"Refresh both directory views");
+
+    this->detailsButton = new ToolButton(this->toolBar);
+    this->detailsButton->SetPosition(1);
+    this->detailsButton->SetIcon(IDI_DETAILS, 16, 16);
+    //this->detailsButton->OnClick = this->RefreshButtonClicked;
+    this->detailsButton->Show();
+    this->detailsButton->AddToolTip(L"Details view");
+
+    this->listButton = new ToolButton(this->toolBar);
+    this->listButton->SetPosition(2);
+    this->listButton->SetIcon(IDI_LIST, 16, 16);
+    //this->listButton->OnClick = this->RefreshButtonClicked;
+    this->listButton->Show();
+    this->listButton->AddToolTip(L"List view");
+
+    this->smallButton = new ToolButton(this->toolBar);
+    this->smallButton->SetPosition(3);
+    this->smallButton->SetIcon(IDI_SMALL, 16, 16);
+    //this->smallButton->OnClick = this->RefreshButtonClicked;
+    this->smallButton->Show();
+    this->smallButton->AddToolTip(L"Small icon view");
+
+    this->largeButton = new ToolButton(this->toolBar);
+    this->largeButton->SetPosition(4);
+    this->largeButton->SetIcon(IDI_LARGE, 16, 16);
+    //this->largeButton->OnClick = this->RefreshButtonClicked;
+    this->largeButton->Show();
+    this->largeButton->AddToolTip(L"Large icon view");
+
+    this->printButton = new ToolButton(this->toolBar);
+    this->printButton->SetPosition(5);
+    this->printButton->SetIcon(IDI_PRINT, 16, 16);
+    //this->printButton->OnClick = this->RefreshButtonClicked;
+    this->printButton->Show();
+    this->printButton->AddToolTip(L"Print selected document");
+
+    this->adminButton = new ToolButton(this->toolBar);
+    this->adminButton->SetPosition(6);
+    this->adminButton->SetIcon(IDI_ADMIN, 16, 16);
+    //this->adminButton->OnClick = this->RefreshButtonClicked;
+    this->adminButton->Show();
+    this->adminButton->AddToolTip(L"Run program as administrator");
+
+    this->propertyButton = new ToolButton(this->toolBar);
+    this->propertyButton->SetPosition(7);
+    this->propertyButton->SetIcon(IDI_PROPERTY, 16, 16);
+    //this->propertyButton->OnClick = this->RefreshButtonClicked;
+    this->propertyButton->Show();
+    this->propertyButton->AddToolTip(L"Show file/directory properties");
+
+    this->renameButton = new ToolButton(this->toolBar);
+    this->renameButton->SetPosition(8);
+    this->renameButton->SetIcon(IDI_RENAME, 16, 16);
+    //this->renameButton->OnClick = this->RefreshButtonClicked;
+    this->renameButton->Show();
+    this->renameButton->AddToolTip(L"Rename file/directory");
+
+    this->cmdButton = new ToolButton(this->toolBar);
+    this->cmdButton->SetPosition(9);
+    this->cmdButton->SetIcon(IDI_CMD, 16, 16);
+    //this->cmdButton->OnClick = this->RefreshButtonClicked;
+    this->cmdButton->Show();
+    this->cmdButton->AddToolTip(L"Open command prompt");
+
+    // Address bar
 
     this->leftBox = new DriveComboBox(this);
     this->leftBox->OnSelectionChanged = this->ComboBoxSelectionChanged;

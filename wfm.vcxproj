@@ -495,13 +495,23 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\about.bmp" />
+    <Image Include="res\admin.ico" />
     <Image Include="res\back.ico" />
     <Image Include="res\bitmap1.bmp" />
+    <Image Include="res\cmd.ico" />
+    <Image Include="res\details.ico" />
     <Image Include="res\forward.ico" />
     <Image Include="res\ft_folde.ico" />
+    <Image Include="res\hidden.ico" />
     <Image Include="res\icon2.ico" />
     <Image Include="res\icon3.ico" />
+    <Image Include="res\large.ico" />
+    <Image Include="res\list.ico" />
+    <Image Include="res\print.ico" />
+    <Image Include="res\property.ico" />
     <Image Include="res\refresh.ico" />
+    <Image Include="res\rename.ico" />
+    <Image Include="res\small.ico" />
     <Image Include="res\tango_folder.ico" />
     <Image Include="res\up.ico" />
     <Image Include="res\wfm.ico" />

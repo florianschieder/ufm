@@ -193,6 +193,36 @@
     <Image Include="res\ft_folde.ico">
       <Filter>Ressourcendateien</Filter>
     </Image>
+    <Image Include="res\hidden.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\cmd.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\details.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\large.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\list.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\small.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\admin.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\print.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\property.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\rename.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="res\wfm.rc">
