@@ -63,6 +63,9 @@ METHOD LRESULT ComboBox::MessageLoop(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM
             int idx;
             idx = (int)SendMessage(this->m_controlHandle, CB_GETCURSEL, 0, 0);
             SendMessage(this->m_controlHandle, CB_GETLBTEXT, idx, (LPARAM)buffer);
+
+            buffer[511] = L'\0';
+
             this->SelectedItem = buffer;
 
             if (this->OnSelectionChanged != nullptr)

@@ -3,6 +3,7 @@
 METHOD InputBox::InputBox(Window* parent) : Control(parent)
 {
     this->m_controlHandle = { 0 };
+    this->Text = (wchar_t*) L"";
 }
 
 METHOD InputBox::InputBox(Window* parent, int x, int y, int w, int h) : InputBox(parent)

@@ -101,8 +101,10 @@ void FileViewerWindow::SetFile(const wchar_t* file)
         this->fileSize = ftell(fp);
         rewind(fp);
 
+        long offs = this->fileSize + 1L;
+
         // Initialize file buffer
-        this->fileContent = new char[this->fileSize + 1];
+        this->fileContent = new char[offs];
 
         if (MimeTypeFromString(this->fileName) == L"text" || MimeTypeFromString(this->fileName) == L"unknown")
         {

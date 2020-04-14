@@ -16,7 +16,7 @@ class Application final
     public:
         METHOD Application(HINSTANCE h, int n, String name);
 
-        METHOD void Exit();
+        METHOD int Exit();
 
         METHOD void GetConfig(String key, int* value);
         METHOD String GetConfig(String key);

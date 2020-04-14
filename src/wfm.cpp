@@ -10,17 +10,16 @@ int __stdcall wWinMain(
 	_In_ LPWSTR lpCmdLine,
 	_In_ int nCmdShow)
 {
-    Application* app = new Application(
+    Application app(
         hInstance,
         nCmdShow,
         L"WFM");
 
-    MainWindow* wnd = new MainWindow(app);
+    MainWindow* wnd = new MainWindow(&app);
     
     wnd->Show();
 
-    delete app;
     delete wnd;
 
-    return 0;
+    return app.Exit();
 }

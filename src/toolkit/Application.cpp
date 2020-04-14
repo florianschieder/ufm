@@ -18,7 +18,7 @@ METHOD void Application::InitializeApplicationComponents()
     // Initialize GDI+
     Gdiplus::GdiplusStartupInput gdiplusStartupInput;
 
-    CoInitializeEx(
+    HRESULT coInit = CoInitializeEx(
         NULL,
         COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE | COINIT_SPEED_OVER_MEMORY);
 
@@ -39,7 +39,8 @@ METHOD void Application::InitializeApplicationComponents()
 
 void Application::InitializeShellImageBucket()
 {
-    SHFILEINFO  sfi;
+    SHFILEINFO sfi;
+    ZeroMemory(&sfi, sizeof(sfi));
 
     // Get the system image list
     this->m_largeShellImageBucket = reinterpret_cast<HIMAGELIST>(
@@ -256,11 +257,12 @@ METHOD void Application::UnindicateTimeIntensiveProcess()
     SetCursor(this->m_cursorHand);
 }
 
-METHOD void Application::Exit()
+METHOD int Application::Exit()
 {
     CoUninitialize();
     Gdiplus::GdiplusShutdown(this->gdiplusToken);
-    exit(0);
+    
+    return EXIT_SUCCESS;
 }
 
 void Application::GetConfig(String key, int* value)
@@ -301,6 +303,7 @@ String Application::GetConfig(String key)
     }
     else
     {
+        buffer[1023] = L'\0';
         return buffer;
     }
 }

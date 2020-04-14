@@ -5,8 +5,8 @@
 #include <vector>
 
 typedef struct s_Environment {
-    int argc;
-    wchar_t** argv;
+    int argc = 0;
+    wchar_t** argv = nullptr;
 
     std::vector<String> Drives;
 
@@ -22,16 +22,16 @@ typedef struct s_Environment {
     String ProductVersion;
     String SystemDirectory;
 
-    bool Is64BitOperatingSystem;
-    bool Is64BitProcess;
+    bool Is64BitOperatingSystem = false;
+    bool Is64BitProcess = false;
 
-    int OSVersionMajor;
-    int OSVersionMinor;
-    int OSVersionCode;
+    int OSVersionMajor = 0;
+    int OSVersionMinor = 0;
+    int OSVersionCode = 0;
 
-    int ProcessorCount;
-    int SystemPageSize;
-    int TickCount;
+    int ProcessorCount = 0;
+    int SystemPageSize = 0;
+    int TickCount = 0;
 
-    long WorkingSet;
+    long WorkingSet = 0L;
 } Environment;

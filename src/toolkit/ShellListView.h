@@ -9,7 +9,7 @@ struct DirectoryItem
     std::wstring    extName;
     std::wstring    date;
     std::wstring    size;
-    int             iconIndex;
+    int             iconIndex = 0;
 };
 
 class ShellListView : public ListView
