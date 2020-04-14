@@ -14,9 +14,14 @@
 class Application final
 {
     public:
-        METHOD Application(HINSTANCE h, int n);
+        METHOD Application(HINSTANCE h, int n, String name);
 
         METHOD void Exit();
+
+        METHOD void GetConfig(String key, int* value);
+        METHOD String GetConfig(String key);
+        METHOD void SetConfig(String key, int value);
+        METHOD void SetConfig(String key, LPCWSTR value);
 
         METHOD Environment GetEnvironment();
         METHOD String GetEnvironmentVar(String key);
@@ -39,6 +44,7 @@ class Application final
         
         ULONG_PTR gdiplusToken;
 
+        String m_appName;
         int m_iUpIconIndex;
         HIMAGELIST m_largeShellImageBucket;
         HIMAGELIST m_smallShellImageBucket;

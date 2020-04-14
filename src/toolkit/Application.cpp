@@ -1,11 +1,16 @@
 #include "Application.h"
 
-METHOD Application::Application(HINSTANCE h, int n)
+METHOD Application::Application(HINSTANCE h, int n, String name)
 {
     this->m_hInstance = h;
     this->m_nCmdShow = n;
+    this->m_appName = name;
 
     this->InitializeApplicationComponents();
+
+    #ifdef _DEBUG
+        _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+    #endif
 }
 
 METHOD void Application::InitializeApplicationComponents()
@@ -256,6 +261,74 @@ METHOD void Application::Exit()
     CoUninitialize();
     Gdiplus::GdiplusShutdown(this->gdiplusToken);
     exit(0);
+}
+
+void Application::GetConfig(String key, int* value)
+{
+    DWORD bufferSize = 4;
+
+    auto val = RegGetValue(
+        HKEY_CURRENT_USER,
+        String(L"SOFTWARE\\").append(this->m_appName).c_str(),
+        key.c_str(),
+        RRF_RT_DWORD,
+        NULL,
+        (PVOID)value,
+        &bufferSize);
+
+    if (val != ERROR_SUCCESS)
+    {
+        *value = 0;
+    }
+}
+
+String Application::GetConfig(String key)
+{
+    TCHAR buffer[1024];
+    DWORD BufferSize = 1024 * sizeof(TCHAR);
+
+    auto val = RegGetValue(HKEY_CURRENT_USER,
+        String(L"SOFTWARE\\").append(this->m_appName).c_str(),
+        key.c_str(),
+        RRF_RT_ANY,
+        NULL,
+        (PVOID) &buffer,
+        &BufferSize);
+
+    if (val != ERROR_SUCCESS)
+    {
+        return L"";
+    }
+    else
+    {
+        return buffer;
+    }
+}
+
+void Application::SetConfig(String key, int value)
+{
+    DWORD bufferSize = 4;
+
+    RegSetKeyValue(
+        HKEY_CURRENT_USER,
+        String(L"SOFTWARE\\").append(this->m_appName).c_str(),
+        key.c_str(),
+        REG_DWORD,
+        (LPVOID)&value,
+        bufferSize);
+}
+
+void Application::SetConfig(String key, LPCWSTR value)
+{
+    DWORD bufferSize = lstrlen(value) * sizeof(TCHAR);
+
+    RegSetKeyValue(
+        HKEY_CURRENT_USER,
+        String(L"SOFTWARE\\").append(this->m_appName).c_str(),
+        key.c_str(),
+        RRF_RT_REG_SZ,
+        (LPVOID)value,
+        bufferSize);
 }
 
 METHOD Environment Application::GetEnvironment()

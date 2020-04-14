@@ -10,11 +10,11 @@ int __stdcall wWinMain(
 	_In_ LPWSTR lpCmdLine,
 	_In_ int nCmdShow)
 {
-    #ifdef _DEBUG
-        _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-    #endif
+    Application* app = new Application(
+        hInstance,
+        nCmdShow,
+        L"WFM");
 
-    Application* app = new Application(hInstance, nCmdShow);
     MainWindow* wnd = new MainWindow(app);
     
     wnd->Show();

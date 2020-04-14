@@ -54,6 +54,14 @@ MainWindow::~MainWindow()
  */
 void MainWindow::OnClose()
 {
+    this->m_application->SetConfig(
+        L"leftLocation",
+        this->leftShellView->GetDirectory().c_str());
+
+    this->m_application->SetConfig(
+        L"rightLocation",
+        this->rightShellView->GetDirectory().c_str());
+
     this->Destroy();
 }
 
@@ -62,6 +70,8 @@ void MainWindow::OnClose()
  */
 void MainWindow::OnInitializeWindow()
 {
+    // Construct toolbar
+
     this->toolBar = new ToolBar(this, 0, 0, this->m_width, 32);
     this->toolBar->AddStartGripper();
     this->toolBar->AddSeparator(42);
@@ -69,7 +79,7 @@ void MainWindow::OnInitializeWindow()
     this->toolBar->AddSeparator(290);
     this->toolBar->Show();
 
-    // Toolbar
+    // Add toolbar buttons
 
     this->refreshButton = new ToolButton(this->toolBar);
     this->refreshButton->SetPosition(0);
@@ -141,7 +151,7 @@ void MainWindow::OnInitializeWindow()
     this->cmdButton->Show();
     this->cmdButton->AddToolTip(L"Open command prompt");
 
-    // Address bar
+    // Construct "address bar"
 
     this->leftBox = new DriveComboBox(this);
     this->leftBox->OnSelectionChanged = this->ComboBoxSelectionChanged;
@@ -171,6 +181,8 @@ void MainWindow::OnInitializeWindow()
     this->rightBoxApply->OnClick = this->RightApplyButtonClicked;
     this->rightBoxApply->Show();
 
+    // Construct shell views
+
     this->leftShellView = new ShellListView(this);
     this->leftShellView->SetDimensions(-1, 60, 401, 366);
     this->leftShellView->OnSelectionChanged = this->ShellListViewSelectionChanged;
@@ -184,6 +196,8 @@ void MainWindow::OnInitializeWindow()
     this->rightShellView->SetView(LVS_REPORT);
     
     this->ActiveControl = this->leftShellView;
+
+    // Construct button bar
 
     this->showButton = new Button(this);
     this->showButton->SetDimensions(0, this->m_height - 46, m_width / 7, 22);
@@ -227,12 +241,32 @@ void MainWindow::OnInitializeWindow()
     this->closeButton->OnClick = this->CloseWindow;
     this->closeButton->Show();
 
+    // Construct status bar
+
     this->statusbar = new StatusBar(this, 0, this->m_height - 22, this->m_width, 22);
     this->statusbar->AddStartGripper();
     this->statusbar->Show();
 
+    // Prepare window + show
+
     this->SetTitle(L"WFM");
     this->SetDimensions(800, 600);
+
+    // If already started once, recover last location
+
+    String myDocuments;
+
+    myDocuments = this->m_application->GetEnvironmentVar(L"UserProfile");
+    myDocuments += L"\\Documents\\";
+    
+    String leftLocation = this->m_application->GetConfig(L"leftLocation");
+    String rightLocation = this->m_application->GetConfig(L"rightLocation");
+
+    this->leftShellView->SetDirectory(
+        (leftLocation == L"" ? myDocuments : leftLocation));
+    
+    this->rightShellView->SetDirectory(
+        (rightLocation == L"" ? myDocuments : rightLocation));
 }
 
 void MainWindow::OnKeyDown(DWORD key)
