@@ -9,6 +9,14 @@ METHOD StatusBar::StatusBar(Window* parent, int x, int y, int w, int h) : Contro
 
     this->m_DrawResize = true;
     this->drawStartGripperX = 0;
+
+    this->blackBrush = 0;
+    this->whiteBrush = 0;
+    this->sepBrush = 0;
+}
+
+METHOD StatusBar::~StatusBar()
+{
 }
 
 void StatusBar::AddControl(std::shared_ptr<Control> control)
@@ -51,10 +59,10 @@ METHOD void StatusBar::AddStartGripper(int dx)
 
 METHOD void StatusBar::DrawStartGripper(HDC hdc, int dx)
 {
+    RECT rect1, rect2;
+
     for (int i = 5; i <= this->m_height - 3; i += 4)
-    {
-        RECT rect1, rect2;
-        
+    {   
         rect1.left = 5 + dx;
         rect1.right = 5 + dx + 3;
         rect1.top = i;
@@ -65,8 +73,8 @@ METHOD void StatusBar::DrawStartGripper(HDC hdc, int dx)
         rect2.top = i;
         rect2.bottom = i + 2;
 
-        FillRect(hdc, &rect1, CreateSolidBrush(RGB(255, 255, 255)));
-        FillRect(hdc, &rect2, CreateSolidBrush(RGB(0, 0, 0)));
+        FillRect(hdc, &rect1, this->whiteBrush);
+        FillRect(hdc, &rect2, this->blackBrush);
     }
 }
 
@@ -81,10 +89,14 @@ void StatusBar::OnDraw(HDC hdc)
     FillRect(
         hdc,
         &rect,
-        CreateSolidBrush(RGB(182, 188, 204)));
+        this->sepBrush);
 
     Gdiplus::Graphics graphics(hdc);
-    Gdiplus::RectF rectF(0, 1, this->m_width, this->m_height - 1);
+    Gdiplus::RectF rectF(
+        (Gdiplus::REAL) 0,
+        (Gdiplus::REAL) 1,
+        (Gdiplus::REAL) this->m_width,
+        (Gdiplus::REAL) this->m_height - 1);
 
     Gdiplus::LinearGradientBrush brush(
         rectF,
@@ -107,7 +119,7 @@ void StatusBar::OnDraw(HDC hdc)
         FillRect(
             hdc,
             &rect,
-            CreateSolidBrush(RGB(255, 255, 255)));
+            this->whiteBrush);
         
         rect.left = this->m_width - 5;
         rect.right = this->m_width - 3;
@@ -116,7 +128,7 @@ void StatusBar::OnDraw(HDC hdc)
         FillRect(
             hdc,
             &rect,
-            CreateSolidBrush(RGB(0, 0, 0)));
+            this->blackBrush);
 
         // Mid line
 
@@ -128,7 +140,7 @@ void StatusBar::OnDraw(HDC hdc)
         FillRect(
             hdc,
             &rect,
-            CreateSolidBrush(RGB(255, 255, 255)));
+            this->whiteBrush);
 
         rect.left = this->m_width - 5;
         rect.right = this->m_width - 3;
@@ -137,7 +149,7 @@ void StatusBar::OnDraw(HDC hdc)
         FillRect(
             hdc,
             &rect,
-            CreateSolidBrush(RGB(0, 0, 0)));
+            this->blackBrush);
 
         rect.left = this->m_width - 9;
         rect.right = this->m_width - 6;
@@ -146,7 +158,7 @@ void StatusBar::OnDraw(HDC hdc)
         FillRect(
             hdc,
             &rect,
-            CreateSolidBrush(RGB(255, 255, 255)));
+            this->whiteBrush);
 
         rect.left = this->m_width - 9;
         rect.right = this->m_width - 7;
@@ -155,7 +167,7 @@ void StatusBar::OnDraw(HDC hdc)
         FillRect(
             hdc,
             &rect,
-            CreateSolidBrush(RGB(0, 0, 0)));
+            this->blackBrush);
 
         // Lower line
 
@@ -166,7 +178,7 @@ void StatusBar::OnDraw(HDC hdc)
         FillRect(
             hdc,
             &rect,
-            CreateSolidBrush(RGB(255, 255, 255)));
+            this->whiteBrush);
 
         rect.left = this->m_width - 5;
         rect.right = this->m_width - 3;
@@ -175,7 +187,7 @@ void StatusBar::OnDraw(HDC hdc)
         FillRect(
             hdc,
             &rect,
-            CreateSolidBrush(RGB(0, 0, 0)));
+            this->blackBrush);
 
         rect.left = this->m_width - 9;
         rect.right = this->m_width - 6;
@@ -184,7 +196,7 @@ void StatusBar::OnDraw(HDC hdc)
         FillRect(
             hdc,
             &rect,
-            CreateSolidBrush(RGB(255, 255, 255)));
+            this->whiteBrush);
 
         rect.left = this->m_width - 9;
         rect.right = this->m_width - 7;
@@ -193,7 +205,7 @@ void StatusBar::OnDraw(HDC hdc)
         FillRect(
             hdc,
             &rect,
-            CreateSolidBrush(RGB(0, 0, 0)));
+            this->blackBrush);
 
         rect.left = this->m_width - 13;
         rect.right = this->m_width - 10;
@@ -202,7 +214,7 @@ void StatusBar::OnDraw(HDC hdc)
         FillRect(
             hdc,
             &rect,
-            CreateSolidBrush(RGB(255, 255, 255)));
+            this->whiteBrush);
 
         rect.left = this->m_width - 13;
         rect.right = this->m_width - 11;
@@ -211,7 +223,7 @@ void StatusBar::OnDraw(HDC hdc)
         FillRect(
             hdc,
             &rect,
-            CreateSolidBrush(RGB(0, 0, 0)));
+            this->blackBrush);
     }
 }
 
@@ -244,7 +256,18 @@ METHOD LRESULT StatusBar::MessageLoop(HWND hwnd, UINT uMsg, WPARAM wParam, LPARA
 
             hdc = BeginPaint(hwnd, &ps);
 
+            this->blackBrush = CreateSolidBrush(
+                RGB(0, 0, 0));
+            this->whiteBrush = CreateSolidBrush(
+                RGB(255, 255, 255));
+            this->sepBrush = CreateSolidBrush(
+                RGB(182, 188, 204));
+
             this->OnDraw(hdc);
+
+            DeleteObject(this->blackBrush);
+            DeleteObject(this->whiteBrush);
+            DeleteObject(this->sepBrush);
 
             EndPaint(hwnd, &ps);
 

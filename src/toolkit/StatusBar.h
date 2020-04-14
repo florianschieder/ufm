@@ -5,6 +5,7 @@
 class StatusBar : public Control {
     public:
         METHOD StatusBar(Window* parent, int x, int y, int w, int h);
+        METHOD ~StatusBar();
 
         METHOD void AddControl(std::shared_ptr<Control> control);
         METHOD void Show();
@@ -22,4 +23,8 @@ class StatusBar : public Control {
         METHOD void DrawStartGripper(HDC hdc, int dx);
 
         int drawStartGripperX;
+
+        HBRUSH whiteBrush;
+        HBRUSH blackBrush;
+        HBRUSH sepBrush;
 };

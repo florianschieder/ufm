@@ -3,13 +3,8 @@
 METHOD TextBox::TextBox(Window* parent) : InputBox(parent)
 {
     this->AddSpecificStyle(ES_MULTILINE | WS_VSCROLL | WS_HSCROLL);
-}
 
-METHOD void TextBox::Show()
-{
-    InputBox::Show();
-
-    HFONT hFont = CreateFont(
+    this->hFont = CreateFont(
         PT(10),
         0,
         0,
@@ -24,10 +19,20 @@ METHOD void TextBox::Show()
         DEFAULT_QUALITY,
         DEFAULT_PITCH | FF_DONTCARE,
         TEXT("Courier New"));
+}
+
+METHOD TextBox::~TextBox()
+{
+    DeleteObject(this->hFont);
+}
+
+METHOD void TextBox::Show()
+{
+    InputBox::Show();
 
     SendMessage(
         this->m_controlHandle,
         WM_SETFONT,
-        (WPARAM) hFont,
+        (WPARAM) this->hFont,
         TRUE);
 }

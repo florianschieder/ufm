@@ -247,6 +247,8 @@ METHOD bool ShellListView::Enumerate()
         }
     }
 
+    FindClose(hSearch);
+
     // Process files
     hSearch = FindFirstFile(
         directoryWithFilter.c_str(),
@@ -400,6 +402,8 @@ METHOD bool ShellListView::Enumerate()
             itemIdx++;
         }
     }
+
+    FindClose(hSearch);
 
     return true;
 }

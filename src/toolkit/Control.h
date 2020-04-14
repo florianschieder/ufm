@@ -5,7 +5,8 @@
 class Control {
     public:
         METHOD Control(Window* parent);
-        
+        METHOD ~Control();
+
         METHOD HWND GetHandle();
         METHOD void Resize(int x, int y, int width, int height);
         
@@ -34,7 +35,7 @@ class Control {
         int m_width;
         int m_height;
 
-        int m_ctrlID;
+        long long m_ctrlID;
         
         String m_className;
 

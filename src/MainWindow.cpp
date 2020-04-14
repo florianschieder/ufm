@@ -23,6 +23,7 @@ MainWindow::~MainWindow()
     delete this->refreshButton;
     delete this->detailsButton;
     delete this->listButton;
+    delete this->largeButton;
     delete this->smallButton;
     delete this->printButton;
     delete this->adminButton;
@@ -478,8 +479,18 @@ void MainWindow::OnPostParam(void* param, int reason)
 void MainWindow::OnPaint(PAINTSTRUCT ps, HDC hdc)
 {
     Gdiplus::Graphics graphics(hdc);
-    Gdiplus::RectF rectGradient(0, 32, this->m_width, 28);
-    Gdiplus::RectF rectBg(0, 60, this->m_width, this->leftShellView->GetHeight());
+
+    Gdiplus::RectF rectGradient(
+        (Gdiplus::REAL) 0,
+        (Gdiplus::REAL) 32,
+        (Gdiplus::REAL) this->m_width,
+        (Gdiplus::REAL) 28);
+
+    Gdiplus::RectF rectBg(
+        (Gdiplus::REAL) 0,
+        (Gdiplus::REAL) 60,
+        (Gdiplus::REAL) this->m_width,
+        (Gdiplus::REAL) this->leftShellView->GetHeight());
 
     Gdiplus::LinearGradientBrush brushGradient(
         rectGradient,

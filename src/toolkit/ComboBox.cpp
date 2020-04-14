@@ -25,7 +25,7 @@ METHOD void ComboBox::Show()
         this->m_width,
         this->m_height,
         this->m_parentWindow->GetHandle(),
-        (HMENU)this->m_ctrlID,
+        (HMENU) this->m_ctrlID,
         this->m_parentWindow->GetApplication()->GetInstance(),
         this);
 
@@ -58,9 +58,10 @@ METHOD LRESULT ComboBox::MessageLoop(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM
     switch (uMsg)
     {
         case WM_COMBOBOX_ITEM_CHANGED:
+        {
             TCHAR buffer[512];
             int idx;
-            idx = SendMessage(this->m_controlHandle, CB_GETCURSEL, 0, 0);
+            idx = (int)SendMessage(this->m_controlHandle, CB_GETCURSEL, 0, 0);
             SendMessage(this->m_controlHandle, CB_GETLBTEXT, idx, (LPARAM)buffer);
             this->SelectedItem = buffer;
 
@@ -69,6 +70,7 @@ METHOD LRESULT ComboBox::MessageLoop(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM
                 this->OnSelectionChanged(this, this->m_parentWindow);
             }
             break;
+        }
         default:
             break;
     }

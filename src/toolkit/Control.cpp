@@ -32,6 +32,11 @@ METHOD Control::Control(Window* parent)
     parent->controlIDSequence++;
 }
 
+METHOD Control::~Control()
+{
+    DeleteObject(this->defaultFont);
+}
+
 METHOD HWND Control::GetHandle()
 {
     return this->m_controlHandle;

@@ -8,7 +8,15 @@ METHOD ToolBar::ToolBar(Window* parent, int x, int y, int w, int h) : Control(pa
     this->m_height = h;
 
     this->drawStartGripperX = -1;
-    this->toolbarBrush = GetSysColorBrush(COLOR_BTNFACE);
+
+    this->blackBrush = 0;
+    this->whiteBrush = 0;
+    this->toolbarSepBrush = 0;
+    this->sepBrush = 0;
+}
+
+METHOD ToolBar::~ToolBar()
+{
 }
 
 void ToolBar::AddControl(Control* control)
@@ -73,13 +81,13 @@ METHOD void ToolBar::DrawStartGripper(HDC hdc, int dx)
         rect.right = rect.left + 3;
         rect.top = i;
         rect.bottom = rect.top + 3;
-        FillRect(hdc, &rect, CreateSolidBrush(RGB(255, 255, 255)));
+        FillRect(hdc, &rect, this->whiteBrush);
 
         rect.left = 5 + dx;
         rect.right = rect.left + 2;
         rect.top = i;
         rect.bottom = rect.top + 2;
-        FillRect(hdc, &rect, CreateSolidBrush(RGB(0, 0, 0)));
+        FillRect(hdc, &rect, this->blackBrush);
     }
 }
 
@@ -88,15 +96,19 @@ METHOD void ToolBar::DrawSeparator(HDC hdc, int x)
     RECT rect;
 
     rect = { x, 2, x + 1, this->m_height - 5 };
-    FillRect(hdc, &rect, CreateSolidBrush(RGB(150, 150, 150)));
+    FillRect(hdc, &rect, this->sepBrush);
     rect = { x + 1, 2, x + 2, this->m_height - 4 };
-    FillRect(hdc, &rect, CreateSolidBrush(RGB(255, 255, 255)));
+    FillRect(hdc, &rect, this->whiteBrush);
 }
 
 void ToolBar::OnDraw(HDC hdc)
 {
     Gdiplus::Graphics graphics(hdc);
-    Gdiplus::RectF rectF(0, 0, this->m_width, this->m_height);
+    Gdiplus::RectF rectF(
+        (Gdiplus::REAL) 0,
+        (Gdiplus::REAL) 0,
+        (Gdiplus::REAL) this->m_width,
+        (Gdiplus::REAL) this->m_height);
 
     Gdiplus::LinearGradientBrush brush(
         rectF,
@@ -112,13 +124,13 @@ void ToolBar::OnDraw(HDC hdc)
     rect.right = this->m_width;
     rect.top = this->m_height - 2;
     rect.bottom = this->m_height - 1;
-    FillRect(hdc, &rect, CreateSolidBrush(RGB(182, 188, 204)));
+    FillRect(hdc, &rect, this->toolbarSepBrush);
     
     rect.left = 0;
     rect.right = this->m_width;
     rect.top = this->m_height - 1;
     rect.bottom = this->m_height;
-    FillRect(hdc, &rect, CreateSolidBrush(RGB(255, 255, 255)));
+    FillRect(hdc, &rect, this->whiteBrush);
 
     if(this->drawStartGripperX != -1) 
         this->DrawStartGripper(hdc, this->drawStartGripperX);
@@ -165,11 +177,25 @@ METHOD LRESULT ToolBar::MessageLoop(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM 
 
             InvalidateRgn(this->m_controlHandle, NULL, TRUE);
 
+            this->toolbarSepBrush = CreateSolidBrush(
+                RGB(182, 188, 204));
+            this->blackBrush = CreateSolidBrush(
+                RGB(0, 0, 0));
+            this->whiteBrush = CreateSolidBrush(
+                RGB(255, 255, 255));
+            this->sepBrush = CreateSolidBrush(
+                RGB(150, 150, 150));
+
             hdc = BeginPaint(hwnd, &ps);
 
             this->OnDraw(hdc);
 
             EndPaint(hwnd, &ps);
+
+            DeleteObject(this->blackBrush);
+            DeleteObject(this->whiteBrush);
+            DeleteObject(this->toolbarSepBrush);
+            DeleteObject(this->sepBrush);
 
             return 0;
     }

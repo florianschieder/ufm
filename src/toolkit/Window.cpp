@@ -138,14 +138,17 @@ METHOD LRESULT CALLBACK Window::MessageLoop(HWND hwnd, UINT uMsg, WPARAM wParam,
     {
         case WM_NOTIFY:
             SendMessage(
-                GetDlgItem(hwnd, wParam),
+                GetDlgItem(
+                    hwnd,
+                    (int) wParam),
                 WM_NOTIFY,
                 ((LPNMHDR)lParam)->code,
                 lParam);
             break;
 
         case WM_KEYDOWN:
-            this->OnKeyDown(wParam);
+            this->OnKeyDown(
+                (DWORD) wParam);
             break;
 
         case WM_COMMAND:
@@ -199,7 +202,7 @@ METHOD LRESULT CALLBACK Window::MessageLoop(HWND hwnd, UINT uMsg, WPARAM wParam,
         case WM_POSTPARAM:
             this->OnPostParam(
                 (void*) wParam,
-                lParam);
+                (int) lParam);
             return 0;
 
         case WM_CREATE:
@@ -218,6 +221,7 @@ METHOD LRESULT CALLBACK Window::MessageLoop(HWND hwnd, UINT uMsg, WPARAM wParam,
             return 0;
 
         case WM_PAINT:
+        {
             this->m_windowHandle = hwnd;
 
             InvalidateRgn(this->m_windowHandle, NULL, TRUE);
@@ -225,6 +229,9 @@ METHOD LRESULT CALLBACK Window::MessageLoop(HWND hwnd, UINT uMsg, WPARAM wParam,
             PAINTSTRUCT ps;
             RECT rect = { 0 };
             HDC paint_hdc;
+
+            HBRUSH bgBrush = CreateSolidBrush(
+                RGB(240, 240, 240));
 
             paint_hdc = BeginPaint(hwnd, &ps);
             rect.left = 0;
@@ -236,14 +243,16 @@ METHOD LRESULT CALLBACK Window::MessageLoop(HWND hwnd, UINT uMsg, WPARAM wParam,
             FillRect(
                 paint_hdc,
                 &rect,
-                CreateSolidBrush(
-                    RGB(240, 240, 240)));
-            
+                bgBrush);
+
             this->OnPaint(ps, paint_hdc);
 
             EndPaint(hwnd, &ps);
+            
+            DeleteObject(bgBrush);
 
             return 0;
+        }
     }
 
     return DefWindowProc(hwnd, uMsg, wParam, lParam);

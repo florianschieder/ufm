@@ -31,16 +31,9 @@ METHOD std::vector<String> StringSplit(String s, String delimiter)
     return v;
 }
 
-METHOD std::wstring AToWStr(std::string s)
+METHOD const std::wstring AToWStr(const std::string& s)
 {
     std::wstring ws;
     ws.assign(s.begin(), s.end());
     return ws;
-}
-
-METHOD std::string WToAStr(std::wstring s)
-{
-    std::string str;
-    str.assign(s.begin(), s.end());
-    return str;
 }

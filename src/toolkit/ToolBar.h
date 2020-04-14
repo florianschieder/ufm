@@ -6,7 +6,8 @@ class ToolBar : public Control
 {
     public:
         METHOD ToolBar(Window* parent, int x, int y, int w, int h);
-    
+        METHOD ~ToolBar();
+
         METHOD void AddControl(Control* control);
         METHOD void Show();
 
@@ -25,5 +26,8 @@ class ToolBar : public Control
         int drawStartGripperX;
         std::vector<int> separators;
         
-        HBRUSH toolbarBrush;
+        HBRUSH toolbarSepBrush;
+        HBRUSH whiteBrush;
+        HBRUSH blackBrush;
+        HBRUSH sepBrush;
 };

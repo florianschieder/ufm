@@ -10,6 +10,11 @@ METHOD Button::Button(Window* parent) : Control(parent)
     this->iconHeight = 0;
 }
 
+METHOD Button::~Button()
+{
+    DestroyIcon(this->iconHandle);
+}
+
 METHOD void Button::SetDimensions(int x, int y, int w, int h)
 {
     this->m_x = x;
@@ -45,7 +50,7 @@ METHOD void Button::Show()
         0,
         0);
 
-    HANDLE icon = LoadImage(
+    this->iconHandle = (HICON) LoadImage(
         this->m_parentWindow->GetApplication()->GetInstance(),
         MAKEINTRESOURCEW(this->iconID),
         IMAGE_ICON,
@@ -56,7 +61,7 @@ METHOD void Button::Show()
         this->m_controlHandle,
         BM_SETIMAGE,
         IMAGE_ICON,
-        (LPARAM) icon);
+        (LPARAM) this->iconHandle);
 
     SendMessage(
         this->m_controlHandle,
