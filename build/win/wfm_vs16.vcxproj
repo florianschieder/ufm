@@ -103,7 +103,8 @@
     <LibraryPath>$(ProjectDir)\lib\x86_md;$(LibraryPath)</LibraryPath>
     <IncludePath>$(SolutionDir)..\..\src\libwfm;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)bin\$(Configuration)\$(Platform)\</OutDir>
-    <IntDir>$(SolutionDir)obj\$(Configuration)\$(Platform)\</IntDir>
+    <IntDir>$(SolutionDir)$(ProjectName)\obj\$(Configuration)\$(Platform)\</IntDir>
+    <TargetName>wfm</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Portable|Win32'">
     <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
@@ -111,7 +112,8 @@
     <LibraryPath>$(ProjectDir)\lib\x86_mt;$(LibraryPath)</LibraryPath>
     <IncludePath>$(SolutionDir)..\..\src\libwfm;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)bin\$(Configuration)\$(Platform)\</OutDir>
-    <IntDir>$(SolutionDir)obj\$(Configuration)\$(Platform)\</IntDir>
+    <IntDir>$(SolutionDir)$(ProjectName)\obj\$(Configuration)\$(Platform)\</IntDir>
+    <TargetName>wfm</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
@@ -119,7 +121,8 @@
     <LibraryPath>$(ProjectDir)\lib\x64_md;$(LibraryPath)</LibraryPath>
     <IncludePath>$(SolutionDir)..\..\src\libwfm;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)bin\$(Configuration)\$(Platform)\</OutDir>
-    <IntDir>$(SolutionDir)obj\$(Configuration)\$(Platform)\</IntDir>
+    <IntDir>$(SolutionDir)$(ProjectName)\obj\$(Configuration)\$(Platform)\</IntDir>
+    <TargetName>wfm</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Portable|x64'">
     <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
@@ -127,19 +130,22 @@
     <LibraryPath>$(ProjectDir)\lib\x64_mt;$(LibraryPath)</LibraryPath>
     <IncludePath>$(SolutionDir)..\..\src\libwfm;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)bin\$(Configuration)\$(Platform)\</OutDir>
-    <IntDir>$(SolutionDir)obj\$(Configuration)\$(Platform)\</IntDir>
+    <IntDir>$(SolutionDir)$(ProjectName)\obj\$(Configuration)\$(Platform)\</IntDir>
+    <TargetName>wfm</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LibraryPath>$(ProjectDir)\lib\x86_mdd;$(LibraryPath)</LibraryPath>
     <IncludePath>$(SolutionDir)..\..\src\libwfm;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)bin\$(Configuration)\$(Platform)\</OutDir>
-    <IntDir>$(SolutionDir)obj\$(Configuration)\$(Platform)\</IntDir>
+    <IntDir>$(SolutionDir)$(ProjectName)\obj\$(Configuration)\$(Platform)\</IntDir>
+    <TargetName>wfm</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LibraryPath>$(ProjectDir)\lib\x64_mdd;$(LibraryPath)</LibraryPath>
     <IncludePath>$(SolutionDir)..\..\src\libwfm;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)bin\$(Configuration)\$(Platform)\</OutDir>
-    <IntDir>$(SolutionDir)obj\$(Configuration)\$(Platform)\</IntDir>
+    <IntDir>$(SolutionDir)$(ProjectName)\obj\$(Configuration)\$(Platform)\</IntDir>
+    <TargetName>wfm</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
