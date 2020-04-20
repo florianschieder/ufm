@@ -135,6 +135,16 @@ METHOD int Window::ShowMessage(String title, String text, int style)
         style);
 }
 
+METHOD int Window::ShowMessage(HINSTANCE hInstance, String title, String text, int style)
+{
+    return ShellMessageBox(
+        hInstance,
+        NULL,
+        text.c_str(),
+        title.c_str(),
+        style);
+}
+
 METHOD void Window::Destroy()
 {
     DestroyWindow(this->m_windowHandle);

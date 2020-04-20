@@ -29,6 +29,7 @@ class Window
         METHOD void Show();
         METHOD int ShowMessage(String text, int style);
         METHOD int ShowMessage(String title, String text, int style);
+        METHOD static int ShowMessage(HINSTANCE hInstance, String title, String text, int style);
         METHOD void SetDimensions(int width, int height);
         
         METHOD Application* GetApplication();

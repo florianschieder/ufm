@@ -1,8 +1,18 @@
 #include "Application.h"
+#include "Window.h"
 
 METHOD Application::Application(HINSTANCE h, int n, String name)
 {
-    this->m_hInstance = h;
+    this->m_hAppInstance = h;
+
+    #ifdef _WINDLL
+        // Dynamic build -> load library instance
+        this->m_hLibraryInstance = GetModuleHandle(L"libufm.dll");
+    #else
+        // Static build -> app = library
+        this->m_hLibraryInstance = this->m_hAppInstance;
+    #endif
+
     this->m_nCmdShow = n;
     this->m_appName = name;
 
@@ -61,9 +71,9 @@ void Application::InitializeShellImageBucket()
 
     // Add our generic icons we need internally
     this->m_iconUp = LoadIcon(
-        this->m_hInstance,
+        this->m_hLibraryInstance,
         MAKEINTRESOURCE(IDI_UP));
-
+    
     this->m_iUpIconIndex = ImageList_AddIcon(
         this->m_largeShellImageBucket,
         this->m_iconUp);
@@ -200,14 +210,19 @@ METHOD void Application::IndicateTimeIntensiveProcess()
 
 METHOD HINSTANCE Application::GetInstance()
 {
-    return this->m_hInstance;
+    return this->m_hAppInstance;
+}
+
+METHOD HINSTANCE Application::GetLibInstance()
+{
+    return this->m_hLibraryInstance;
 }
 
 METHOD wchar_t* Application::GetLanguageString(int id) {
     wchar_t buffer[4096];
 
     LoadString(
-        this->m_hInstance,
+        this->m_hLibraryInstance,
         id,
         buffer,
         sizeof(buffer) / sizeof(wchar_t));

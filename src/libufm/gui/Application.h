@@ -9,7 +9,7 @@
 #include "../libufmdef.h"
 
 #include "../core/Environment.h"
-#include "../../../res/ufm/resource.h"
+#include "../../../res/libufm/resource.h"
 
 class Application final
 {
@@ -30,6 +30,7 @@ class Application final
         METHOD int GetInternalIconIndex(DWORD icon);
         METHOD HINSTANCE GetInstance();
         METHOD wchar_t* GetLanguageString(int id);
+        METHOD HINSTANCE GetLibInstance();
         METHOD int GetShowState();
         METHOD void IndicateTimeIntensiveProcess();
         METHOD void Restart();
@@ -52,6 +53,7 @@ class Application final
         HCURSOR m_cursorWait;
         HICON m_iconUp;
         Environment m_Environment;
-        HINSTANCE m_hInstance;
+        HINSTANCE m_hAppInstance;
+        HINSTANCE m_hLibraryInstance;
         int m_nCmdShow;
 };

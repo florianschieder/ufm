@@ -78,6 +78,9 @@
     <ClInclude Include="..\..\src\libufm\gui\Window.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\res\libufm\resource.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\libufm\gui\Application.cpp">
@@ -136,7 +139,12 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="..\..\res\ufm\ufm.rc">
+    <Image Include="..\..\res\libufm\up.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\..\res\libufm\libufm.rc">
       <Filter>Ressourcendateien</Filter>
     </ResourceCompile>
   </ItemGroup>
