@@ -1,6 +1,6 @@
 #include "MainWindow.h"
 
-#include "../../res/wfm/resource.h"
+#include "../../res/ufm/resource.h"
 
 using namespace std::filesystem;
 
@@ -250,7 +250,7 @@ void MainWindow::OnInitializeWindow()
 
     // Prepare window + show
 
-    this->SetTitle(L"WFM");
+    this->SetTitle(L"UFM");
     this->SetDimensions(800, 600);
 
     // If already started once, recover last location
@@ -373,7 +373,7 @@ void MainWindow::OnMenuEvent(WORD menuID)
             this->rightShellView->RefreshView();
             break;
 
-        case ID_HELP_ABOUTWFM:
+        case ID_HELP_ABOUTUFM:
             DialogBox(
                 this->m_application->GetInstance(),
                 MAKEINTRESOURCE(IDD_ABOUTDLG),

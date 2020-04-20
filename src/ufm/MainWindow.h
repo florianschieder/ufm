@@ -1,6 +1,6 @@
 #pragma once
 
-#include <libwfm.h>
+#include <libufm.h>
 
 #include "FileViewerWindow.h"
 

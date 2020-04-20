@@ -22,7 +22,7 @@
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{3129912F-6B86-4415-96C1-ABC102344086}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>libwfm</RootNamespace>
+    <RootNamespace>libufm</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -71,25 +71,25 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <TargetName>libwfm</TargetName>
+    <TargetName>libufm</TargetName>
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)\bin\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)$(ProjectName)\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <TargetName>libwfm</TargetName>
+    <TargetName>libufm</TargetName>
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)\bin\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)$(ProjectName)\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <TargetName>libwfm</TargetName>
+    <TargetName>libufm</TargetName>
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)\bin\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)$(ProjectName)\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <TargetName>libwfm</TargetName>
+    <TargetName>libufm</TargetName>
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)\bin\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)$(ProjectName)\obj\$(Configuration)\$(Platform)\</IntDir>
@@ -98,7 +98,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;LIBWFM_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;LIBufm_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
@@ -112,7 +112,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;LIBWFM_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;LIBufm_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
@@ -128,7 +128,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;LIBWFM_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;LIBufm_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
@@ -146,7 +146,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;LIBWFM_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;LIBufm_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
@@ -159,50 +159,50 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\libwfm\core\Environment.h" />
-    <ClInclude Include="..\..\src\libwfm\core\FileType.h" />
-    <ClInclude Include="..\..\src\libwfm\core\String.h" />
-    <ClInclude Include="..\..\src\libwfm\gui\Application.h" />
-    <ClInclude Include="..\..\src\libwfm\gui\Button.h" />
-    <ClInclude Include="..\..\src\libwfm\gui\ComboBox.h" />
-    <ClInclude Include="..\..\src\libwfm\gui\Control.h" />
-    <ClInclude Include="..\..\src\libwfm\gui\DriveComboBox.h" />
-    <ClInclude Include="..\..\src\libwfm\gui\Icon.h" />
-    <ClInclude Include="..\..\src\libwfm\gui\Image.h" />
-    <ClInclude Include="..\..\src\libwfm\gui\InputBox.h" />
-    <ClInclude Include="..\..\src\libwfm\gui\ListView.h" />
-    <ClInclude Include="..\..\src\libwfm\gui\ShellInputBox.h" />
-    <ClInclude Include="..\..\src\libwfm\gui\ShellListView.h" />
-    <ClInclude Include="..\..\src\libwfm\gui\StatusBar.h" />
-    <ClInclude Include="..\..\src\libwfm\gui\TextBox.h" />
-    <ClInclude Include="..\..\src\libwfm\gui\ToolBar.h" />
-    <ClInclude Include="..\..\src\libwfm\gui\ToolButton.h" />
-    <ClInclude Include="..\..\src\libwfm\gui\Window.h" />
-    <ClInclude Include="..\..\src\libwfm\libwfm.h" />
-    <ClInclude Include="..\..\src\libwfm\wfmtkdef.h" />
+    <ClInclude Include="..\..\src\libufm\core\Environment.h" />
+    <ClInclude Include="..\..\src\libufm\core\FileType.h" />
+    <ClInclude Include="..\..\src\libufm\core\String.h" />
+    <ClInclude Include="..\..\src\libufm\gui\Application.h" />
+    <ClInclude Include="..\..\src\libufm\gui\Button.h" />
+    <ClInclude Include="..\..\src\libufm\gui\ComboBox.h" />
+    <ClInclude Include="..\..\src\libufm\gui\Control.h" />
+    <ClInclude Include="..\..\src\libufm\gui\DriveComboBox.h" />
+    <ClInclude Include="..\..\src\libufm\gui\Icon.h" />
+    <ClInclude Include="..\..\src\libufm\gui\Image.h" />
+    <ClInclude Include="..\..\src\libufm\gui\InputBox.h" />
+    <ClInclude Include="..\..\src\libufm\gui\ListView.h" />
+    <ClInclude Include="..\..\src\libufm\gui\ShellInputBox.h" />
+    <ClInclude Include="..\..\src\libufm\gui\ShellListView.h" />
+    <ClInclude Include="..\..\src\libufm\gui\StatusBar.h" />
+    <ClInclude Include="..\..\src\libufm\gui\TextBox.h" />
+    <ClInclude Include="..\..\src\libufm\gui\ToolBar.h" />
+    <ClInclude Include="..\..\src\libufm\gui\ToolButton.h" />
+    <ClInclude Include="..\..\src\libufm\gui\Window.h" />
+    <ClInclude Include="..\..\src\libufm\libufm.h" />
+    <ClInclude Include="..\..\src\libufm\libufmdef.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\libwfm\core\FileType.cpp" />
-    <ClCompile Include="..\..\src\libwfm\core\String.cpp" />
-    <ClCompile Include="..\..\src\libwfm\gui\Application.cpp" />
-    <ClCompile Include="..\..\src\libwfm\gui\Button.cpp" />
-    <ClCompile Include="..\..\src\libwfm\gui\ComboBox.cpp" />
-    <ClCompile Include="..\..\src\libwfm\gui\Control.cpp" />
-    <ClCompile Include="..\..\src\libwfm\gui\DriveComboBox.cpp" />
-    <ClCompile Include="..\..\src\libwfm\gui\Icon.cpp" />
-    <ClCompile Include="..\..\src\libwfm\gui\Image.cpp" />
-    <ClCompile Include="..\..\src\libwfm\gui\InputBox.cpp" />
-    <ClCompile Include="..\..\src\libwfm\gui\ListView.cpp" />
-    <ClCompile Include="..\..\src\libwfm\gui\ShellInputBox.cpp" />
-    <ClCompile Include="..\..\src\libwfm\gui\ShellListView.cpp" />
-    <ClCompile Include="..\..\src\libwfm\gui\StatusBar.cpp" />
-    <ClCompile Include="..\..\src\libwfm\gui\TextBox.cpp" />
-    <ClCompile Include="..\..\src\libwfm\gui\ToolBar.cpp" />
-    <ClCompile Include="..\..\src\libwfm\gui\ToolButton.cpp" />
-    <ClCompile Include="..\..\src\libwfm\gui\Window.cpp" />
+    <ClCompile Include="..\..\src\libufm\core\FileType.cpp" />
+    <ClCompile Include="..\..\src\libufm\core\String.cpp" />
+    <ClCompile Include="..\..\src\libufm\gui\Application.cpp" />
+    <ClCompile Include="..\..\src\libufm\gui\Button.cpp" />
+    <ClCompile Include="..\..\src\libufm\gui\ComboBox.cpp" />
+    <ClCompile Include="..\..\src\libufm\gui\Control.cpp" />
+    <ClCompile Include="..\..\src\libufm\gui\DriveComboBox.cpp" />
+    <ClCompile Include="..\..\src\libufm\gui\Icon.cpp" />
+    <ClCompile Include="..\..\src\libufm\gui\Image.cpp" />
+    <ClCompile Include="..\..\src\libufm\gui\InputBox.cpp" />
+    <ClCompile Include="..\..\src\libufm\gui\ListView.cpp" />
+    <ClCompile Include="..\..\src\libufm\gui\ShellInputBox.cpp" />
+    <ClCompile Include="..\..\src\libufm\gui\ShellListView.cpp" />
+    <ClCompile Include="..\..\src\libufm\gui\StatusBar.cpp" />
+    <ClCompile Include="..\..\src\libufm\gui\TextBox.cpp" />
+    <ClCompile Include="..\..\src\libufm\gui\ToolBar.cpp" />
+    <ClCompile Include="..\..\src\libufm\gui\ToolButton.cpp" />
+    <ClCompile Include="..\..\src\libufm\gui\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="..\..\res\wfm\wfm.rc" />
+    <ResourceCompile Include="..\..\res\ufm\ufm.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

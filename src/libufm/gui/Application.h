@@ -6,10 +6,10 @@
 #include <CommCtrl.h>
 #include <gdiplus.h>
 
-#include "../wfmtkdef.h"
+#include "../libufmdef.h"
 
 #include "../core/Environment.h"
-#include "../../../res/wfm/resource.h"
+#include "../../../res/ufm/resource.h"
 
 class Application final
 {

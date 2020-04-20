@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../libwfm.h"
-#include "../../../res/wfm/resource.h"
+#include "../libufm.h"
+#include "../../../res/ufm/resource.h"
 
 struct DirectoryItem
 {

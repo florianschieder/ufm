@@ -3,6 +3,6 @@
 #include <urlmon.h>
 
 #include "String.h"
-#include "../wfmtkdef.h"
+#include "../libufmdef.h"
 
 METHOD String MimeTypeFromString(const String& szExtension);

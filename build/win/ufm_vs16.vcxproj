@@ -29,7 +29,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{30865D77-B423-49A6-BD30-4E7D8E5D291E}</ProjectGuid>
-    <RootNamespace>wfm</RootNamespace>
+    <RootNamespace>ufm</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -101,51 +101,51 @@
     <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <LibraryPath>$(ProjectDir)\lib\x86_md;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)..\..\src\libwfm;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\..\src\libufm;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)bin\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)$(ProjectName)\obj\$(Configuration)\$(Platform)\</IntDir>
-    <TargetName>wfm</TargetName>
+    <TargetName>ufm</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Portable|Win32'">
     <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <LibraryPath>$(ProjectDir)\lib\x86_mt;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)..\..\src\libwfm;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\..\src\libufm;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)bin\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)$(ProjectName)\obj\$(Configuration)\$(Platform)\</IntDir>
-    <TargetName>wfm</TargetName>
+    <TargetName>ufm</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <LibraryPath>$(ProjectDir)\lib\x64_md;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)..\..\src\libwfm;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\..\src\libufm;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)bin\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)$(ProjectName)\obj\$(Configuration)\$(Platform)\</IntDir>
-    <TargetName>wfm</TargetName>
+    <TargetName>ufm</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Portable|x64'">
     <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <LibraryPath>$(ProjectDir)\lib\x64_mt;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)..\..\src\libwfm;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\..\src\libufm;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)bin\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)$(ProjectName)\obj\$(Configuration)\$(Platform)\</IntDir>
-    <TargetName>wfm</TargetName>
+    <TargetName>ufm</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LibraryPath>$(ProjectDir)\lib\x86_mdd;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)..\..\src\libwfm;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\..\src\libufm;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)bin\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)$(ProjectName)\obj\$(Configuration)\$(Platform)\</IntDir>
-    <TargetName>wfm</TargetName>
+    <TargetName>ufm</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LibraryPath>$(ProjectDir)\lib\x64_mdd;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)..\..\src\libwfm;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\..\src\libufm;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)bin\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)$(ProjectName)\obj\$(Configuration)\$(Platform)\</IntDir>
-    <TargetName>wfm</TargetName>
+    <TargetName>ufm</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -170,7 +170,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>$(SolutionDir)bin\$(Configuration)\$(Platform)\libwfm.lib;shlwapi.lib;gdiplus.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)bin\$(Configuration)\$(Platform)\libufm.lib;shlwapi.lib;gdiplus.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Manifest>
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
@@ -199,7 +199,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>$(SolutionDir)bin\$(Configuration)\$(Platform)\libwfm.lib;shlwapi.lib;gdiplus.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)bin\$(Configuration)\$(Platform)\libufm.lib;shlwapi.lib;gdiplus.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Manifest>
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
@@ -235,7 +235,7 @@
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>$(SolutionDir)bin\$(Configuration)\$(Platform)\libwfm.lib;shlwapi.lib;gdiplus.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)bin\$(Configuration)\$(Platform)\libufm.lib;shlwapi.lib;gdiplus.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Manifest>
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
@@ -271,7 +271,7 @@
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>$(SolutionDir)bin\$(Configuration)\$(Platform)\libwfm.lib;shlwapi.lib;gdiplus.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)bin\$(Configuration)\$(Platform)\libufm.lib;shlwapi.lib;gdiplus.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Manifest>
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
@@ -307,7 +307,7 @@
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>$(SolutionDir)bin\$(Configuration)\$(Platform)\libwfm.lib;shlwapi.lib;gdiplus.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)bin\$(Configuration)\$(Platform)\libufm.lib;shlwapi.lib;gdiplus.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Manifest>
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
@@ -343,42 +343,42 @@
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>$(SolutionDir)bin\$(Configuration)\$(Platform)\libwfm.lib;shlwapi.lib;gdiplus.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)bin\$(Configuration)\$(Platform)\libufm.lib;shlwapi.lib;gdiplus.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Manifest>
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\wfm\FileViewerWindow.cpp" />
-    <ClCompile Include="..\..\src\wfm\MainWindow.cpp" />
-    <ClCompile Include="..\..\src\wfm\wfm.cpp" />
+    <ClCompile Include="..\..\src\ufm\FileViewerWindow.cpp" />
+    <ClCompile Include="..\..\src\ufm\MainWindow.cpp" />
+    <ClCompile Include="..\..\src\ufm\ufm.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\res\wfm\resource.h" />
-    <ClInclude Include="..\..\src\wfm\FileViewerWindow.h" />
-    <ClInclude Include="..\..\src\wfm\wfm.h" />
-    <ClInclude Include="..\..\src\wfm\MainWindow.h" />
+    <ClInclude Include="..\..\res\ufm\resource.h" />
+    <ClInclude Include="..\..\src\ufm\FileViewerWindow.h" />
+    <ClInclude Include="..\..\src\ufm\ufm.h" />
+    <ClInclude Include="..\..\src\ufm\MainWindow.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="..\..\res\wfm\wfm.rc" />
+    <ResourceCompile Include="..\..\res\ufm\ufm.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\res\wfm\admin.ico" />
-    <Image Include="..\..\res\wfm\back.ico" />
-    <Image Include="..\..\res\wfm\cmd.ico" />
-    <Image Include="..\..\res\wfm\details.ico" />
-    <Image Include="..\..\res\wfm\forward.ico" />
-    <Image Include="..\..\res\wfm\hidden.ico" />
-    <Image Include="..\..\res\wfm\large.ico" />
-    <Image Include="..\..\res\wfm\list.ico" />
-    <Image Include="..\..\res\wfm\print.ico" />
-    <Image Include="..\..\res\wfm\property.ico" />
-    <Image Include="..\..\res\wfm\refresh.ico" />
-    <Image Include="..\..\res\wfm\rename.ico" />
-    <Image Include="..\..\res\wfm\small.ico" />
-    <Image Include="..\..\res\wfm\up.ico" />
-    <Image Include="..\..\res\wfm\wfm.ico" />
+    <Image Include="..\..\res\ufm\admin.ico" />
+    <Image Include="..\..\res\ufm\back.ico" />
+    <Image Include="..\..\res\ufm\cmd.ico" />
+    <Image Include="..\..\res\ufm\details.ico" />
+    <Image Include="..\..\res\ufm\forward.ico" />
+    <Image Include="..\..\res\ufm\hidden.ico" />
+    <Image Include="..\..\res\ufm\large.ico" />
+    <Image Include="..\..\res\ufm\list.ico" />
+    <Image Include="..\..\res\ufm\print.ico" />
+    <Image Include="..\..\res\ufm\property.ico" />
+    <Image Include="..\..\res\ufm\refresh.ico" />
+    <Image Include="..\..\res\ufm\rename.ico" />
+    <Image Include="..\..\res\ufm\small.ico" />
+    <Image Include="..\..\res\ufm\up.ico" />
+    <Image Include="..\..\res\ufm\ufm.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

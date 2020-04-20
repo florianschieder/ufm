@@ -3,7 +3,7 @@
 #include <fstream>
 #include <sstream>
 
-#include <libwfm.h>
+#include <libufm.h>
 
 class FileViewerWindow : public Window
 {

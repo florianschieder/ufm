@@ -2,7 +2,7 @@
 
 #include <Windows.h>
 
-#include "../wfmtkdef.h"
+#include "../libufmdef.h"
 
 #include "Control.h"
 #include "Window.h"

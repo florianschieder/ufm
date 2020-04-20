@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-#include "../wfmtkdef.h"
+#include "../libufmdef.h"
 
 METHOD String StringReplace(String subject, const String& search, const String& replace);
 METHOD std::vector<String> StringSplit(String s, String delimiter);

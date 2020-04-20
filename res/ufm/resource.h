@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
 // Von Microsoft Visual C++ generierte Includedatei.
-// Verwendet durch wfm.rc
+// Verwendet durch ufm.rc
 //
 #define IDI_ICON1                       101
 #define IDI_MAIN_ICON                   101
@@ -75,13 +75,14 @@
 #define ID_RUNASADMIN                   40028
 #define ID_SHOWPROPS                    40029
 #define ID_PRINTDOC                     40030
+#define ID_HELP_ABOUTUFM                40031
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        132
-#define _APS_NEXT_COMMAND_VALUE         40031
+#define _APS_NEXT_COMMAND_VALUE         40032
 #define _APS_NEXT_CONTROL_VALUE         1005
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
