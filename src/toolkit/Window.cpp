@@ -249,6 +249,7 @@ METHOD LRESULT CALLBACK Window::MessageLoop(HWND hwnd, UINT uMsg, WPARAM wParam,
 
             EndPaint(hwnd, &ps);
             
+            DeleteDC(paint_hdc);
             DeleteObject(bgBrush);
 
             return 0;

@@ -50,6 +50,7 @@ class Application final
         HIMAGELIST m_smallShellImageBucket;
         HCURSOR m_cursorHand;
         HCURSOR m_cursorWait;
+        HICON m_iconUp;
         Environment m_Environment;
         HINSTANCE m_hInstance;
         int m_nCmdShow;

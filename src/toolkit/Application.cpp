@@ -60,17 +60,17 @@ void Application::InitializeShellImageBucket()
             SHGFI_SYSICONINDEX | SHGFI_SMALLICON));
 
     // Add our generic icons we need internally
-    HICON upIcon = LoadIcon(
+    this->m_iconUp = LoadIcon(
         this->m_hInstance,
         MAKEINTRESOURCE(IDI_UP));
 
     this->m_iUpIconIndex = ImageList_AddIcon(
         this->m_largeShellImageBucket,
-        upIcon);
+        this->m_iconUp);
 
     ImageList_AddIcon(
         this->m_smallShellImageBucket,
-        upIcon);
+        this->m_iconUp);
 }
 
 METHOD void Application::InitializeCommonControls()
@@ -262,6 +262,13 @@ METHOD int Application::Exit()
     CoUninitialize();
     Gdiplus::GdiplusShutdown(this->gdiplusToken);
     
+    DestroyIcon(this->m_iconUp);
+    DestroyCursor(this->m_cursorHand);
+    DestroyCursor(this->m_cursorWait);
+
+    ImageList_Destroy(this->m_largeShellImageBucket);
+    ImageList_Destroy(this->m_smallShellImageBucket);
+
     return EXIT_SUCCESS;
 }
 

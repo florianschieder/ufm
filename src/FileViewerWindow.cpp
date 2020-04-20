@@ -8,7 +8,6 @@ FileViewerWindow::FileViewerWindow(Application* app, String ext) : Window(app)
 FileViewerWindow::~FileViewerWindow()
 {
     delete this->fileView;
-    delete[] this->fileContent;
     delete this->image;
     delete this->statusBar;
 }
@@ -45,6 +44,7 @@ void FileViewerWindow::OnInitializeWindow()
         this->fileView->AddSpecificStyle(ES_READONLY | ES_AUTOHSCROLL | ES_AUTOVSCROLL);
         this->fileView->Show();
         SendMessageA(this->fileView->GetHandle(), WM_SETTEXT, 0, (LPARAM)this->fileContent);
+        delete[] this->fileContent;
     }
 
     this->statusBar = new StatusBar(this, 0, this->m_height - 22, this->m_width, 22);
