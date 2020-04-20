@@ -1,6 +1,6 @@
 #pragma once
 
-#include "wfmtkdef.h"
+#include "../wfmtkdef.h"
 
 #include <memory>
 

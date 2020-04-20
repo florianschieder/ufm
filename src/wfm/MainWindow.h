@@ -1,23 +1,8 @@
 #pragma once
 
-#include <Windows.h>
-#include <CommCtrl.h>
+#include <libwfm.h>
 
 #include "FileViewerWindow.h"
-
-#include "toolkit/Application.h"
-#include "toolkit/Button.h"
-#include "toolkit/DriveComboBox.h"
-#include "toolkit/Icon.h"
-#include "toolkit/InputBox.h"
-#include "toolkit/ListView.h"
-#include "toolkit/ShellInputBox.h"
-#include "toolkit/ShellListView.h"
-#include "toolkit/ToolButton.h"
-#include "toolkit/Window.h"
-
-#include "toolkit/ToolBar.h"
-#include "toolkit/StatusBar.h"
 
 // Define control IDs for this window
 

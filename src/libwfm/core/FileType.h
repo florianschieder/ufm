@@ -5,4 +5,4 @@
 #include "String.h"
 #include "../wfmtkdef.h"
 
-String MimeTypeFromString(const String& szExtension);
+METHOD String MimeTypeFromString(const String& szExtension);

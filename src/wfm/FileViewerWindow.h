@@ -3,12 +3,7 @@
 #include <fstream>
 #include <sstream>
 
-#include "toolkit/Image.h"
-#include "toolkit/Window.h"
-#include "toolkit/StatusBar.h"
-#include "toolkit/TextBox.h"
-
-#include "toolkit/core/FileType.h"
+#include <libwfm.h>
 
 class FileViewerWindow : public Window
 {

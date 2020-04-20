@@ -1,20 +1,22 @@
 #pragma once
 
 #include "Control.h"
-#include "wfmtkdef.h"
+#include "Window.h"
 
-class ComboBox : public Control
+class InputBox : public Control
 {
     public:
-        METHOD ComboBox(Window* parent);
-
-        METHOD void AddItem(String item);
+        METHOD InputBox(Window* parent);
+        METHOD InputBox(Window* parent, int x, int y, int w, int h);
         METHOD void Show();
+        METHOD void SetDimensions(int x, int y, int w, int h);
+        METHOD void SetText(wchar_t* Text);
 
-        String SelectedItem;
-
-        void (*OnSelectionChanged)(ComboBox* object, Window* parent) = nullptr;
+    protected:
+        wchar_t* Text;
+        void* (*OnTextChanged)() = nullptr;
 
         METHOD static LRESULT CALLBACK MessageLoopForwarder(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
         METHOD LRESULT CALLBACK MessageLoop(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
 };
+

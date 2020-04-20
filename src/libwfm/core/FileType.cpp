@@ -1,6 +1,6 @@
 #include "FileType.h"
 
-String MimeTypeFromString(const String& szExtension)
+METHOD String MimeTypeFromString(const String& szExtension)
 {
     char buff[256];
     LPWSTR out = (wchar_t*) L"unkown/unkown";

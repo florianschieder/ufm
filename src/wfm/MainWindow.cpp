@@ -1,6 +1,6 @@
 #include "MainWindow.h"
 
-#include "../res/resource.h"
+#include "../../res/wfm/resource.h"
 
 using namespace std::filesystem;
 
