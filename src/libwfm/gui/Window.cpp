@@ -33,6 +33,11 @@ METHOD Window* Window::GetParent()
     return this->m_parentWindow;
 }
 
+METHOD int Window::GetStyle()
+{
+    return this->m_style;
+}
+
 METHOD bool Window::IsOpen()
 {
     return this->m_isOpen;
@@ -108,6 +113,26 @@ METHOD void Window::Show()
             }
         }
     }
+}
+
+METHOD int Window::ShowMessage(String text, int style)
+{
+    return ShellMessageBox(
+        this->GetApplication()->GetInstance(),
+        this->GetHandle(),
+        text.c_str(),
+        this->GetTitle().c_str(),
+        style);
+}
+
+METHOD int Window::ShowMessage(String title, String text, int style)
+{
+    return ShellMessageBox(
+        this->GetApplication()->GetInstance(),
+        this->GetHandle(),
+        text.c_str(),
+        title.c_str(),
+        style);
 }
 
 METHOD void Window::Destroy()

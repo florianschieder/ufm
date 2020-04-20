@@ -27,6 +27,8 @@ class Window
         METHOD void Destroy();
         METHOD bool IsOpen();
         METHOD void Show();
+        METHOD int ShowMessage(String text, int style);
+        METHOD int ShowMessage(String title, String text, int style);
         METHOD void SetDimensions(int width, int height);
         
         METHOD Application* GetApplication();

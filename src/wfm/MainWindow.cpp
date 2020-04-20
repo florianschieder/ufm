@@ -625,11 +625,8 @@ void MainWindow::FileViewerButtonClicked(Window* window)
     }
     else
     {
-        ShellMessageBox(
-            window->GetApplication()->GetInstance(),
-            window->GetHandle(),
-            L"No file selected.",
-            window->GetTitle().c_str(),
+        window->ShowMessage(
+            L"No file selected",
             MB_ICONINFORMATION);
     }
 }
@@ -675,11 +672,8 @@ void MainWindow::CopyButtonClicked(Window* window)
 
     if (PathFileExists(to.c_str()))
     {
-        if (ShellMessageBox(
-            wnd->GetApplication()->GetInstance(),
-            wnd->GetHandle(),
+        if (wnd->ShowMessage(
             String(L"Are you sure to overwrite \"").append(to).append(L"\"?").c_str(),
-            wnd->GetTitle().c_str(),
             MB_ICONEXCLAMATION | MB_YESNO) == IDYES)
         {
             CopyFile(from.c_str(), to.c_str(), FALSE);
@@ -722,11 +716,8 @@ void MainWindow::MoveButtonClicked(Window* window)
 
     if (PathFileExists(to.c_str()))
     {
-        if (ShellMessageBox(
-            wnd->GetApplication()->GetInstance(),
-            wnd->GetHandle(),
+        if (wnd->ShowMessage(
             String(L"Are you sure to overwrite \"").append(to).append(L"\"?").c_str(),
-            wnd->GetTitle().c_str(),
             MB_ICONEXCLAMATION | MB_YESNO) == IDYES)
         {
             MoveFileEx(from.c_str(), to.c_str(), MOVEFILE_REPLACE_EXISTING);
@@ -807,11 +798,8 @@ void MainWindow::DeleteButtonClicked(Window* window)
     String myPath(active->SelectedPath);
     myPath += L'\0';
 
-    if (ShellMessageBox(
-        wnd->GetApplication()->GetInstance(),
-        wnd->GetHandle(),
+    if (wnd->ShowMessage(
         String(L"Are you sure to recycle \"").append(active->SelectedPath).append(L"\" (and, in case of a directory, each of its contents)?").c_str(),
-        wnd->GetTitle().c_str(),
         MB_YESNO | MB_ICONWARNING) == IDYES)
     {
         SHFILEOPSTRUCT fileOp;
