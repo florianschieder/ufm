@@ -15,79 +15,79 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\ufm\FileViewerWindow.cpp">
+    <ClCompile Include="..\..\src\FileViewerWindow.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\ufm\MainWindow.cpp">
+    <ClCompile Include="..\..\src\MainWindow.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\ufm\ufm.cpp">
+    <ClCompile Include="..\..\src\ufm.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\ufm\FileViewerWindow.h">
+    <ClInclude Include="..\..\res\resource.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\ufm\MainWindow.h">
+    <ClInclude Include="..\..\src\FileViewerWindow.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\res\ufm\resource.h">
+    <ClInclude Include="..\..\src\ufm.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\ufm\ufm.h">
+    <ClInclude Include="..\..\src\MainWindow.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\res\ufm\admin.ico">
+    <Image Include="..\..\res\admin.ico">
       <Filter>Ressourcendateien</Filter>
     </Image>
-    <Image Include="..\..\res\ufm\back.ico">
+    <Image Include="..\..\res\back.ico">
       <Filter>Ressourcendateien</Filter>
     </Image>
-    <Image Include="..\..\res\ufm\cmd.ico">
+    <Image Include="..\..\res\cmd.ico">
       <Filter>Ressourcendateien</Filter>
     </Image>
-    <Image Include="..\..\res\ufm\details.ico">
+    <Image Include="..\..\res\details.ico">
       <Filter>Ressourcendateien</Filter>
     </Image>
-    <Image Include="..\..\res\ufm\forward.ico">
+    <Image Include="..\..\res\forward.ico">
       <Filter>Ressourcendateien</Filter>
     </Image>
-    <Image Include="..\..\res\ufm\hidden.ico">
+    <Image Include="..\..\res\hidden.ico">
       <Filter>Ressourcendateien</Filter>
     </Image>
-    <Image Include="..\..\res\ufm\large.ico">
+    <Image Include="..\..\res\large.ico">
       <Filter>Ressourcendateien</Filter>
     </Image>
-    <Image Include="..\..\res\ufm\list.ico">
+    <Image Include="..\..\res\list.ico">
       <Filter>Ressourcendateien</Filter>
     </Image>
-    <Image Include="..\..\res\ufm\print.ico">
+    <Image Include="..\..\res\print.ico">
       <Filter>Ressourcendateien</Filter>
     </Image>
-    <Image Include="..\..\res\ufm\property.ico">
+    <Image Include="..\..\res\property.ico">
       <Filter>Ressourcendateien</Filter>
     </Image>
-    <Image Include="..\..\res\ufm\refresh.ico">
+    <Image Include="..\..\res\refresh.ico">
       <Filter>Ressourcendateien</Filter>
     </Image>
-    <Image Include="..\..\res\ufm\rename.ico">
+    <Image Include="..\..\res\rename.ico">
       <Filter>Ressourcendateien</Filter>
     </Image>
-    <Image Include="..\..\res\ufm\small.ico">
+    <Image Include="..\..\res\small.ico">
       <Filter>Ressourcendateien</Filter>
     </Image>
-    <Image Include="..\..\res\ufm\ufm.ico">
+    <Image Include="..\..\res\up.ico">
       <Filter>Ressourcendateien</Filter>
     </Image>
-    <Image Include="..\..\res\ufm\up.ico">
+    <Image Include="..\..\res\ufm.ico">
       <Filter>Ressourcendateien</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="..\..\res\ufm\ufm.rc">
+    <ResourceCompile Include="..\..\res\ufm.rc">
       <Filter>Ressourcendateien</Filter>
     </ResourceCompile>
   </ItemGroup>

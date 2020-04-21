@@ -100,8 +100,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>true</RunCodeAnalysis>
-    <LibraryPath>$(ProjectDir)\lib\x86_md;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)..\..\src\libufm;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)..\..\..\libufm\build\win\bin\$(Configuration)\$(Platform)\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)..\..\..\libufm\include;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)bin\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)$(ProjectName)\obj\$(Configuration)\$(Platform)\</IntDir>
     <TargetName>ufm</TargetName>
@@ -109,8 +109,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Portable|Win32'">
     <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>true</RunCodeAnalysis>
-    <LibraryPath>$(ProjectDir)\lib\x86_mt;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)..\..\src\libufm;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)..\..\..\libufm\build\win\bin\$(Configuration)\$(Platform)\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)..\..\..\libufm\include;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)bin\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)$(ProjectName)\obj\$(Configuration)\$(Platform)\</IntDir>
     <TargetName>ufm</TargetName>
@@ -118,8 +118,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>true</RunCodeAnalysis>
-    <LibraryPath>$(ProjectDir)\lib\x64_md;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)..\..\src\libufm;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)..\..\..\libufm\build\win\bin\$(Configuration)\$(Platform)\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)..\..\..\libufm\include;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)bin\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)$(ProjectName)\obj\$(Configuration)\$(Platform)\</IntDir>
     <TargetName>ufm</TargetName>
@@ -127,22 +127,22 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Portable|x64'">
     <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>true</RunCodeAnalysis>
-    <LibraryPath>$(ProjectDir)\lib\x64_mt;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)..\..\src\libufm;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)..\..\..\libufm\build\win\bin\$(Configuration)\$(Platform)\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)..\..\..\libufm\include;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)bin\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)$(ProjectName)\obj\$(Configuration)\$(Platform)\</IntDir>
     <TargetName>ufm</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LibraryPath>$(ProjectDir)\lib\x86_mdd;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)..\..\src\libufm;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)..\..\..\libufm\build\win\bin\$(Configuration)\$(Platform)\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)..\..\..\libufm\include;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)bin\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)$(ProjectName)\obj\$(Configuration)\$(Platform)\</IntDir>
     <TargetName>ufm</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LibraryPath>$(ProjectDir)\lib\x64_mdd;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)..\..\src\libufm;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)..\..\..\libufm\build\win\bin\$(Configuration)\$(Platform)\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)..\..\..\libufm\include;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)bin\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)$(ProjectName)\obj\$(Configuration)\$(Platform)\</IntDir>
     <TargetName>ufm</TargetName>
@@ -170,11 +170,15 @@
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>$(SolutionDir)bin\$(Configuration)\$(Platform)\libufm.lib;shlwapi.lib;gdiplus.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libufm.lib;shlwapi.lib;gdiplus.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Manifest>
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
     </Manifest>
+    <PostBuildEvent>
+      <Command>copy "$(SolutionDir)..\..\..\libufm\build\win\bin\$(Configuration)\$(Platform)\libufm.dll" "$(SolutionDir)bin\$(Configuration)\$(Platform)\libufm.dll"
+copy "$(SolutionDir)..\..\..\libufm\build\win\bin\$(Configuration)\$(Platform)\libufm.pdb" "$(SolutionDir)bin\$(Configuration)\$(Platform)\libufm.pdb"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -199,11 +203,15 @@
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>$(SolutionDir)bin\$(Configuration)\$(Platform)\libufm.lib;shlwapi.lib;gdiplus.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libufm.lib;shlwapi.lib;gdiplus.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Manifest>
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
     </Manifest>
+    <PostBuildEvent>
+      <Command>copy "$(SolutionDir)..\..\..\libufm\build\win\bin\$(Configuration)\$(Platform)\libufm.dll" "$(SolutionDir)bin\$(Configuration)\$(Platform)\libufm.dll"
+copy "$(SolutionDir)..\..\..\libufm\build\win\bin\$(Configuration)\$(Platform)\libufm.pdb" "$(SolutionDir)bin\$(Configuration)\$(Platform)\libufm.pdb"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -235,11 +243,14 @@
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>$(SolutionDir)bin\$(Configuration)\$(Platform)\libufm.lib;shlwapi.lib;gdiplus.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libufm.lib;shlwapi.lib;gdiplus.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Manifest>
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
     </Manifest>
+    <PostBuildEvent>
+      <Command>copy "$(SolutionDir)..\..\..\libufm\build\win\bin\$(Configuration)\$(Platform)\libufm.dll" "$(SolutionDir)bin\$(Configuration)\$(Platform)\libufm.dll"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Portable|Win32'">
     <ClCompile>
@@ -271,11 +282,14 @@
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>$(SolutionDir)bin\$(Configuration)\$(Platform)\libufm.lib;shlwapi.lib;gdiplus.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libufm.lib;shlwapi.lib;gdiplus.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Manifest>
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
     </Manifest>
+    <PostBuildEvent>
+      <Command>copy "$(SolutionDir)..\..\..\libufm\build\win\bin\$(Configuration)\$(Platform)\libufm.dll" "$(SolutionDir)bin\$(Configuration)\$(Platform)\libufm.dll"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -307,11 +321,14 @@
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>$(SolutionDir)bin\$(Configuration)\$(Platform)\libufm.lib;shlwapi.lib;gdiplus.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libufm.lib;shlwapi.lib;gdiplus.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Manifest>
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
     </Manifest>
+    <PostBuildEvent>
+      <Command>copy "$(SolutionDir)..\..\..\libufm\build\win\bin\$(Configuration)\$(Platform)\libufm.dll" "$(SolutionDir)bin\$(Configuration)\$(Platform)\libufm.dll"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Portable|x64'">
     <ClCompile>
@@ -343,42 +360,45 @@
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>$(SolutionDir)bin\$(Configuration)\$(Platform)\libufm.lib;shlwapi.lib;gdiplus.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libufm.lib;shlwapi.lib;gdiplus.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Manifest>
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
     </Manifest>
+    <PostBuildEvent>
+      <Command>copy "$(SolutionDir)..\..\..\libufm\build\win\bin\$(Configuration)\$(Platform)\libufm.dll" "$(SolutionDir)bin\$(Configuration)\$(Platform)\libufm.dll"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\ufm\FileViewerWindow.cpp" />
-    <ClCompile Include="..\..\src\ufm\MainWindow.cpp" />
-    <ClCompile Include="..\..\src\ufm\ufm.cpp" />
+    <ClCompile Include="..\..\src\FileViewerWindow.cpp" />
+    <ClCompile Include="..\..\src\MainWindow.cpp" />
+    <ClCompile Include="..\..\src\ufm.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\res\ufm\resource.h" />
-    <ClInclude Include="..\..\src\ufm\FileViewerWindow.h" />
-    <ClInclude Include="..\..\src\ufm\ufm.h" />
-    <ClInclude Include="..\..\src\ufm\MainWindow.h" />
+    <ClInclude Include="..\..\res\resource.h" />
+    <ClInclude Include="..\..\src\FileViewerWindow.h" />
+    <ClInclude Include="..\..\src\ufm.h" />
+    <ClInclude Include="..\..\src\MainWindow.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="..\..\res\ufm\ufm.rc" />
+    <ResourceCompile Include="..\..\res\ufm.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\res\ufm\admin.ico" />
-    <Image Include="..\..\res\ufm\back.ico" />
-    <Image Include="..\..\res\ufm\cmd.ico" />
-    <Image Include="..\..\res\ufm\details.ico" />
-    <Image Include="..\..\res\ufm\forward.ico" />
-    <Image Include="..\..\res\ufm\hidden.ico" />
-    <Image Include="..\..\res\ufm\large.ico" />
-    <Image Include="..\..\res\ufm\list.ico" />
-    <Image Include="..\..\res\ufm\print.ico" />
-    <Image Include="..\..\res\ufm\property.ico" />
-    <Image Include="..\..\res\ufm\refresh.ico" />
-    <Image Include="..\..\res\ufm\rename.ico" />
-    <Image Include="..\..\res\ufm\small.ico" />
-    <Image Include="..\..\res\ufm\up.ico" />
-    <Image Include="..\..\res\ufm\ufm.ico" />
+    <Image Include="..\..\res\admin.ico" />
+    <Image Include="..\..\res\back.ico" />
+    <Image Include="..\..\res\cmd.ico" />
+    <Image Include="..\..\res\details.ico" />
+    <Image Include="..\..\res\forward.ico" />
+    <Image Include="..\..\res\hidden.ico" />
+    <Image Include="..\..\res\large.ico" />
+    <Image Include="..\..\res\list.ico" />
+    <Image Include="..\..\res\print.ico" />
+    <Image Include="..\..\res\property.ico" />
+    <Image Include="..\..\res\refresh.ico" />
+    <Image Include="..\..\res\rename.ico" />
+    <Image Include="..\..\res\small.ico" />
+    <Image Include="..\..\res\up.ico" />
+    <Image Include="..\..\res\ufm.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
