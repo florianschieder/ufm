@@ -14,22 +14,14 @@ FileViewerWindow::~FileViewerWindow()
 
 void FileViewerWindow::LoadFile()
 {
-    if (MimeTypeFromString(this->fileName) == L"text" || MimeTypeFromString(this->fileName) == L"unknown")
+    if (libufm::FileType::MimeTypeFromString(this->fileExtension) == L"text"
+        || libufm::FileType::MimeTypeFromString(this->fileExtension) == L"unknown")
     {
         this->fileView->ReadTextFile(this->fileName);
     }
     else
     {
-        if (!(fileExtension == L"bmp" ||
-            fileExtension == L"dib" ||
-            fileExtension == L"ico" ||
-            fileExtension == L"gif" ||
-            fileExtension == L"jpg" ||
-            fileExtension == L"jpeg" ||
-            fileExtension == L"png" ||
-            fileExtension == L"tiff" ||
-            fileExtension == L"wmf" ||
-            fileExtension == L"emf"))
+        if (!libufm::FileType::IsGdipSupportedImage(this->fileExtension))
         {
             this->fileView->ReadBinaryFile(this->fileName);
         }
