@@ -14,8 +14,7 @@ class FileViewerWindow : public Window
         void SetFile(const wchar_t* file);
 
     private:
-        void ReadBinary();
-        void ReadText(FILE* fp);
+        void LoadFile();
 
         void OnClose();
         void OnInitializeWindow();
@@ -24,9 +23,6 @@ class FileViewerWindow : public Window
         void OnPaint(PAINTSTRUCT ps, HDC hdc);
         void OnPostParam(void* param, int reason);
         void OnResizeWindow();
-        
-        char* fileContent = 0;
-        long fileSize;
 
         String fileExtension;
         String fileName; 
