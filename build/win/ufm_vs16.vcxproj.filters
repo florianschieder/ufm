@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Quelldateien">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Headerdateien">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Ressourcendateien">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\ufm\FileViewerWindow.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ufm\MainWindow.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ufm\ufm.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\ufm\FileViewerWindow.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ufm\MainWindow.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\res\ufm\resource.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ufm\ufm.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\res\ufm\admin.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="..\..\res\ufm\back.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="..\..\res\ufm\cmd.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="..\..\res\ufm\details.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="..\..\res\ufm\forward.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="..\..\res\ufm\hidden.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="..\..\res\ufm\large.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="..\..\res\ufm\list.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="..\..\res\ufm\print.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="..\..\res\ufm\property.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="..\..\res\ufm\refresh.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="..\..\res\ufm\rename.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="..\..\res\ufm\small.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="..\..\res\ufm\ufm.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="..\..\res\ufm\up.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\..\res\ufm\ufm.rc">
+      <Filter>Ressourcendateien</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
