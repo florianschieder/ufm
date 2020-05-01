@@ -288,7 +288,8 @@ copy "$(SolutionDir)..\..\..\libufm\build\win\bin\$(Configuration)\$(Platform)\l
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
     </Manifest>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)..\..\..\libufm\build\win\bin\$(Configuration)\$(Platform)\libufm.dll" "$(SolutionDir)bin\$(Configuration)\$(Platform)\libufm.dll"</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -366,7 +367,8 @@ copy "$(SolutionDir)..\..\..\libufm\build\win\bin\$(Configuration)\$(Platform)\l
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
     </Manifest>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)..\..\..\libufm\build\win\bin\$(Configuration)\$(Platform)\libufm.dll" "$(SolutionDir)bin\$(Configuration)\$(Platform)\libufm.dll"</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
