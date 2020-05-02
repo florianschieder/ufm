@@ -16,17 +16,26 @@ FileViewerWindow::~FileViewerWindow()
 
 void FileViewerWindow::LoadFile()
 {
-    if (MimeTypeFromString(this->fileExtension) == L"text"
-        || MimeTypeFromString(this->fileExtension) == L"unknown")
+    String mimeType = MimeTypeFromString(this->fileExtension);
+
+    if (mimeType == L"application/unknown")
+    {
+        if (IsTextFile(this->fileName))
+        {
+            this->fileView->ReadTextFile(this->fileName);
+        }
+        else
+        {
+            this->fileView->ReadBinaryFile(this->fileName);
+        }
+    }
+    else if (mimeType.substr(0, 4) == L"text")
     {
         this->fileView->ReadTextFile(this->fileName);
     }
     else
     {
-        if (!IsGdipSupportedImage(this->fileExtension))
-        {
-            this->fileView->ReadBinaryFile(this->fileName);
-        }
+        this->fileView->ReadBinaryFile(this->fileName);
     }
 }
 
@@ -50,7 +59,7 @@ void FileViewerWindow::OnInitializeWindow()
         sizeof(fileInfo),
         SHGFI_SMALLICON | SHGFI_ICON | SHGFI_ADDOVERLAYS);
 
-    if (fileExtension == L"bmp" || fileExtension == L"dib" || fileExtension == L"ico" || fileExtension == L"gif" || fileExtension == L"jpg" || fileExtension == L"jpeg" || fileExtension == L"png" || fileExtension == L"tiff" || fileExtension == L"wmf" || fileExtension == L"emf")
+    if (IsGdipSupportedImage(fileExtension))
     {
         this->image = new Image(this, this->fileName, 0, 0, this->m_width, this->m_height - 22);
         this->image->Show();
