@@ -4,6 +4,8 @@
 
 #include "FileViewerWindow.h"
 
+using namespace libufm::GUI;
+
 // Define control IDs for this window
 
 #define IDC_MAINWINDOW_BACK_BUTTON 101

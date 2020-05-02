@@ -5,6 +5,8 @@
 
 #include <libufm.h>
 
+using namespace libufm::GUI;
+
 class FileViewerWindow : public Window
 {
     public:

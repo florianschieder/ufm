@@ -1,5 +1,7 @@
 #include "FileViewerWindow.h"
 
+using namespace libufm::Core::FileDetection;
+
 FileViewerWindow::FileViewerWindow(Application* app, String ext) : Window(app)
 {
     this->fileExtension = ext;
@@ -14,14 +16,14 @@ FileViewerWindow::~FileViewerWindow()
 
 void FileViewerWindow::LoadFile()
 {
-    if (libufm::FileType::MimeTypeFromString(this->fileExtension) == L"text"
-        || libufm::FileType::MimeTypeFromString(this->fileExtension) == L"unknown")
+    if (MimeTypeFromString(this->fileExtension) == L"text"
+        || MimeTypeFromString(this->fileExtension) == L"unknown")
     {
         this->fileView->ReadTextFile(this->fileName);
     }
     else
     {
-        if (!libufm::FileType::IsGdipSupportedImage(this->fileExtension))
+        if (!IsGdipSupportedImage(this->fileExtension))
         {
             this->fileView->ReadBinaryFile(this->fileName);
         }
