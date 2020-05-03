@@ -12,7 +12,7 @@ MainWindow::MainWindow(Application* app) : Window(app)
     this->m_iconID = IDI_MAIN_ICON;
     this->m_menuID = IDR_MAINMENU;
 
-    this->SetStyle(WS_OVERLAPPEDWINDOW);
+    this->Style = WS_OVERLAPPEDWINDOW;
 }
 
 MainWindow::~MainWindow()
@@ -73,125 +73,111 @@ void MainWindow::OnInitializeWindow()
 {
     // Construct toolbar
 
-    this->toolBar = new ToolBar(this, 0, 0, this->m_width, 32);
+    this->toolBar = new ToolBar(this);
     this->toolBar->AddStartGripper();
     this->toolBar->AddSeparator(42);
-    this->toolBar->AddSeparator(166);
+    this->toolBar->AddSeparator(166);//
     this->toolBar->AddSeparator(290);
-    this->toolBar->Show();
+    this->toolBar->Place(0, 0, this->Width, 32);
 
     // Add toolbar buttons
 
     this->refreshButton = new ToolButton(this->toolBar);
-    this->refreshButton->SetPosition(0);
+    this->refreshButton->SetLocation(0);
     this->refreshButton->SetIcon(IDI_REFRESH, 16, 16);
     this->refreshButton->OnClick = this->RefreshButtonClicked;
-    this->refreshButton->Show();
     this->refreshButton->AddToolTip(L"Refresh directory");
 
     this->detailsButton = new ToolButton(this->toolBar);
-    this->detailsButton->SetPosition(1);
+    this->detailsButton->SetLocation(1);
     this->detailsButton->SetIcon(IDI_DETAILS, 16, 16);
     this->detailsButton->OnClick = this->DetailsButtonClicked;
-    this->detailsButton->Show();
     this->detailsButton->AddToolTip(L"Details view");
 
     this->listButton = new ToolButton(this->toolBar);
-    this->listButton->SetPosition(2);
+    this->listButton->SetLocation(2);
     this->listButton->SetIcon(IDI_LIST, 16, 16);
     this->listButton->OnClick = this->ListButtonClicked;
-    this->listButton->Show();
     this->listButton->AddToolTip(L"List view");
 
     this->smallButton = new ToolButton(this->toolBar);
-    this->smallButton->SetPosition(3);
+    this->smallButton->SetLocation(3);
     this->smallButton->SetIcon(IDI_SMALL, 16, 16);
     this->smallButton->OnClick = this->SmallIconsButtonClicked;
-    this->smallButton->Show();
     this->smallButton->AddToolTip(L"Small icon view");
 
     this->largeButton = new ToolButton(this->toolBar);
-    this->largeButton->SetPosition(4);
+    this->largeButton->SetLocation(4);
     this->largeButton->SetIcon(IDI_LARGE, 16, 16);
     this->largeButton->OnClick = this->LargeIconsButtonClicked;
-    this->largeButton->Show();
     this->largeButton->AddToolTip(L"Large icon view");
 
     this->printButton = new ToolButton(this->toolBar);
-    this->printButton->SetPosition(5);
+    this->printButton->SetLocation(5);
     this->printButton->SetIcon(IDI_PRINT, 16, 16);
     this->printButton->OnClick = this->PrintButtonClicked;
-    this->printButton->Show();
     this->printButton->AddToolTip(L"Print selected document");
 
     this->adminButton = new ToolButton(this->toolBar);
-    this->adminButton->SetPosition(6);
+    this->adminButton->SetLocation(6);
     this->adminButton->SetIcon(IDI_ADMIN, 16, 16);
     this->adminButton->OnClick = this->AdminButtonClicked;
-    this->adminButton->Show();
     this->adminButton->AddToolTip(L"Run program as administrator");
 
     this->propertyButton = new ToolButton(this->toolBar);
-    this->propertyButton->SetPosition(7);
+    this->propertyButton->SetLocation(7);
     this->propertyButton->SetIcon(IDI_PROPERTY, 16, 16);
     this->propertyButton->OnClick = this->PropertiesButtonClicked;
-    this->propertyButton->Show();
     this->propertyButton->AddToolTip(L"Show file/directory properties");
 
     this->renameButton = new ToolButton(this->toolBar);
-    this->renameButton->SetPosition(8);
+    this->renameButton->SetLocation(8);
     this->renameButton->SetIcon(IDI_RENAME, 16, 16);
     this->renameButton->OnClick = this->RenameButtonClicked;
-    this->renameButton->Show();
     this->renameButton->AddToolTip(L"Rename file/directory");
 
     this->cmdButton = new ToolButton(this->toolBar);
-    this->cmdButton->SetPosition(9);
+    this->cmdButton->SetLocation(9);
     this->cmdButton->SetIcon(IDI_CMD, 16, 16);
     this->cmdButton->OnClick = this->CmdButtonClicked;
-    this->cmdButton->Show();
     this->cmdButton->AddToolTip(L"Open command prompt");
 
     // Construct "address bar"
 
     this->leftBox = new DriveComboBox(this);
     this->leftBox->OnSelectionChanged = this->ComboBoxSelectionChanged;
-    this->leftBox->SetDimensions(5, 35, 60, 22);
-    this->leftBox->Show();
+    this->leftBox->Place(5, 35, 60, 22);
 
-    this->leftPath = new ShellInputBox(this, 70, 35, 60, 22);
-    this->leftPath->Show();
+    this->leftPath = new ShellInputBox(this);
+    this->leftPath->Place(70, 35, 60, 22);
 
     this->leftBoxApply = new Button(this);
-    this->leftBoxApply->SetDimensions(360, 34, 30, 24);
+    this->leftBoxApply->Place(360, 34, 30, 24);
     this->leftBoxApply->SetIcon(IDI_FORWARD, 16, 16);
     this->leftBoxApply->OnClick = this->LeftApplyButtonClicked;
-    this->leftBoxApply->Show();
 
     this->rightBox = new DriveComboBox(this);
     this->rightBox->OnSelectionChanged = this->ComboBoxSelectionChanged;
-    this->rightBox->SetDimensions(395, 35, 60, 22);
-    this->rightBox->Show();
+    this->rightBox->Place(395, 35, 60, 22);
 
-    this->rightPath = new ShellInputBox(this, 460, 35, 60, 22);
-    this->rightPath->Show();
+    this->rightPath = new ShellInputBox(this);
+    this->rightPath->Place(460, 35, 60, 22);
 
     this->rightBoxApply = new Button(this);
-    this->rightBoxApply->SetDimensions(750, 34, 30, 24);
+    this->rightBoxApply->Place(750, 34, 30, 24);
     this->rightBoxApply->SetIcon(IDI_FORWARD, 16, 16);
     this->rightBoxApply->OnClick = this->RightApplyButtonClicked;
-    this->rightBoxApply->Show();
 
     // Construct shell views
 
     this->leftShellView = new ShellListView(this);
-    this->leftShellView->SetDimensions(-1, 60, 401, 366);
+    this->leftShellView->Place(-1, 60, 401, 366);
     this->leftShellView->OnSelectionChanged = this->ShellListViewSelectionChanged;
     this->leftShellView->RefreshView();
     this->leftShellView->SetView(LVS_REPORT);
     
     this->rightShellView = new ShellListView(this);
-    this->rightShellView->SetDimensions(400, 60, 401, 366);
+    this->rightShellView->Place(400, 60, 401, 366);
     this->rightShellView->OnSelectionChanged = this->ShellListViewSelectionChanged;
     this->rightShellView->RefreshView();
     this->rightShellView->SetView(LVS_REPORT);
@@ -201,57 +187,51 @@ void MainWindow::OnInitializeWindow()
     // Construct button bar
 
     this->showButton = new Button(this);
-    this->showButton->SetDimensions(0, this->m_height - 46, m_width / 7, 22);
-    this->showButton->SetText(L"[F3] Show");
+    this->showButton->Place(0, this->Height - 44, this->Width / 7, 22);
+    this->showButton->Text = L"[F3] Show";
     this->showButton->OnClick = this->FileViewerButtonClicked;
-    this->showButton->Show();
 
     this->editButton = new Button(this);
-    this->editButton->SetDimensions(m_width / 7, this->m_height - 44, m_width / 7, 22);
-    this->editButton->SetText(L"[F4] Edit");
+    this->editButton->Place(this->Width / 7, this->Height - 44, this->Width / 7, 22);
+    this->editButton->Text = L"[F4] Edit";
     this->editButton->OnClick = this->EditButtonClicked;
-    this->editButton->Show();
 
     this->copyButton = new Button(this);
-    this->copyButton->SetDimensions(2 * m_width / 7, this->m_height - 44, m_width / 7, 22);
-    this->copyButton->SetText(L"[F5] Copy");
+    this->copyButton->Place(2 * this->Width / 7, this->Height - 44, this->Width / 7, 22);
+    this->copyButton->Text = L"[F5] Copy";
     this->copyButton->OnClick = this->CopyButtonClicked;
-    this->copyButton->Show();
 
     this->moveButton = new Button(this);
-    this->moveButton->SetDimensions(3 * m_width / 7, this->m_height - 44, m_width / 7, 22);
-    this->moveButton->SetText(L"[F6] Move");
+    this->moveButton->Place(3 * this->Width / 7, this->Height - 44, this->Width / 7, 22);
+    this->moveButton->Text = L"[F6] Move";
     this->moveButton->OnClick = this->MoveButtonClicked;
-    this->moveButton->Show();
 
     this->newDirectoryButton = new Button(this);
-    this->newDirectoryButton->SetDimensions(4 * m_width / 7, this->m_height - 44, m_width / 7, 22);
-    this->newDirectoryButton->SetText(L"[F7] New Directory");
+    this->newDirectoryButton->Place(4 * this->Width / 7, this->Height - 44, this->Width / 7, 22);
+    this->newDirectoryButton->Text = L"[F7] New Directory";
     this->newDirectoryButton->OnClick = this->NewDirButtonClicked;
-    this->newDirectoryButton->Show();
 
     this->deleteButton = new Button(this);
-    this->deleteButton->SetDimensions(5 * m_width / 7, this->m_height - 44, m_width / 7, 22);
-    this->deleteButton->SetText(L"[F8] Delete");
+    this->deleteButton->Place(5 * this->Width / 7, this->Height - 44, this->Width / 7, 22);
+    this->deleteButton->Text = L"[F8] Delete";
     this->deleteButton->OnClick = this->DeleteButtonClicked;
-    this->deleteButton->Show();
 
     this->closeButton = new Button(this);
-    this->closeButton->SetDimensions(6 * m_width / 7, this->m_height - 44, m_width / 7, 22);
-    this->closeButton->SetText(L"[Alt+F4] Close");
+    this->closeButton->Place(6 * this->Width / 7, this->Height - 44, this->Width / 7, 22);
+    this->closeButton->Text = L"[Alt+F4] Close";
     this->closeButton->OnClick = this->CloseWindow;
-    this->closeButton->Show();
 
     // Construct status bar
 
-    this->statusbar = new StatusBar(this, 0, this->m_height - 22, this->m_width, 22);
+    this->statusbar = new StatusBar(this);
+    this->statusbar->Place(0, this->Height - 22, this->Width, 22);
     this->statusbar->AddStartGripper();
-    this->statusbar->Show();
 
-    // Prepare window + show
+    // Setup window
 
-    this->SetTitle(L"UFM");
-    this->SetDimensions(800, 600);
+    this->Title = L"UFM";
+    this->Width = 800;
+    this->Height = 600;
 
     // If already started once, recover last location
 
@@ -375,9 +355,9 @@ void MainWindow::OnMenuEvent(WORD menuID)
 
         case ID_HELP_ABOUTUFM:
             DialogBox(
-                this->m_application->GetInstance(),
+                ((Application*) this->AppContext)->AppInstance,
                 MAKEINTRESOURCE(IDD_ABOUTDLG),
-                this->GetHandle(),
+                this->Handle,
                 this->AboutDlgProc);
             break;
     }
@@ -410,10 +390,10 @@ void MainWindow::OnPostParam(void* param, int reason)
                 if (NULL != errorText)
                 {
                     ShellMessageBox(
-                        this->m_application->GetInstance(),
+                        this->m_application->AppInstance,
                         this->m_windowHandle,
                         errorText,
-                        this->GetTitle().c_str(),
+                        String(this->Title).c_str(),
                         MB_OK | MB_ICONEXCLAMATION);
 
                     LocalFree(errorText);
@@ -434,30 +414,30 @@ void MainWindow::OnPostParam(void* param, int reason)
                 {
                 case ERROR_ALREADY_EXISTS:
                     ShellMessageBox(
-                        this->GetApplication()->GetInstance(),
-                        this->GetHandle(),
+                        ((Application*)this->AppContext)->AppInstance,
+                        this->Handle,
                         L"The directory you tried to create already exists.",
-                        this->GetTitle().c_str(),
+                        String(this->Title).c_str(),
                         MB_ICONWARNING,
                         MB_OK);
                     break;
                 case ERROR_ACCESS_DENIED:
                     ShellMessageBox(
-                        this->GetApplication()->GetInstance(),
-                        this->GetHandle(),
+                        ((Application*)this->AppContext)->AppInstance,
+                        this->Handle,
                         L"Failed to create the directory - access denied.",
-                        this->GetTitle().c_str(),
+                        String(this->Title).c_str(),
                         MB_ICONWARNING,
                         MB_OK);
                     break;
                 default:
                     ShellMessageBox(
-                        this->GetApplication()->GetInstance(),
-                        this->GetHandle(),
+                        ((Application*)this->AppContext)->AppInstance,
+                        this->Handle,
                         L"An unexpected error occurred trying to create the directory. A common "\
                         "reason for this is an invalid parameter you specified. Please try again with "\
                         "directory name. We\'re sorry for the inconvenience.",
-                        this->GetTitle().c_str(),
+                        String(this->Title).c_str(),
                         MB_ICONWARNING,
                         MB_OK);
                     break;
@@ -483,14 +463,14 @@ void MainWindow::OnPaint(PAINTSTRUCT ps, HDC hdc)
     Gdiplus::RectF rectGradient(
         (Gdiplus::REAL) 0,
         (Gdiplus::REAL) 32,
-        (Gdiplus::REAL) this->m_width,
+        (Gdiplus::REAL) this->Width,
         (Gdiplus::REAL) 28);
 
     Gdiplus::RectF rectBg(
         (Gdiplus::REAL) 0,
         (Gdiplus::REAL) 60,
-        (Gdiplus::REAL) this->m_width,
-        (Gdiplus::REAL) this->leftShellView->GetHeight());
+        (Gdiplus::REAL) this->Width,
+        (Gdiplus::REAL) this->leftShellView->Height);
 
     Gdiplus::LinearGradientBrush brushGradient(
         rectGradient,
@@ -513,101 +493,56 @@ void MainWindow::OnPaint(PAINTSTRUCT ps, HDC hdc)
  */
 void MainWindow::OnResizeWindow()
 {
-    this->toolBar->Resize(
-        0,
-        this->toolBar->GetY(),
-        this->m_width,
-        this->toolBar->GetHeight());
+    int h = Height;
+    int w = Width;
 
-    this->leftPath->Resize(
-        this->leftPath->GetX(),
-        this->leftPath->GetY(),
-        (this->m_width / 2) - (this->leftPath->GetX() + 10 + this->leftBoxApply->GetWidth()),
-        this->leftPath->GetHeight());
+    this->toolBar->Width = w;
+    this->leftPath->Width = (w / 2) - (this->leftPath->X + 10 + this->leftBoxApply->Width);
+    this->leftBoxApply->X = (w / 2) - (this->leftBoxApply->Width + 5);
+    
+    this->rightBox->X = (w / 2) + 5;
+    this->rightPath->X = this->rightBox->X + this->rightBox->Width + 5;
+    this->rightPath->Width = (w / 2) - (this->leftPath->X + 10 + this->leftBoxApply->Width);
+    this->rightBoxApply->X = w - 35;
 
-    this->leftBoxApply->Resize(
-        (this->m_width / 2) - (this->leftBoxApply->GetWidth() + 5),
-        this->leftBoxApply->GetY(),
-        this->leftBoxApply->GetWidth(),
-        this->leftBoxApply->GetHeight());
+    this->leftShellView->X = -1;
+    this->leftShellView->Width = w / 2;
+    this->leftShellView->Height = h - (this->leftShellView->Y + 46);
 
-    this->rightBox->Resize(
-        (this->m_width / 2) + 5,
-        this->rightBox->GetY(),
-        this->rightBox->GetWidth(),
-        this->rightBox->GetHeight());
+    this->rightShellView->X = (w / 2) + 1;
+    this->rightShellView->Width = w / 2;
+    this->rightShellView->Height = h - (this->leftShellView->Y + 46);
 
-    this->rightPath->Resize(
-        this->rightBox->GetX() + this->rightBox->GetWidth() + 5,
-        this->rightPath->GetY(),
-        (this->m_width / 2) - (this->leftPath->GetX() + 10 + this->leftBoxApply->GetWidth()),
-        this->rightPath->GetHeight());
+    this->statusbar->Y = h - 22;
+    this->statusbar->Width = w;
+    
+    this->showButton->X = 0;
+    this->showButton->Y = h - 44;
+    this->showButton->Width = w / 7;
 
-    this->rightBoxApply->Resize(
-        this->m_width - 35,
-        this->rightBoxApply->GetY(),
-        this->rightBoxApply->GetWidth(),
-        this->rightBoxApply->GetHeight());
+    this->editButton->X = w / 7;
+    this->editButton->Y = h - 44;
+    this->editButton->Width = w / 7;
 
-    this->leftShellView->Resize(
-        -1,
-        this->leftShellView->GetY(),
-        this->m_width / 2,
-        this->m_height - (this->leftShellView->GetY() + 46));
+    this->copyButton->X = 2 * w / 7;
+    this->copyButton->Y = h - 44;
+    this->copyButton->Width = w / 7;
 
-    this->rightShellView->Resize(
-        (this->m_width / 2) + 1,
-        this->rightShellView->GetY(),
-        this->m_width / 2,
-        this->m_height - (this->rightShellView->GetY() + 46));
+    this->moveButton->X = 3 * w / 7;
+    this->moveButton->Y = h - 44;
+    this->moveButton->Width = w / 7;
 
-    this->statusbar->Resize(
-        this->statusbar->GetX(),
-        this->m_height - 22,
-        this->m_width,
-        22);
+    this->newDirectoryButton->X = 4 * w / 7;
+    this->newDirectoryButton->Y = h - 44;
+    this->newDirectoryButton->Width = w / 7;
 
-    this->showButton->Resize(
-        0,
-        this->m_height - 44,
-        this->m_width / 7,
-        22);
+    this->deleteButton->X = 5 * w / 7;
+    this->deleteButton->Y = h - 44;
+    this->deleteButton->Width = w / 7;
 
-    this->editButton->Resize(
-        this->m_width / 7,
-        this->m_height - 44,
-        this->m_width / 7,
-        22);
-
-    this->copyButton->Resize(
-        2 * this->m_width / 7,
-        this->m_height - 44,
-        this->m_width / 7,
-        22);
-
-    this->moveButton->Resize(
-        3 * this->m_width / 7,
-        this->m_height - 44,
-        this->m_width / 7,
-        22);
-
-    this->newDirectoryButton->Resize(
-        4 * this->m_width / 7,
-        this->m_height - 44,
-        this->m_width / 7,
-        22);
-
-    this->deleteButton->Resize(
-        5 * this->m_width / 7,
-        this->m_height - 44,
-        this->m_width / 7,
-        22);
-
-    this->closeButton->Resize(
-        6 * this->m_width / 7,
-        this->m_height - 44,
-        this->m_width / 7,
-        22);
+    this->closeButton->X = 6 * w / 7;
+    this->closeButton->Y = h - 44;
+    this->closeButton->Width = w / 7;
 }
 
 // Event Handler
@@ -618,7 +553,9 @@ void MainWindow::FileViewerButtonClicked(Window* window)
 
     if (!(GetFileAttributes(activeCtrl->SelectedPath.c_str()) & FILE_ATTRIBUTE_DIRECTORY))
     {
-        std::shared_ptr<FileViewerWindow> fileViewer = std::make_shared<FileViewerWindow>(window->GetApplication(), activeCtrl->SelectedExt);
+        std::shared_ptr<FileViewerWindow> fileViewer = std::make_shared<FileViewerWindow>(
+            window->AppContext,
+            activeCtrl->SelectedExt);
 
         fileViewer->SetFile(activeCtrl->SelectedPath.c_str());
         fileViewer->Show();
@@ -638,7 +575,7 @@ void MainWindow::EditButtonClicked(Window* window)
     SHELLEXECUTEINFO info;
     info.cbSize = sizeof(info);
     info.fMask = SEE_MASK_DEFAULT | SEE_MASK_NOCLOSEPROCESS;
-    info.hwnd = window->GetHandle();
+    info.hwnd = window->Handle;
     info.lpVerb = L"edit";
     info.lpFile = activeCtrl->SelectedPath.c_str();
     info.lpParameters = NULL;
@@ -652,7 +589,7 @@ void MainWindow::CopyButtonClicked(Window* window)
 {
     MainWindow* wnd = (MainWindow*)window;
 
-    wnd->GetApplication()->IndicateTimeIntensiveProcess();
+    ((Application*) wnd->AppContext)->IndicateTimeIntensiveProcess();
 
     // true = left to right, false = right to left
     bool ltr;
@@ -666,7 +603,7 @@ void MainWindow::CopyButtonClicked(Window* window)
     
     if (from == L"")
     {
-        wnd->GetApplication()->UnindicateTimeIntensiveProcess();
+        ((Application*)wnd->AppContext)->UnindicateTimeIntensiveProcess();
         return;
     }
 
@@ -689,14 +626,14 @@ void MainWindow::CopyButtonClicked(Window* window)
         wnd->leftShellView->RefreshView();
         wnd->rightShellView->RefreshView();
     }
-    wnd->GetApplication()->UnindicateTimeIntensiveProcess();
+    ((Application*)wnd->AppContext)->UnindicateTimeIntensiveProcess();
 }
 
 void MainWindow::MoveButtonClicked(Window* window)
 {
     MainWindow* wnd = (MainWindow*)window;
 
-    wnd->GetApplication()->IndicateTimeIntensiveProcess();
+    ((Application*)wnd->AppContext)->IndicateTimeIntensiveProcess();
 
     // true = left to right, false = right to left
     bool ltr;
@@ -710,7 +647,7 @@ void MainWindow::MoveButtonClicked(Window* window)
     
     if (from == L"")
     {
-        wnd->GetApplication()->UnindicateTimeIntensiveProcess();
+        ((Application*)wnd->AppContext)->UnindicateTimeIntensiveProcess();
         return;
     }
 
@@ -734,7 +671,7 @@ void MainWindow::MoveButtonClicked(Window* window)
         wnd->rightShellView->RefreshView();
     }
 
-    wnd->GetApplication()->UnindicateTimeIntensiveProcess();
+    ((Application*)wnd->AppContext)->UnindicateTimeIntensiveProcess();
 }
 
 void MainWindow::NewDirButtonClicked(Window* window)
@@ -742,9 +679,9 @@ void MainWindow::NewDirButtonClicked(Window* window)
     MainWindow* wnd = (MainWindow*) window;
 
     DialogBox(
-        wnd->GetApplication()->GetInstance(),
+        ((Application*)wnd->AppContext)->AppInstance,
         MAKEINTRESOURCE(IDD_NEWDIR),
-        wnd->GetHandle(),
+        wnd->Handle,
         wnd->NewDirDlgProc);
 }
 
@@ -754,22 +691,20 @@ void MainWindow::ShellListViewSelectionChanged(ShellListView* object, Window* pa
 
     if (object == wnd->leftShellView)
     {
-        wnd->leftPath->SetText(
-            (TCHAR*) wnd->leftShellView->GetDirectory().c_str());
+        wnd->leftPath->Text = (TCHAR*)wnd->leftShellView->GetDirectory().c_str();
 
         SendMessage(
-            wnd->leftBox->GetHandle(),
+            wnd->leftBox->Handle,
             CB_SELECTSTRING,
             -1,
             (LPARAM) wnd->leftShellView->CurrentDrive.c_str());
     }
     else if (object == wnd->rightShellView)
     {
-        wnd->rightPath->SetText(
-            (TCHAR*)wnd->rightShellView->GetDirectory().c_str());
+        wnd->rightPath->Text = (TCHAR*)wnd->rightShellView->GetDirectory().c_str();
 
         SendMessage(
-            wnd->rightBox->GetHandle(),
+            wnd->rightBox->Handle,
             CB_SELECTSTRING,
             -1,
             (LPARAM)wnd->rightShellView->CurrentDrive.c_str());
@@ -808,7 +743,7 @@ void MainWindow::DeleteButtonClicked(Window* window)
             &fileOp,
             sizeof(fileOp));
 
-        fileOp.hwnd = wnd->GetHandle();
+        fileOp.hwnd = wnd->Handle;
         fileOp.wFunc = FO_DELETE;
         fileOp.pFrom = (myPath).c_str();
         fileOp.fFlags = FOF_ALLOWUNDO;
@@ -922,14 +857,14 @@ void MainWindow::LeftApplyButtonClicked(Window* parent)
 {
     MainWindow* wnd = (MainWindow*) parent;
     wnd->leftShellView->SetDirectory(
-        wnd->leftPath->GetText());
+        wnd->leftPath->Text);
 }
 
 void MainWindow::RightApplyButtonClicked(Window* parent)
 {
     MainWindow* wnd = (MainWindow*) parent;
     wnd->rightShellView->SetDirectory(
-        wnd->rightPath->GetText());
+        wnd->rightPath->Text);
 }
 
 void MainWindow::RefreshButtonClicked(Window* parent)
@@ -980,7 +915,7 @@ void MainWindow::PrintButtonClicked(Window* window)
 
     info.cbSize = sizeof(info);
     info.fMask = SEE_MASK_DEFAULT | SEE_MASK_NOCLOSEPROCESS;
-    info.hwnd = wnd->GetHandle();
+    info.hwnd = wnd->Handle;
     info.lpVerb = L"print";
     info.lpFile = ((ShellListView*)wnd->ActiveControl)->SelectedPath.c_str();
     info.lpParameters = NULL;
@@ -1003,7 +938,7 @@ void MainWindow::AdminButtonClicked(Window* window)
     SHELLEXECUTEINFO info;
     info.cbSize = sizeof(info);
     info.fMask = SEE_MASK_DEFAULT | SEE_MASK_NOCLOSEPROCESS;
-    info.hwnd = wnd->GetHandle();
+    info.hwnd = wnd->Handle;
     info.lpVerb = L"runas";
     info.lpFile = ((ShellListView*)wnd->ActiveControl)->SelectedPath.c_str();
     info.lpParameters = NULL;
@@ -1031,7 +966,7 @@ void MainWindow::PropertiesButtonClicked(Window* window)
 
     info.cbSize = sizeof(info);
     info.fMask = SEE_MASK_INVOKEIDLIST;
-    info.hwnd = wnd->GetHandle();
+    info.hwnd = wnd->Handle;
     info.lpVerb = L"properties";
     info.lpFile = ((ShellListView*)wnd->ActiveControl)->SelectedPath.c_str();
     info.nShow = SW_SHOW;
@@ -1048,9 +983,9 @@ void MainWindow::RenameButtonClicked(Window* window)
     if (obj != L"")
     {
         DialogBoxParam(
-            wnd->GetApplication()->GetInstance(),
+            ((Application*)wnd->AppContext)->AppInstance,
             MAKEINTRESOURCE(IDD_RENAMEOBJECT),
-            wnd->GetHandle(),
+            wnd->Handle,
             wnd->RenameObjectDlgProc,
             (LPARAM)obj.c_str());
     }
@@ -1070,7 +1005,7 @@ void MainWindow::CmdButtonClicked(Window* window)
 
     info.cbSize = sizeof(info);
     info.fMask = SEE_MASK_DEFAULT | SEE_MASK_NOCLOSEPROCESS;
-    info.hwnd = wnd->GetHandle();
+    info.hwnd = wnd->Handle;
     info.lpVerb = L"open";
     info.lpFile = L"C:\\Windows\\System32\\cmd.exe";
     info.lpParameters = param.c_str();
