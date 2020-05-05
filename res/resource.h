@@ -2,9 +2,6 @@
 // Von Microsoft Visual C++ generierte Includedatei.
 // Verwendet durch ufm.rc
 //
-
-#undef IDI_UP
-
 #define IDI_ICON1                       101
 #define IDI_MAIN_ICON                   101
 #define IDR_MAINMENU                    106
@@ -19,7 +16,6 @@
 #define IDI_FT_MUSIC                    114
 #define IDB_BITMAP1                     114
 #define IDI_FT_TEXT                     115
-#define IDD_NEWDIR                      115
 #define IDI_FT_ODT                      116
 #define IDD_ABOUTDLG                    117
 #define IDI_FT_PDF                      118
@@ -45,10 +41,7 @@
 #define IDI_PROPERTY                    128
 #define IDI_RENAME                      129
 #define IDI_UP                          130
-#define IDD_RENAMEOBJECT                131
 #define IDC_EDIT1                       1001
-#define IDC_NEWDIR_NAME                 1003
-#define IDC_RENAMEOBJECT_NEWNAME        1004
 #define ID_DATEI                        40001
 #define ID_DATEI_ITEM                   40002
 #define ID_HELP_ABOUTWFM                40003
