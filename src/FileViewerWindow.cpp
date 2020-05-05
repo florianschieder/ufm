@@ -46,19 +46,6 @@ void FileViewerWindow::OnClose()
 
 void FileViewerWindow::OnInitializeWindow()
 {
-    SHFILEINFO fileInfo;
-
-    ZeroMemory(
-        &fileInfo,
-        sizeof(fileInfo));
-
-    SHGetFileInfo(
-        this->fileName.c_str(),
-        0,
-        &fileInfo,
-        sizeof(fileInfo),
-        SHGFI_SMALLICON | SHGFI_ICON | SHGFI_ADDOVERLAYS);
-
     if (IsGdipSupportedImage(fileExtension))
     {
         this->image = new Image(this, this->fileName);
@@ -97,7 +84,7 @@ void FileViewerWindow::OnInitializeWindow()
         this->Height = 600;
     }
 
-    this->Icon = fileInfo.hIcon;
+    this->Icon = ((Application*) this->AppContext)->FetchFileIcon(this->fileName);
     this->Title = this->fileName;
 }
 
