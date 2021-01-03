@@ -284,3 +284,9 @@ MigrationBackup/
 *.creator.user*
 *.cxxflags
 *.cflags
+
+# CodeBlocks
+*.layout
+*.depend
+bin/
+obj/
