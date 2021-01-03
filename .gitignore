@@ -86,6 +86,9 @@ flycheck_*.el
 /network-security.data
 
 # Visual Studio
+*.vcxproj*
+*.sln
+
 *.rsuser
 *.suo
 *.user
@@ -286,6 +289,7 @@ MigrationBackup/
 *.cflags
 
 # CodeBlocks
+*.cbp
 *.layout
 *.depend
 bin/
