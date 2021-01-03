@@ -275,3 +275,12 @@ ASALocalRun/
 healthchecksdb
 MigrationBackup/
 .ionide/
+
+# Qt Creator
+*.files
+*.includes
+*.config
+*.creator
+*.creator.user*
+*.cxxflags
+*.cflags
